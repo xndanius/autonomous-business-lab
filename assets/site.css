@@ -88,7 +88,8 @@ p{margin:0}
 .door .num{font-family:var(--display);font-weight:700;color:var(--lime);font-size:15px;letter-spacing:.14em}
 .door p{color:var(--soft)}
 .door .go{margin-top:auto;color:var(--lime);font-weight:700}
-@media (max-width:900px){.doors{grid-template-columns:1fr}}
+.doors.four{grid-template-columns:repeat(2,1fr)}
+@media (max-width:900px){.doors,.doors.four{grid-template-columns:1fr}}
 
 /* cards & grids */
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
@@ -429,3 +430,7 @@ ol.tiny{margin:4px 0 0;padding-left:20px;color:var(--soft);font-size:16px;displa
 .lesson-line b{color:var(--orange)}
 @media (max-width:640px){.atlas{height:340px}}
 .join .contact{margin-top:10px;color:var(--soft);font-size:16px}
+
+/* nav with four items on small phones */
+@media (max-width:420px){.nav .wrap{gap:10px}.nav nav{gap:11px}.nav nav a{font-size:14px}}
+@media (max-width:360px){.nav nav{gap:8px}.nav nav a{font-size:13.5px}}

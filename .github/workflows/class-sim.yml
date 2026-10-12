@@ -1,0 +1,83 @@
+name: Class simulation
+
+# 38 fictional SSE Riga students discuss business ideas.
+# Every ~5 minutes a few of them speak. Data goes to the sim-data branch,
+# which the Simulation page reads. To stop: set the repository variable
+# SIM_PAUSED to 1, or disable this workflow in the Actions tab.
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+    inputs:
+      ticks:
+        description: "Ticks to run now (1-6)"
+        default: "1"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: class-sim
+  cancel-in-progress: false
+
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+
+      - name: Get the chat data
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          REPO="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git ls-remote --exit-code --heads "$REPO" sim-data >/dev/null 2>&1; then
+            git clone --quiet --depth 1 --branch sim-data --single-branch "$REPO" data
+          else
+            mkdir -p data
+            git -C data init --quiet
+          fi
+
+      - name: Let the class talk
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SIM_MODEL: ${{ vars.SIM_MODEL }}
+          SIM_FALLBACK_MODEL: ${{ vars.SIM_FALLBACK_MODEL }}
+          SIM_REASONING: ${{ vars.SIM_REASONING }}
+          SIM_PRICE_IN: ${{ vars.SIM_PRICE_IN }}
+          SIM_PRICE_OUT: ${{ vars.SIM_PRICE_OUT }}
+          SIM_PRICE_CACHED: ${{ vars.SIM_PRICE_CACHED }}
+          SIM_DAILY_CAP_USD: ${{ vars.SIM_DAILY_CAP_USD }}
+          SIM_SPEAKERS: ${{ vars.SIM_SPEAKERS }}
+          SIM_NIGHT_SPEAKERS: ${{ vars.SIM_NIGHT_SPEAKERS }}
+          SIM_PAUSED: ${{ vars.SIM_PAUSED }}
+          TICKS: ${{ github.event.inputs.ticks || '1' }}
+          FORCE: ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}
+        run: node sim/engine.mjs --data data --ticks "$TICKS" $FORCE
+
+      - name: Save
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd data
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Nothing new."
+            exit 0
+          fi
+          TICK=$(node -p "require('./state.json').tick" 2>/dev/null || echo "?")
+          git checkout --quiet --orphan snapshot
+          git add -A
+          git -c user.name="class-sim" -c user.email="class-sim@users.noreply.github.com" commit --quiet -m "Class chat, tick ${TICK}"
+          for i in 1 2 3; do
+            git push --quiet --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/sim-data && exit 0
+            sleep 5
+          done
+          exit 1

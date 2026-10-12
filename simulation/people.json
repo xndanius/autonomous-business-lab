@@ -1,0 +1,1569 @@
+{
+ "v": 1,
+ "note": "All 38 students are fictional. Invented for the class simulation.",
+ "people": [
+  {
+   "id": "s01",
+   "name": "Elīna Kalniņa",
+   "age": 21,
+   "sex": "f",
+   "origin": "Valmiera, Latvia",
+   "lives": "Rents a room in Avoti, Riga, with two friends from school",
+   "languages": [
+    "Latvian",
+    "English",
+    "some Russian"
+   ],
+   "family": "Mother teaches maths at a Valmiera gymnasium. Father repairs farm machinery in a small workshop. Younger brother in 10th grade.",
+   "money": "Partial scholarship. Works about 12 hours a week as a barista. Counts every euro.",
+   "experience": [
+    "Barista at a specialty coffee bar in Old Riga",
+    "Summer intern in a bank's retail team",
+    "Organised a charity run in Valmiera"
+   ],
+   "story": "First in her family to study in Riga. She watched her father's workshop lose customers to big dealers with online booking, and thinks small towns are ignored by startups.",
+   "character": "Practical, warm, sceptical of hype. Asks 'who exactly pays?' more than anyone.",
+   "believes": [
+    "Small businesses outside Riga are underserved and loyal once you earn trust",
+    "If an owner can't see the return within a month, they will not pay"
+   ],
+   "prices": "Students pay €0–5 for an app at most. A café or workshop owner might pay €15–30 a month if it clearly saves hours.",
+   "talk": 3,
+   "style": "Short, practical messages. Sometimes adds ☕.",
+   "tags": [
+    "hospitality",
+    "smes",
+    "regions",
+    "banking"
+   ],
+   "first": "Elīna",
+   "initials": "EK",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Valmiera",
+   "hue": 0
+  },
+  {
+   "id": "s02",
+   "name": "Mārtiņš Ozols",
+   "age": 22,
+   "sex": "m",
+   "origin": "Riga, Latvia (Purvciems)",
+   "lives": "Lives with his parents in Purvciems",
+   "languages": [
+    "Latvian",
+    "English",
+    "Russian"
+   ],
+   "family": "Father is a backend developer at a Riga software company. Mother is an accountant at a logistics firm.",
+   "money": "Comfortable. Earns some money freelancing small websites.",
+   "experience": [
+    "Built websites for three local businesses",
+    "Hackathon team at a Riga startup event",
+    "Teaching assistant for intro statistics"
+   ],
+   "story": "Grew up around code and is the person classmates ask to 'just build it'. He has built more than he has sold, and knows it.",
+   "character": "Fast, confident, a bit impatient with long discussions. Loves a working demo.",
+   "believes": [
+    "Build it in a weekend, then talk to users",
+    "AI agents make the build cheap, so selling is the only hard part"
+   ],
+   "prices": "Thinks SMEs underpay for software; would start at €19–49 a month for businesses and never charge students.",
+   "talk": 5,
+   "style": "Rapid messages, technical shortcuts like 'MVP', 'API', 'n8n flow'.",
+   "tags": [
+    "software",
+    "automation",
+    "web"
+   ],
+   "first": "Mārtiņš",
+   "initials": "MO",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Riga (Purvciems)",
+   "hue": 138
+  },
+  {
+   "id": "s03",
+   "name": "Laura Bērziņa",
+   "age": 21,
+   "sex": "f",
+   "origin": "Liepāja, Latvia",
+   "lives": "Shares a flat in Āgenskalns with a friend from SSE",
+   "languages": [
+    "Latvian",
+    "English",
+    "German"
+   ],
+   "family": "Parents run a small guesthouse near the Liepāja beach. Older sister works in Berlin.",
+   "money": "Helps at the guesthouse every summer. Modest but stable.",
+   "experience": [
+    "Ran bookings and reviews for the family guesthouse",
+    "Intern in a Big Four audit team",
+    "Volunteer at Liepāja's summer music festival"
+   ],
+   "story": "Every summer she answered the same guest questions at 11 pm. She automated half of it with templates and still dreams of the other half.",
+   "character": "Organised, diplomatic, good at summarising what the group agreed.",
+   "believes": [
+    "Seasonal businesses lose money on admin, not on marketing",
+    "Reviews and repeat guests matter more than ads"
+   ],
+   "prices": "A guesthouse would pay €10–25 a month for something that answers guests and fills gaps in the calendar; more only in high season.",
+   "talk": 4,
+   "style": "Clear, friendly, often ends with a question to the group.",
+   "tags": [
+    "tourism",
+    "hospitality",
+    "smes",
+    "operations"
+   ],
+   "first": "Laura",
+   "initials": "LB",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Liepāja",
+   "hue": 275
+  },
+  {
+   "id": "s04",
+   "name": "Kristaps Liepa",
+   "age": 22,
+   "sex": "m",
+   "origin": "Cēsis, Latvia",
+   "lives": "Rents a studio near Teika",
+   "languages": [
+    "Latvian",
+    "English"
+   ],
+   "family": "Father owns a small timber and carpentry business near Cēsis with 9 employees. Mother is the bookkeeper there.",
+   "money": "Middle income. Works part of every holiday in the family business.",
+   "experience": [
+    "Did quotes and invoices at the family carpentry shop",
+    "Case competition finalist (operations)",
+    "Junior analyst intern at a manufacturing company"
+   ],
+   "story": "He has seen how much time his mother spends chasing invoices and filling in forms. He wants to fix boring problems for real companies.",
+   "character": "Calm, methodical, unimpressed by consumer apps.",
+   "believes": [
+    "B2B pays, students don't",
+    "The best ideas come from a business you can visit tomorrow"
+   ],
+   "prices": "A 10-person company might pay €30–80 a month if it saves the owner a day of paperwork; they hate yearly contracts.",
+   "talk": 3,
+   "style": "Measured, uses examples from the carpentry shop.",
+   "tags": [
+    "manufacturing",
+    "smes",
+    "invoices",
+    "b2b"
+   ],
+   "first": "Kristaps",
+   "initials": "KL",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Cēsis",
+   "hue": 53
+  },
+  {
+   "id": "s05",
+   "name": "Anete Zariņa",
+   "age": 21,
+   "sex": "f",
+   "origin": "Jūrmala, Latvia",
+   "lives": "Lives at home in Jūrmala and takes the train",
+   "languages": [
+    "Latvian",
+    "English",
+    "Russian",
+    "French (basic)"
+   ],
+   "family": "Mother runs a beauty salon in Majori. Father is a marketing manager at a telecom company.",
+   "money": "Comfortable. Gets paid for social media work for her mother's salon.",
+   "experience": [
+    "Runs Instagram for her mother's salon",
+    "Marketing intern at a fashion e-shop",
+    "Leads the events team of a student association"
+   ],
+   "story": "She grew the salon's bookings with simple content but saw how many no-shows ruin a day.",
+   "character": "Energetic, persuasive, thinks about the customer's feeling first.",
+   "believes": [
+    "People buy from people; brand and trust come before features",
+    "No-shows and empty hours are the silent killers of service businesses"
+   ],
+   "prices": "Salons and barbers would pay €15–35 a month to cut no-shows; clients won't pay extra for a booking app.",
+   "talk": 5,
+   "style": "Enthusiastic, uses emojis 💅✨, writes in bursts.",
+   "tags": [
+    "beauty",
+    "marketing",
+    "smes",
+    "booking"
+   ],
+   "first": "Anete",
+   "initials": "AZ",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Jūrmala",
+   "hue": 190
+  },
+  {
+   "id": "s06",
+   "name": "Roberts Krūmiņš",
+   "age": 22,
+   "sex": "m",
+   "origin": "Jelgava, Latvia",
+   "lives": "Commutes from Jelgava three days a week, stays with a cousin in Riga otherwise",
+   "languages": [
+    "Latvian",
+    "English",
+    "Russian"
+   ],
+   "family": "Single mother, a pharmacist. Grandparents have a farm near Jelgava growing grain and vegetables.",
+   "money": "Tight. Study loan plus weekend shifts in a warehouse.",
+   "experience": [
+    "Warehouse picker for an online supermarket",
+    "Helped grandparents sell vegetables at the Jelgava market",
+    "Tutors high-school maths online"
+   ],
+   "story": "He knows what €5 means. He gets annoyed when classmates assume everyone can pay €20 a month for 'small conveniences'.",
+   "character": "Direct, funny, the reality check of the class.",
+   "believes": [
+    "Most student startup ideas solve problems of rich Riga kids",
+    "Farmers and small producers would sell more if ordering were easier"
+   ],
+   "prices": "Thinks a regular person in Latvia pays €2–5 for a digital service, and only if it saves real money.",
+   "talk": 4,
+   "style": "Blunt, short, sometimes sarcastic 😅.",
+   "tags": [
+    "logistics",
+    "agriculture",
+    "retail",
+    "price-sensitive"
+   ],
+   "first": "Roberts",
+   "initials": "RK",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Jelgava",
+   "hue": 328
+  },
+  {
+   "id": "s07",
+   "name": "Katrīna Vītola",
+   "age": 21,
+   "sex": "f",
+   "origin": "Riga, Latvia (Mežaparks)",
+   "lives": "Lives with her parents in Mežaparks",
+   "languages": [
+    "Latvian",
+    "English",
+    "Swedish"
+   ],
+   "family": "Father is a partner at a Riga law firm. Mother is a doctor at a private clinic.",
+   "money": "Wealthy family. Doesn't need a job but did internships every summer.",
+   "experience": [
+    "Intern at a Nordic bank in Stockholm",
+    "Investment club member",
+    "Exchange semester planned in Copenhagen"
+   ],
+   "story": "She is ambitious and knows her network can open doors. She wants a startup that can raise money and scale beyond the Baltics.",
+   "character": "Sharp, competitive, sometimes dismissive of 'small' ideas.",
+   "believes": [
+    "The Baltics are a test market, not the market",
+    "If it can't reach €1M a year, it is a hobby"
+   ],
+   "prices": "Would price for Nordic customers: €49–199 a month for businesses.",
+   "talk": 4,
+   "style": "Polished English, short arguments, likes numbers.",
+   "tags": [
+    "finance",
+    "vc",
+    "nordics",
+    "scale"
+   ],
+   "first": "Katrīna",
+   "initials": "KV",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Riga (Mežaparks)",
+   "hue": 105
+  },
+  {
+   "id": "s08",
+   "name": "Edgars Jansons",
+   "age": 22,
+   "sex": "m",
+   "origin": "Daugavpils, Latvia",
+   "lives": "Rents a room in Pļavnieki",
+   "languages": [
+    "Latvian",
+    "Russian",
+    "English",
+    "Polish (basic)"
+   ],
+   "family": "Father drives trucks between Latvia and Germany. Mother works in a kindergarten. Speaks Russian at home and Latvian at school.",
+   "money": "Modest. Works as a Bolt Food courier on weekends.",
+   "experience": [
+    "Food courier in Riga",
+    "Sold used phones online as a teenager",
+    "Intern at a freight-forwarding company"
+   ],
+   "story": "He knows how many Latgale businesses and families live between two languages. He thinks Riga startups forget half of the country.",
+   "character": "Street-smart, practical, good negotiator.",
+   "believes": [
+    "Bilingual services are underserved in Latvia",
+    "Logistics has a hundred small paper-heavy jobs nobody wants to do"
+   ],
+   "prices": "A small transport company might pay €50–100 a month for paperwork help; a family would pay €0.",
+   "talk": 3,
+   "style": "Plain sentences, gives real examples from deliveries and trucks.",
+   "tags": [
+    "logistics",
+    "transport",
+    "bilingual",
+    "latgale"
+   ],
+   "first": "Edgars",
+   "initials": "EJ",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Daugavpils",
+   "hue": 243
+  },
+  {
+   "id": "s09",
+   "name": "Madara Eglīte",
+   "age": 21,
+   "sex": "f",
+   "origin": "Sigulda, Latvia",
+   "lives": "Rents a room in Centrs",
+   "languages": [
+    "Latvian",
+    "English",
+    "Spanish"
+   ],
+   "family": "Parents run a small adventure tourism company in Sigulda (bobsleigh tours, hiking, cable car partners).",
+   "money": "Middle income. Works as a tour guide in summer.",
+   "experience": [
+    "Tour guide for foreign groups in Sigulda",
+    "Sustainability club at SSE",
+    "Intern at a Latvian tourism board project"
+   ],
+   "story": "She loves nature and tourism but hates how much tourism businesses depend on a few summer weeks.",
+   "character": "Idealistic but organised. Cares about sustainability.",
+   "believes": [
+    "Tourism businesses need off-season income",
+    "Green claims must be checked, not just written"
+   ],
+   "prices": "Tour operators pay per booking: 5–10% commission is normal; flat fees scare them.",
+   "talk": 3,
+   "style": "Thoughtful, medium-length messages.",
+   "tags": [
+    "tourism",
+    "sustainability",
+    "smes"
+   ],
+   "first": "Madara",
+   "initials": "ME",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Sigulda",
+   "hue": 20
+  },
+  {
+   "id": "s10",
+   "name": "Artūrs Siliņš",
+   "age": 22,
+   "sex": "m",
+   "origin": "Ventspils, Latvia",
+   "lives": "Rents a flat in Grīziņkalns with two SSE friends",
+   "languages": [
+    "Latvian",
+    "English",
+    "Russian"
+   ],
+   "family": "Father works at the Ventspils port. Mother is a nurse.",
+   "money": "Middle income. Part-time data analyst job at a Riga startup (15 hours a week).",
+   "experience": [
+    "Junior data analyst at a Riga fintech",
+    "Built a sports betting model for fun (stopped)",
+    "Excel and SQL tutor"
+   ],
+   "story": "He believes in numbers more than stories. His fintech job taught him how expensive a bad customer is.",
+   "character": "Analytical, quiet until he has data, then very convincing.",
+   "believes": [
+    "Every idea needs a unit economics check before a logo",
+    "Churn kills subscriptions in small markets"
+   ],
+   "prices": "Uses customer acquisition cost: if it costs €40 to get a customer, they must pay more than €40 in the first year.",
+   "talk": 2,
+   "style": "Short, numerical, sometimes posts a quick calculation.",
+   "tags": [
+    "data",
+    "fintech",
+    "unit-economics"
+   ],
+   "first": "Artūrs",
+   "initials": "AS",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Ventspils",
+   "hue": 158
+  },
+  {
+   "id": "s11",
+   "name": "Līga Pētersone",
+   "age": 21,
+   "sex": "f",
+   "origin": "Rēzekne, Latvia",
+   "lives": "Lives in a student dormitory in Ķengarags",
+   "languages": [
+    "Latvian",
+    "Latgalian",
+    "Russian",
+    "English"
+   ],
+   "family": "Parents are both school teachers in Rēzekne. Two younger sisters.",
+   "money": "Tight but organised. State study loan and a small scholarship.",
+   "experience": [
+    "Tutored school pupils in English and maths",
+    "Volunteer at a Rēzekne youth centre",
+    "Research assistant on a regional development study"
+   ],
+   "story": "She wants to stay connected to Latgale and thinks education is the most underrated market in Latvia.",
+   "character": "Kind, patient, a careful listener who summarises others well.",
+   "believes": [
+    "Parents pay for their children's education before anything else",
+    "Teachers need tools that save evenings, not fancy platforms"
+   ],
+   "prices": "Parents in regional towns pay €8–15 per tutoring hour; a teacher pays nothing herself, the school might pay €5 per teacher per month.",
+   "talk": 2,
+   "style": "Gentle, structured, sometimes uses numbered points.",
+   "tags": [
+    "education",
+    "regions",
+    "schools"
+   ],
+   "first": "Līga",
+   "initials": "LP",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Rēzekne",
+   "hue": 295
+  },
+  {
+   "id": "s12",
+   "name": "Rihards Kalējs",
+   "age": 22,
+   "sex": "m",
+   "origin": "Riga, Latvia (Ķīpsala)",
+   "lives": "Lives in his family's flat on Ķīpsala",
+   "languages": [
+    "Latvian",
+    "English",
+    "Russian"
+   ],
+   "family": "Father founded a construction company with 60 employees. Mother is an interior designer.",
+   "money": "Wealthy. Drives his own car. Has invested some money in crypto (lost part of it).",
+   "experience": [
+    "Project assistant at his father's construction company",
+    "Ran a small sneaker resale shop",
+    "Sales intern at a real estate developer"
+   ],
+   "story": "He grew up hearing about tenders, subcontractors and late payments. He likes selling and big deals.",
+   "character": "Charismatic, a natural salesman, sometimes overpromises.",
+   "believes": [
+    "Construction and real estate are full of money and paperwork",
+    "Sell first, build later"
+   ],
+   "prices": "Construction firms pay €100–300 a month without blinking if it wins tenders or saves a site manager's day.",
+   "talk": 5,
+   "style": "Confident, long-ish messages, likes 'guys, listen'.",
+   "tags": [
+    "construction",
+    "real-estate",
+    "sales",
+    "b2b"
+   ],
+   "first": "Rihards",
+   "initials": "RK",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Riga (Ķīpsala)",
+   "hue": 73
+  },
+  {
+   "id": "s13",
+   "name": "Agnese Rozīte",
+   "age": 21,
+   "sex": "f",
+   "origin": "Ogre, Latvia",
+   "lives": "Commutes from Ogre by train",
+   "languages": [
+    "Latvian",
+    "English",
+    "Russian"
+   ],
+   "family": "Mother is a hairdresser with her own small studio. Father is an electrician.",
+   "money": "Middle-low. Works weekend shifts at a supermarket cash desk.",
+   "experience": [
+    "Cashier at a supermarket",
+    "Helps her mother with bookings and supplies",
+    "Peer mentor for first-year students"
+   ],
+   "story": "She sees how tired small service owners are by evening. Her mother still writes appointments in a paper notebook.",
+   "character": "Empathetic, observant, good at describing a real person's day.",
+   "believes": [
+    "The best users are tired people, not tech fans",
+    "Paper notebooks win because they never crash"
+   ],
+   "prices": "Her mother would pay €10 a month at most and only after a free month that proves it works.",
+   "talk": 3,
+   "style": "Story-like messages: 'my mum yesterday...'",
+   "tags": [
+    "beauty",
+    "smes",
+    "retail",
+    "regions"
+   ],
+   "first": "Agnese",
+   "initials": "AR",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Ogre",
+   "hue": 210
+  },
+  {
+   "id": "s14",
+   "name": "Dāvis Lācis",
+   "age": 22,
+   "sex": "m",
+   "origin": "Tukums, Latvia",
+   "lives": "Rents a room in Teika",
+   "languages": [
+    "Latvian",
+    "English"
+   ],
+   "family": "Parents run a dairy farm near Tukums with about 80 cows.",
+   "money": "Middle income, family money is tied up in the farm.",
+   "experience": [
+    "Works on the family farm every summer",
+    "Intern at an agricultural cooperative",
+    "Rural youth council member"
+   ],
+   "story": "Farm life is full of forms: EU subsidies, veterinary records, milk quotas. He thinks agri-admin is a gold mine nobody in class understands.",
+   "character": "Grounded, stubborn, proud of rural Latvia.",
+   "believes": [
+    "Farmers will pay for anything that protects their subsidy money",
+    "Trust in the countryside spreads by word of mouth at the cooperative"
+   ],
+   "prices": "A farm might pay €20–50 a month if it prevents one subsidy mistake; the cooperative could buy for 200 members.",
+   "talk": 3,
+   "style": "Plain, a bit stubborn, uses farm examples.",
+   "tags": [
+    "agriculture",
+    "eu-funds",
+    "smes",
+    "regions"
+   ],
+   "first": "Dāvis",
+   "initials": "DL",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Tukums",
+   "hue": 348
+  },
+  {
+   "id": "s15",
+   "name": "Sanita Balode",
+   "age": 21,
+   "sex": "f",
+   "origin": "Kuldīga, Latvia",
+   "lives": "Lives in a shared flat in Maskavas forštate",
+   "languages": [
+    "Latvian",
+    "English",
+    "Italian (basic)"
+   ],
+   "family": "Parents own a small bakery and café in Kuldīga's old town.",
+   "money": "Middle income. Works at the bakery during holidays.",
+   "experience": [
+    "Bakery shifts since age 14",
+    "Exchange semester planned in Milan",
+    "Led a student case team on retail pricing"
+   ],
+   "story": "Her parents throw away bread every evening and run out of buns every Saturday. She wants simple forecasting for small food businesses.",
+   "character": "Cheerful, hands-on, good with numbers about food.",
+   "believes": [
+    "Waste is a cost nobody measures",
+    "Small food businesses need forecasts, not dashboards"
+   ],
+   "prices": "A bakery would pay €15–25 a month if it cut waste by a few loaves a day.",
+   "talk": 3,
+   "style": "Friendly, concrete, mentions bread and buns 🥐.",
+   "tags": [
+    "food",
+    "retail",
+    "smes",
+    "forecasting"
+   ],
+   "first": "Sanita",
+   "initials": "SB",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Kuldīga",
+   "hue": 125
+  },
+  {
+   "id": "s16",
+   "name": "Toms Grīnbergs",
+   "age": 22,
+   "sex": "m",
+   "origin": "Riga, Latvia (Imanta)",
+   "lives": "Lives with his father in Imanta",
+   "languages": [
+    "Latvian",
+    "English",
+    "Russian"
+   ],
+   "family": "Parents divorced. Father is an IT support specialist. Mother moved to Ireland for work when he was 12.",
+   "money": "Modest. Works as a part-time IT helpdesk agent.",
+   "experience": [
+    "IT helpdesk for a chain of pharmacies",
+    "Discord moderator for a gaming community",
+    "Built small bots for a gaming server"
+   ],
+   "story": "He fixes the same ten problems every week at the helpdesk and thinks most of them could fix themselves.",
+   "character": "Introverted, sarcastic online, very helpful one to one.",
+   "believes": [
+    "Support tickets are the best place to find loops",
+    "People don't read instructions; they read short answers"
+   ],
+   "prices": "Companies already pay helpdesk staff €1,200 a month; replacing a third of that is worth €100–300 a month.",
+   "talk": 2,
+   "style": "Lowercase, short, dry humour.",
+   "tags": [
+    "it-support",
+    "automation",
+    "gaming",
+    "b2b"
+   ],
+   "first": "Toms",
+   "initials": "TG",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Riga (Imanta)",
+   "hue": 263
+  },
+  {
+   "id": "s17",
+   "name": "Evelīna Strautiņa",
+   "age": 21,
+   "sex": "f",
+   "origin": "Bauska, Latvia",
+   "lives": "Rents a room near the Central Market",
+   "languages": [
+    "Latvian",
+    "English",
+    "Russian"
+   ],
+   "family": "Mother is a social worker. Father is a farmer growing apples and berries.",
+   "money": "Tight. Works as a waitress in a Riga restaurant.",
+   "experience": [
+    "Waitress at a busy restaurant",
+    "Sold berries at markets as a child",
+    "Volunteer for a food bank"
+   ],
+   "story": "She sees restaurant staff drowning in shift swaps and supplier calls. She is careful about ideas that sound good only on slides.",
+   "character": "Quiet in big groups, sharp in small ones.",
+   "believes": [
+    "Restaurants care about staff and suppliers more than marketing",
+    "If it adds a step for the waiter, it will not be used"
+   ],
+   "prices": "A restaurant would pay €20–40 a month to stop shift chaos, but only if the manager sets it up in ten minutes.",
+   "talk": 2,
+   "style": "Short and precise.",
+   "tags": [
+    "restaurants",
+    "hospitality",
+    "staffing"
+   ],
+   "first": "Evelīna",
+   "initials": "ES",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Bauska",
+   "hue": 40
+  },
+  {
+   "id": "s18",
+   "name": "Kārlis Avotiņš",
+   "age": 22,
+   "sex": "m",
+   "origin": "Jēkabpils, Latvia",
+   "lives": "Rents a flat in Ziepniekkalns with his girlfriend",
+   "languages": [
+    "Latvian",
+    "English"
+   ],
+   "family": "Parents both work at a regional hospital, father as an ambulance driver, mother in administration.",
+   "money": "Middle-low. Works 20 hours a week in a call centre for an energy company.",
+   "experience": [
+    "Call centre agent handling energy bills",
+    "Organised a football league for local teens",
+    "Intern in a ministry's EU funds department"
+   ],
+   "story": "He has answered hundreds of angry calls about electricity bills. He knows what confused customers ask.",
+   "character": "Patient, steady, a good mediator in group fights.",
+   "believes": [
+    "Confusion is a market: bills, contracts, public services",
+    "Public sector processes are slow but huge"
+   ],
+   "prices": "People won't pay to understand a bill; companies pay to reduce calls: €0.50–2 per avoided call.",
+   "talk": 3,
+   "style": "Calm, uses 'from my call-centre experience...'",
+   "tags": [
+    "energy",
+    "public-sector",
+    "customer-service"
+   ],
+   "first": "Kārlis",
+   "initials": "KA",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Jēkabpils",
+   "hue": 178
+  },
+  {
+   "id": "s19",
+   "name": "Ieva Zvaigzne",
+   "age": 21,
+   "sex": "f",
+   "origin": "Madona, Latvia",
+   "lives": "Lives in a student dormitory",
+   "languages": [
+    "Latvian",
+    "English",
+    "German"
+   ],
+   "family": "Mother is a librarian. Father runs a small car repair service in Madona.",
+   "money": "Tight. Scholarship from a regional foundation.",
+   "experience": [
+    "Helped her father keep the car service calendar",
+    "Research assistant in behavioural economics",
+    "Writes for the student newspaper"
+   ],
+   "story": "Her father loses jobs because he cannot answer the phone while under a car. She dreams of something that books jobs while he works.",
+   "character": "Curious, writes well, likes behavioural insights.",
+   "believes": [
+    "The phone is the bottleneck for one-person businesses",
+    "Defaults and reminders change behaviour more than features"
+   ],
+   "prices": "Her father would pay €15–20 a month if he gets two extra jobs a month.",
+   "talk": 3,
+   "style": "Well-written, sometimes cites a behavioural idea.",
+   "tags": [
+    "auto-repair",
+    "smes",
+    "behavioural",
+    "regions"
+   ],
+   "first": "Ieva",
+   "initials": "IZ",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Madona",
+   "hue": 315
+  },
+  {
+   "id": "s20",
+   "name": "Paula Ābele",
+   "age": 22,
+   "sex": "f",
+   "origin": "Riga, Latvia (Āgenskalns)",
+   "lives": "Lives with her partner in Āgenskalns",
+   "languages": [
+    "Latvian",
+    "English",
+    "Russian"
+   ],
+   "family": "Mother runs a small accounting firm with 4 employees. Father is a musician.",
+   "money": "Middle income. Does bookkeeping for her mother's clients part-time.",
+   "experience": [
+    "Part-time bookkeeper for 15 small companies",
+    "Intern in a Big Four tax team",
+    "Plays bass in an indie band"
+   ],
+   "story": "She processes receipts every week and believes half of SME accounting is still copying numbers from paper.",
+   "character": "Precise, ironic, allergic to vague ideas.",
+   "believes": [
+    "Accountants are the best channel to reach small companies",
+    "Never touch money or tax decisions without a human check"
+   ],
+   "prices": "Accounting firms pay €30–100 a month per tool if it saves hours on receipts; their clients pay them €80–300 a month.",
+   "talk": 4,
+   "style": "Crisp, slightly ironic, corrects numbers.",
+   "tags": [
+    "accounting",
+    "tax",
+    "smes",
+    "b2b"
+   ],
+   "first": "Paula",
+   "initials": "PĀ",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Riga (Āgenskalns)",
+   "hue": 93
+  },
+  {
+   "id": "s21",
+   "name": "Nikita Petrovs",
+   "age": 22,
+   "sex": "m",
+   "origin": "Daugavpils, Latvia",
+   "lives": "Rents a room in Purvciems",
+   "languages": [
+    "Russian",
+    "Latvian",
+    "English"
+   ],
+   "family": "Father is a mechanic. Mother sells clothes at the Daugavpils market. Grandmother lives with them.",
+   "money": "Tight. Works nights at a hotel reception.",
+   "experience": [
+    "Night receptionist at a Riga hotel",
+    "Sold clothes at the market with his mother",
+    "Self-taught video editor for local bloggers"
+   ],
+   "story": "At the hotel he answers the same five questions in four languages every night. He believes in small, boring, useful tools.",
+   "character": "Quiet, kind, observant, surprisingly funny once he starts.",
+   "believes": [
+    "Small hotels and hostels drown in repeated questions",
+    "Russian-speaking customers in Latvia are a real market, not a niche"
+   ],
+   "prices": "A small hotel would pay €20–40 a month to cut night calls; guests pay nothing.",
+   "talk": 2,
+   "style": "Short, polite, occasionally a dry joke.",
+   "tags": [
+    "hospitality",
+    "tourism",
+    "bilingual",
+    "video"
+   ],
+   "first": "Nikita",
+   "initials": "NP",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Daugavpils",
+   "hue": 230
+  },
+  {
+   "id": "s22",
+   "name": "Darja Ivanova",
+   "age": 21,
+   "sex": "f",
+   "origin": "Riga, Latvia (Ķengarags)",
+   "lives": "Lives with her mother in Ķengarags",
+   "languages": [
+    "Russian",
+    "Latvian",
+    "English",
+    "Ukrainian (understands)"
+   ],
+   "family": "Single mother working as a nurse. Older brother works in construction in Norway.",
+   "money": "Tight. Works as a part-time recruiter's assistant.",
+   "experience": [
+    "Assistant at a recruitment agency",
+    "Volunteer helping Ukrainian refugees find housing in 2022",
+    "Mentor in a coding club for girls"
+   ],
+   "story": "She has screened hundreds of CVs and seen how many good people are rejected for formatting. She wants fair, simple hiring tools.",
+   "character": "Determined, empathetic, fights for the underdog.",
+   "believes": [
+    "Hiring in the Baltics is broken for people without connections",
+    "Tools must not invent facts about people"
+   ],
+   "prices": "Job seekers pay €0; agencies pay €50–150 a month; employers pay per hire.",
+   "talk": 4,
+   "style": "Passionate, medium-long, sometimes in caps for emphasis.",
+   "tags": [
+    "recruiting",
+    "hr",
+    "fairness",
+    "b2b"
+   ],
+   "first": "Darja",
+   "initials": "DI",
+   "cc": "LV",
+   "country": "Latvia",
+   "town": "Riga (Ķengarags)",
+   "hue": 8
+  },
+  {
+   "id": "s23",
+   "name": "Gabrielė Jankauskaitė",
+   "age": 21,
+   "sex": "f",
+   "origin": "Vilnius, Lithuania",
+   "lives": "Rents a flat in Riga's Centrs with another Lithuanian student",
+   "languages": [
+    "Lithuanian",
+    "English",
+    "Russian",
+    "Latvian (basic)"
+   ],
+   "family": "Parents both work in Vilnius tech companies, mother in product management, father in IT infrastructure.",
+   "money": "Comfortable. Works remotely as a product intern for a Vilnius startup.",
+   "experience": [
+    "Product intern at a Vilnius e-commerce startup",
+    "Ran user interviews for a fintech app",
+    "Won a design-thinking hackathon"
+   ],
+   "story": "She has done thirty user interviews and believes most students skip them. Vilnius startups taught her speed.",
+   "character": "Structured, fast, user-obsessed.",
+   "believes": [
+    "Talk to 10 users before writing a line of code",
+    "Vilnius and Riga are one market of 3 million people with different habits"
+   ],
+   "prices": "Tests price by asking 'would you pay €5 today?' and believes only actual payments count.",
+   "talk": 4,
+   "style": "Bullet-point thinking, asks for evidence.",
+   "tags": [
+    "product",
+    "ux",
+    "ecommerce",
+    "lithuania"
+   ],
+   "first": "Gabrielė",
+   "initials": "GJ",
+   "cc": "LT",
+   "country": "Lithuania",
+   "town": "Vilnius",
+   "hue": 145
+  },
+  {
+   "id": "s24",
+   "name": "Lukas Petrauskas",
+   "age": 22,
+   "sex": "m",
+   "origin": "Kaunas, Lithuania",
+   "lives": "Lives in a student flat near VEF",
+   "languages": [
+    "Lithuanian",
+    "English",
+    "Russian"
+   ],
+   "family": "Father owns a small furniture factory in Kaunas exporting to Scandinavia. Mother is a pharmacist.",
+   "money": "Comfortable. Works for his father's export team remotely.",
+   "experience": [
+    "Export sales assistant at the furniture factory",
+    "Trade fair in Stockholm",
+    "Startup weekend winner in Kaunas"
+   ],
+   "story": "He has seen Scandinavian buyers demand certificates and data the factory struggles to produce. He thinks compliance is a business.",
+   "character": "Pragmatic, commercial, likes B2B and exports.",
+   "believes": [
+    "Exporters will pay to save time on paperwork for Nordic clients",
+    "Lithuania moves faster than Latvia; test there first"
+   ],
+   "prices": "A factory pays €100–300 a month for anything that speeds up export documents.",
+   "talk": 4,
+   "style": "Commercial, practical, mentions Kaunas often.",
+   "tags": [
+    "manufacturing",
+    "export",
+    "compliance",
+    "b2b",
+    "lithuania"
+   ],
+   "first": "Lukas",
+   "initials": "LP",
+   "cc": "LT",
+   "country": "Lithuania",
+   "town": "Kaunas",
+   "hue": 283
+  },
+  {
+   "id": "s25",
+   "name": "Ugnė Kazlauskaitė",
+   "age": 21,
+   "sex": "f",
+   "origin": "Klaipėda, Lithuania",
+   "lives": "Rents a room in Āgenskalns",
+   "languages": [
+    "Lithuanian",
+    "English",
+    "German",
+    "Russian (basic)"
+   ],
+   "family": "Father is a ship engineer, often at sea. Mother runs a small flower shop in Klaipėda.",
+   "money": "Middle income. Freelances as an English–Lithuanian translator.",
+   "experience": [
+    "Freelance translator for a logistics company",
+    "Helps her mother's flower shop with online orders",
+    "Member of a sailing club"
+   ],
+   "story": "Her mother's flower shop lives on holidays: Valentine's, Mother's Day, graduations. Orders pile up and get mixed up.",
+   "character": "Calm, precise, very good with language.",
+   "believes": [
+    "Peak days break small shops",
+    "Translation and multilingual service still matter in the Baltics"
+   ],
+   "prices": "A flower shop pays €10–20 a month, more only around holidays.",
+   "talk": 2,
+   "style": "Polite, careful wording, rarely uses emoji 🌷.",
+   "tags": [
+    "retail",
+    "flowers",
+    "translation",
+    "lithuania"
+   ],
+   "first": "Ugnė",
+   "initials": "UK",
+   "cc": "LT",
+   "country": "Lithuania",
+   "town": "Klaipėda",
+   "hue": 60
+  },
+  {
+   "id": "s26",
+   "name": "Dominykas Stankevičius",
+   "age": 22,
+   "sex": "m",
+   "origin": "Vilnius, Lithuania",
+   "lives": "Rents a flat in the Quiet Centre, Riga",
+   "languages": [
+    "Lithuanian",
+    "English",
+    "Polish",
+    "Russian"
+   ],
+   "family": "Father is a lawyer. Mother teaches at Vilnius University. Grew up partly in Warsaw.",
+   "money": "Comfortable. Does paid research for a Vilnius think tank.",
+   "experience": [
+    "Research assistant on EU regulation",
+    "Debate club champion",
+    "Intern at a Lithuanian VC fund"
+   ],
+   "story": "He reads regulations for fun and thinks new EU rules create markets for small tools every year.",
+   "character": "Argumentative, articulate, loves devil's advocate.",
+   "believes": [
+    "Regulation creates demand: every new EU rule needs a checklist",
+    "Most student ideas are features, not businesses"
+   ],
+   "prices": "Compliance tools sell at €50–500 a month to companies that fear fines.",
+   "talk": 5,
+   "style": "Long, argumentative, 'let me push back'.",
+   "tags": [
+    "regulation",
+    "legal",
+    "vc",
+    "lithuania"
+   ],
+   "first": "Dominykas",
+   "initials": "DS",
+   "cc": "LT",
+   "country": "Lithuania",
+   "town": "Vilnius",
+   "hue": 198
+  },
+  {
+   "id": "s27",
+   "name": "Austėja Vasiliauskaitė",
+   "age": 21,
+   "sex": "f",
+   "origin": "Šiauliai, Lithuania",
+   "lives": "Lives in a student dormitory",
+   "languages": [
+    "Lithuanian",
+    "English",
+    "Russian"
+   ],
+   "family": "Mother is a nurse. Father works in a dairy plant. A younger brother with big football dreams.",
+   "money": "Tight. Full scholarship covers tuition; works as a waitress.",
+   "experience": [
+    "Waitress in Riga's Old Town",
+    "Coached kids' football in Šiauliai",
+    "Volunteer at a youth sports federation"
+   ],
+   "story": "She organised a kids' football camp and spent more time collecting payments and parent forms than coaching.",
+   "character": "Energetic, team-minded, impatient with long theory.",
+   "believes": [
+    "Sports clubs and coaches are a forgotten market",
+    "Parents pay for kids' activities without complaining, if it's easy"
+   ],
+   "prices": "A small sports club would pay €15–30 a month; parents pay €20–40 a month per child for training already.",
+   "talk": 3,
+   "style": "Upbeat, sporty language ⚽.",
+   "tags": [
+    "sports",
+    "kids",
+    "clubs",
+    "lithuania"
+   ],
+   "first": "Austėja",
+   "initials": "AV",
+   "cc": "LT",
+   "country": "Lithuania",
+   "town": "Šiauliai",
+   "hue": 335
+  },
+  {
+   "id": "s28",
+   "name": "Rokas Žukauskas",
+   "age": 22,
+   "sex": "m",
+   "origin": "Panevėžys, Lithuania",
+   "lives": "Shares a flat with Lukas near VEF",
+   "languages": [
+    "Lithuanian",
+    "English",
+    "Russian"
+   ],
+   "family": "Parents run two small grocery stores in Panevėžys.",
+   "money": "Middle income. Worked in the shops since childhood.",
+   "experience": [
+    "Ordering and stock in his parents' grocery stores",
+    "Intern at a Lithuanian retail chain's purchasing team",
+    "Runs a small TikTok about retail tricks"
+   ],
+   "story": "He knows how small grocers compete with big chains: on trust and on knowing customers. He hates waste and empty shelves.",
+   "character": "Funny, practical, a storyteller.",
+   "believes": [
+    "Small shops survive on relationships, not technology",
+    "Ordering mistakes cost more than any software"
+   ],
+   "prices": "A grocer pays €20–40 a month if it fixes ordering; never pays for 'insights'.",
+   "talk": 4,
+   "style": "Jokes, short stories from the shop 🛒.",
+   "tags": [
+    "retail",
+    "grocery",
+    "smes",
+    "lithuania"
+   ],
+   "first": "Rokas",
+   "initials": "RŽ",
+   "cc": "LT",
+   "country": "Lithuania",
+   "town": "Panevėžys",
+   "hue": 113
+  },
+  {
+   "id": "s29",
+   "name": "Emilija Butkutė",
+   "age": 21,
+   "sex": "f",
+   "origin": "Utena, Lithuania",
+   "lives": "Rents a room in Centrs",
+   "languages": [
+    "Lithuanian",
+    "English",
+    "Spanish"
+   ],
+   "family": "Parents are both doctors at the Utena hospital.",
+   "money": "Comfortable. Volunteers rather than works.",
+   "experience": [
+    "Volunteer at a hospice-support charity shop",
+    "Exchange student in Valencia",
+    "Leads a student wellbeing initiative"
+   ],
+   "story": "She wants businesses that do some good and is wary of 'growth at all costs'.",
+   "character": "Warm, principled, asks about impact and side effects.",
+   "believes": [
+    "Elderly people and their families are an underserved market",
+    "If a service could harm someone when it fails, it needs a human"
+   ],
+   "prices": "Families pay €10–30 a month for peace of mind about an elderly parent.",
+   "talk": 3,
+   "style": "Kind, reflective, asks 'what could go wrong?'",
+   "tags": [
+    "care",
+    "elderly",
+    "impact",
+    "lithuania"
+   ],
+   "first": "Emilija",
+   "initials": "EB",
+   "cc": "LT",
+   "country": "Lithuania",
+   "town": "Utena",
+   "hue": 250
+  },
+  {
+   "id": "s30",
+   "name": "Paulius Navickas",
+   "age": 22,
+   "sex": "m",
+   "origin": "Vilnius, Lithuania",
+   "lives": "Rents a flat in Centrs",
+   "languages": [
+    "Lithuanian",
+    "English",
+    "Russian"
+   ],
+   "family": "Father is a real estate agent. Mother runs a dance studio.",
+   "money": "Comfortable. Earns from DJing at events.",
+   "experience": [
+    "DJ at student parties and weddings",
+    "Event production assistant",
+    "Sales intern at a Vilnius proptech startup"
+   ],
+   "story": "He knows events from the inside: last-minute changes, payments, and chaos. He thinks event tools are made for corporates, not small organisers.",
+   "character": "Social, loud, persuasive, sometimes chaotic.",
+   "believes": [
+    "Events and nightlife are full of small pains",
+    "Distribution beats product"
+   ],
+   "prices": "Small organisers pay per event: €10–30, never monthly.",
+   "talk": 5,
+   "style": "Hype energy, voice-note style messages 🎧.",
+   "tags": [
+    "events",
+    "nightlife",
+    "sales",
+    "lithuania"
+   ],
+   "first": "Paulius",
+   "initials": "PN",
+   "cc": "LT",
+   "country": "Lithuania",
+   "town": "Vilnius",
+   "hue": 28
+  },
+  {
+   "id": "s31",
+   "name": "Karolina Paulauskaitė",
+   "age": 21,
+   "sex": "f",
+   "origin": "Vilnius, Lithuania",
+   "lives": "Lives with Gabrielė in Centrs",
+   "languages": [
+    "Lithuanian",
+    "English",
+    "French",
+    "Russian (basic)"
+   ],
+   "family": "Mother is a dentist with her own clinic. Father is a civil engineer.",
+   "money": "Comfortable. Helps at her mother's clinic reception in summer.",
+   "experience": [
+    "Receptionist at her mother's dental clinic",
+    "Consulting club case team",
+    "Intern at a healthtech startup in Vilnius"
+   ],
+   "story": "At the clinic she saw how much time goes into reminders, cancellations and insurance questions.",
+   "character": "Efficient, polite, quietly ambitious.",
+   "believes": [
+    "Private clinics will pay for anything that fills cancelled slots",
+    "Health data needs extreme care"
+   ],
+   "prices": "A dental clinic pays €40–100 a month to fill cancellations; patients pay nothing extra.",
+   "talk": 3,
+   "style": "Neat, professional, short paragraphs.",
+   "tags": [
+    "health",
+    "clinics",
+    "booking",
+    "lithuania"
+   ],
+   "first": "Karolina",
+   "initials": "KP",
+   "cc": "LT",
+   "country": "Lithuania",
+   "town": "Vilnius",
+   "hue": 165
+  },
+  {
+   "id": "s32",
+   "name": "Kertu Tamm",
+   "age": 21,
+   "sex": "f",
+   "origin": "Tallinn, Estonia",
+   "lives": "Rents a studio near the Old Town",
+   "languages": [
+    "Estonian",
+    "English",
+    "Finnish",
+    "Russian (basic)"
+   ],
+   "family": "Mother is a product designer at a Tallinn startup. Father works for the Estonian tax board.",
+   "money": "Comfortable. Freelance UI design.",
+   "experience": [
+    "Freelance UI designer for two Tallinn startups",
+    "Intern at a ride-hailing company's operations team",
+    "Uses e-residency and digital government daily"
+   ],
+   "story": "Coming from Estonia, she is surprised how much paper still exists in Latvia. She thinks design and simplicity are underrated.",
+   "character": "Minimalist, direct, impatient with clutter.",
+   "believes": [
+    "One screen, one job",
+    "Digital government shows that people adopt simple tools fast"
+   ],
+   "prices": "Estonian SMEs pay €10–50 a month without contracts; they cancel the moment it's annoying.",
+   "talk": 3,
+   "style": "Very short messages, minimal punctuation.",
+   "tags": [
+    "design",
+    "ux",
+    "estonia",
+    "digital-government"
+   ],
+   "first": "Kertu",
+   "initials": "KT",
+   "cc": "EE",
+   "country": "Estonia",
+   "town": "Tallinn",
+   "hue": 303
+  },
+  {
+   "id": "s33",
+   "name": "Rasmus Saar",
+   "age": 22,
+   "sex": "m",
+   "origin": "Tallinn, Estonia",
+   "lives": "Shares a flat with Artūrs in Grīziņkalns",
+   "languages": [
+    "Estonian",
+    "English",
+    "Russian"
+   ],
+   "family": "Father is a software architect. Mother is a school principal.",
+   "money": "Comfortable. Paid AI automation side projects.",
+   "experience": [
+    "Built AI automations for a Tallinn marketing agency",
+    "Codes with AI agents daily",
+    "Gaming tournament organiser"
+   ],
+   "story": "He already earns a little by automating reports for an agency. He thinks the class underestimates what AI can do today.",
+   "character": "Optimistic, technical, explains things simply.",
+   "believes": [
+    "Agencies will be replaced by loops that run themselves",
+    "Start with a loop you can run tonight"
+   ],
+   "prices": "Agencies pay €200–500 a month for automations that save one junior's time.",
+   "talk": 4,
+   "style": "Enthusiastic, technical but clear, posts mini-plans.",
+   "tags": [
+    "ai",
+    "automation",
+    "agencies",
+    "estonia"
+   ],
+   "first": "Rasmus",
+   "initials": "RS",
+   "cc": "EE",
+   "country": "Estonia",
+   "town": "Tallinn",
+   "hue": 80
+  },
+  {
+   "id": "s34",
+   "name": "Maarja Kask",
+   "age": 21,
+   "sex": "f",
+   "origin": "Tartu, Estonia",
+   "lives": "Lives in a dormitory",
+   "languages": [
+    "Estonian",
+    "English",
+    "German"
+   ],
+   "family": "Parents are researchers at the University of Tartu.",
+   "money": "Middle income. Research assistant job.",
+   "experience": [
+    "Research assistant in a social science project",
+    "Organised a student conference",
+    "Survey design for the student council"
+   ],
+   "story": "She is the class methodologist: she asks how we will know if an idea really works.",
+   "character": "Careful, evidence-driven, gentle but firm.",
+   "believes": [
+    "Every idea needs one measurable test this week",
+    "Surveys lie; behaviour doesn't"
+   ],
+   "prices": "Only believes a price after people pay; 'would you pay' answers are worthless.",
+   "talk": 3,
+   "style": "Polite, precise, asks 'how will we measure it?'",
+   "tags": [
+    "research",
+    "testing",
+    "estonia"
+   ],
+   "first": "Maarja",
+   "initials": "MK",
+   "cc": "EE",
+   "country": "Estonia",
+   "town": "Tartu",
+   "hue": 218
+  },
+  {
+   "id": "s35",
+   "name": "Oleksandr Kovalenko",
+   "age": 22,
+   "sex": "m",
+   "origin": "Kharkiv, Ukraine",
+   "lives": "Rents a room in Maskavas forštate; moved to Riga in 2022",
+   "languages": [
+    "Ukrainian",
+    "Russian",
+    "English",
+    "Latvian (learning)"
+   ],
+   "family": "Parents stayed in Ukraine; his mother is an engineer, his father runs a small IT outsourcing team.",
+   "money": "Tight. Scholarship for Ukrainian students plus freelance web development.",
+   "experience": [
+    "Freelance developer for clients in Germany",
+    "Volunteer coordinator for aid deliveries",
+    "Built a Telegram bot for volunteers"
+   ],
+   "story": "He learned to build fast under pressure. He has little patience for ideas that will never ship.",
+   "character": "Resilient, focused, quietly intense.",
+   "believes": [
+    "Ship something small every week",
+    "Telegram and WhatsApp are where real users already are"
+   ],
+   "prices": "A small service should cost less than one hour of the owner's time per month.",
+   "talk": 3,
+   "style": "Short, determined, practical.",
+   "tags": [
+    "software",
+    "messaging",
+    "volunteering",
+    "ukraine"
+   ],
+   "first": "Oleksandr",
+   "initials": "OK",
+   "cc": "UA",
+   "country": "Ukraine",
+   "town": "Kharkiv",
+   "hue": 355
+  },
+  {
+   "id": "s36",
+   "name": "Hanna Kavalchuk",
+   "age": 21,
+   "sex": "f",
+   "origin": "Minsk, Belarus",
+   "lives": "Rents a room in Teika",
+   "languages": [
+    "Belarusian",
+    "Russian",
+    "English",
+    "Polish",
+    "Latvian (basic)"
+   ],
+   "family": "Parents are economists; the family moved to Vilnius in 2020 and she came to Riga for SSE.",
+   "money": "Middle income. Works as a social media manager for a Vilnius NGO.",
+   "experience": [
+    "Social media manager for an NGO",
+    "Content creator about student life (8k followers)",
+    "Intern at a marketing agency"
+   ],
+   "story": "She has moved countries twice and knows the pain of bureaucracy for newcomers.",
+   "character": "Creative, warm, strategic about audiences.",
+   "believes": [
+    "Newcomers and expats in the Baltics are an underserved market",
+    "Content brings customers for free if it is useful"
+   ],
+   "prices": "Newcomers pay €5–20 once for something that solves a stressful task; companies pay more to onboard foreign staff.",
+   "talk": 4,
+   "style": "Lively, visual language, good at hooks.",
+   "tags": [
+    "marketing",
+    "expats",
+    "content",
+    "bureaucracy"
+   ],
+   "first": "Hanna",
+   "initials": "HK",
+   "cc": "BY",
+   "country": "Belarus",
+   "town": "Minsk",
+   "hue": 133
+  },
+  {
+   "id": "s37",
+   "name": "Leon Berg",
+   "age": 22,
+   "sex": "m",
+   "origin": "Hamburg, Germany",
+   "lives": "Rents a flat in Centrs; his mother is Latvian",
+   "languages": [
+    "German",
+    "English",
+    "Latvian",
+    "Russian (basic)"
+   ],
+   "family": "Father is a German logistics manager. Mother is a Latvian architect. Moved between Hamburg and Riga.",
+   "money": "Comfortable. Works part-time in a Riga coworking space.",
+   "experience": [
+    "Community manager at a Riga coworking space",
+    "Intern at a Hamburg port logistics company",
+    "Organised startup meetups"
+   ],
+   "story": "He connects people and knows many Riga founders through the coworking space. He thinks Riga's startup scene is small but generous.",
+   "character": "Connector, calm, sees both German and Latvian ways.",
+   "believes": [
+    "The first ten customers come from your network",
+    "Germany is the big market next door for Baltic B2B tools"
+   ],
+   "prices": "German SMEs pay €30–100 a month with less haggling than Baltic ones.",
+   "talk": 3,
+   "style": "Friendly, offers intros: 'I know someone who...'",
+   "tags": [
+    "network",
+    "coworking",
+    "logistics",
+    "germany"
+   ],
+   "first": "Leon",
+   "initials": "LB",
+   "cc": "DE",
+   "country": "Germany",
+   "town": "Hamburg",
+   "hue": 270
+  },
+  {
+   "id": "s38",
+   "name": "Aino Virtanen",
+   "age": 21,
+   "sex": "f",
+   "origin": "Helsinki, Finland",
+   "lives": "Rents a room in Āgenskalns",
+   "languages": [
+    "Finnish",
+    "Swedish",
+    "English",
+    "Estonian (basic)"
+   ],
+   "family": "Mother is a public school teacher. Father is a carpenter with his own small company.",
+   "money": "Middle income. Finnish study grant plus barista job.",
+   "experience": [
+    "Barista in Riga",
+    "Helped her father's carpentry firm with quotes",
+    "Volunteer at a Helsinki food-waste project"
+   ],
+   "story": "She chose Riga for the lower cost of living and is surprised how much cheaper services are. She notices prices more than anyone.",
+   "character": "Honest, calm, reserved; speaks rarely but clearly.",
+   "believes": [
+    "Riga prices are a third of Helsinki prices; never copy Nordic pricing",
+    "Trust and simplicity beat features"
+   ],
+   "prices": "Riga customers pay about a third of Finnish prices for the same service.",
+   "talk": 2,
+   "style": "Rare, short, very clear.",
+   "tags": [
+    "prices",
+    "nordics",
+    "food-waste",
+    "carpentry"
+   ],
+   "first": "Aino",
+   "initials": "AV",
+   "cc": "FI",
+   "country": "Finland",
+   "town": "Helsinki",
+   "hue": 48
+  }
+ ]
+}
