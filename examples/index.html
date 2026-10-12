@@ -39,13 +39,15 @@
     <div class="wrap">
       <p class="eyebrow">Examples</p>
       <h1>Loops that ran <span class="lime">on their own.</span></h1>
-      <p class="lede">Four loops Danielius built by directing AI agents, and two small companies. Each shows a part of the model: Grow, Serve, Improve, and a human in control.</p>
+      <p class="lede">Four loops Danielius built by directing AI agents. Then two small companies, six ideas you could start from, and three ways it goes wrong.</p>
       <nav class="toc" aria-label="On this page">
         <a href="#startup"><b>1</b>The 60-Second Startup</a>
         <a href="#wys"><b>2</b>While You Sleep</a>
         <a href="#comic"><b>3</b>The Long Run</a>
         <a href="#atlas"><b>4</b>The Unfinished Atlas</a>
         <a href="#companies"><b>5</b>Small teams, real money</a>
+        <a href="#ideas"><b>6</b>Ideas to start from</a>
+        <a href="#wrong"><b>7</b>How it goes wrong</a>
       </nav>
     </div>
   </section>
@@ -86,9 +88,12 @@
         <h2>While You Sleep</h2>
         <p class="soft">An ideas channel. Every hour it reads public sources and drafts small AI business ideas a student could build. A separate check rejects most of them. Only checked ideas are published.</p>
         <div class="livebar" data-wys-live hidden>
+          <p class="wys-line" data-wys="line"></p>
           <div><b data-wys="checked">–</b><span>ideas researched</span></div>
           <div><b data-wys="published">–</b><span>published</span></div>
-          <div><b data-wys="cost">–</b><span>estimated cost so far</span></div>
+          <div><b data-wys="cost">–</b><span>model cost, from its own log</span></div>
+          <div><b data-wys="rules">–</b><span>rule changes proposed / kept</span></div>
+          <div><b data-wys="pub">–</b><span>last published</span></div>
           <div><b data-wys="last">–</b><span><i class="livedot"></i>last run</span></div>
         </div>
         <dl class="mapping">
@@ -96,7 +101,7 @@
           <dt>Serve</dt><dd>Research → draft → check → publish, on its own clock.</dd>
           <dt>Check</dt><dd>A separate checker. When it cannot verify an idea, nothing is published.</dd>
           <dt>Improve</dt><dd>It proposes one rule change at a time. The change is kept only if blind grading scores it higher.</dd>
-          <dt class="ctrl">Control</dt><dd>A daily cap, a code freeze before the lecture, and every run logged in public.</dd>
+          <dt class="ctrl">Control</dt><dd>A daily cap on posts, and every run logged in public.</dd>
         </dl>
         <div class="links">
           <a class="btn" href="https://xndanius.github.io/while-you-sleep/">The website ↗</a>
@@ -129,7 +134,7 @@
       <div class="facts">
         <p class="eyebrow">Example 3 · A creative loop</p>
         <h2>The Long Run</h2>
-        <p class="soft">A comic that wrote and drew itself, one page every five minutes, from one ordinary trail run in the Vilnius forests. Each new page saw only the last image and a short recap, so the loop had to keep its own story straight.</p>
+        <p class="soft">An AI agent wrote and drew a comic, one page every five minutes, starting from one ordinary trail run in the Vilnius forests. Each new page saw only the last image and a short recap, so the loop had to keep its own story straight.</p>
         <dl class="mapping">
           <dt>Pages</dt><dd>74, drawn on 11 October.</dd>
           <dt>Rhythm</dt><dd>One page every five minutes.</dd>
@@ -145,14 +150,26 @@
       <div class="section-head">
         <p class="eyebrow">Example 4 · A map that grows</p>
         <h2>The Unfinished Atlas</h2>
-        <p class="lede">Every five minutes, a new tile was drawn to fit its neighbours. The world grew outward from one clearing: 149 tiles on 11 and 12 October. Drag to explore. Press Replay to watch it grow.</p>
+        <p class="lede">Every five minutes, an AI agent drew a new tile to fit its neighbours. The world grew outward from one clearing: 149 tiles on 11 and 12 October. Press Replay to watch it grow, then drag to explore.</p>
       </div>
       <div class="atlas" data-atlas tabindex="0" aria-label="The Unfinished Atlas. Drag to move. Use the plus and minus buttons to zoom.">
         <div class="plane"></div>
-        <div class="tools"><button type="button" data-replay>Replay</button><button type="button" data-fit>Fit</button></div>
+        <div class="tools"><button type="button" data-replay>Replay</button><button type="button" data-fit>Fit</button><button type="button" data-done hidden>Done</button></div>
+        <button type="button" class="explore" data-explore hidden>Tap to explore the map</button>
         <div class="name">Point at a tile to read its name</div>
         <div class="counter">Loading…</div>
         <div class="zoom"><button type="button" data-zoom-out aria-label="Zoom out">−</button><button type="button" data-zoom-in aria-label="Zoom in">+</button></div>
+      </div>
+      <p class="lesson-line"><b>Lesson:</b> small, regular steps can build something big, if each new step fits what is already there.</p>
+      <div class="subhead">
+        <p class="eyebrow">What our four loops have in common</p>
+        <h3>The same four parts</h3>
+      </div>
+      <div class="together">
+        <div><b>A trigger</b><p>An order, a schedule or a new item starts it.</p></div>
+        <div><b>A check</b><p>A separate step reads the result before anyone sees it.</p></div>
+        <div><b>A record</b><p>Every run leaves a trace you can inspect.</p></div>
+        <div><b>A human</b><p>Sets the goal and the limits, and can stop it.</p></div>
       </div>
     </div>
   </section>
@@ -177,17 +194,98 @@
           <small>Reported by the team, 1 March 2024. <a href="https://blog.tally.so/our-bootstrapped-journey-towards-100k-mrr/">Source ↗</a></small>
         </div>
       </div>
+      <p class="lede" style="margin-top:20px">Small teams can serve many paying customers with simple tools. Neither company is an example of full autonomy: they show how far a small team can go.</p>
 
-      <div class="subhead">
-        <p class="eyebrow">What every example has</p>
-        <h3>The same four parts</h3>
+    </div>
+  </section>
+
+  <section class="section alt" id="ideas">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">6 · Ideas to start from</p>
+        <h2>No idea yet? Start from one of these.</h2>
+        <p class="lede">Six small services a student team could build. Each is based on a real product that a maker wrote about. Demand and prices are not proven: test them with real users, and change the idea for a user you can reach.</p>
       </div>
-      <div class="together">
-        <div><b>A trigger</b><p>An order, a schedule or a new item starts it.</p></div>
-        <div><b>A check</b><p>A separate step reads the result before anyone sees it.</p></div>
-        <div><b>A record</b><p>Every run leaves a trace you can inspect.</p></div>
-        <div><b>A human</b><p>Sets the goal and the limits, and can stop it.</p></div>
+      <div class="ideas">
+        <article class="idea">
+          <span class="k">For a student before an exam</span>
+          <h3>Practice pack from your own notes</h3>
+          <p>Flashcards and a short quiz made from the student's own course notes.</p>
+          <dl><dt>Loop</dt><dd>Notes in → questions → check → quiz out</dd><dt>Check</dt><dd>Every answer points to a page in the notes. Unsupported ones are removed.</dd><dt>First test</dt><dd>10 cards from one lecture. Three classmates check them.</dd></dl>
+          <a class="src" href="https://www.reddit.com/r/SaaS/comments/1ildbu2/how_i_grew_my_saas_to_5500_signups_in_3_months/">A maker's post ↗</a>
+        </article>
+        <article class="idea">
+          <span class="k">For a society treasurer</span>
+          <h3>Monthly document collection</h3>
+          <p>Every member's documents, collected each month, in one organised folder.</p>
+          <dl><dt>Loop</dt><dd>Monthly trigger → personal upload link → check → reminder or done</dd><dt>Check</dt><dd>Right month, readable, nothing missing. One reminder at a time, never a duplicate.</dd><dt>First test</dt><dd>Made-up records first, then one society's real checklist.</dd></dl>
+          <a class="src" href="https://www.reddit.com/r/SideProject/comments/1st0b6e/built_a_free_tool_for_bookkeepers_who_spend_hours/">A maker's post ↗</a>
+        </article>
+        <article class="idea">
+          <span class="k">For a society running an event</span>
+          <h3>Event QR kit</h3>
+          <p>A printable QR poster whose link can be changed later, with scan counts.</p>
+          <dl><dt>Loop</dt><dd>Event details → safe link → poster → scan test → delivery</dd><dt>Check</dt><dd>The code scans on three phones and opens the right page.</dd><dt>First test</dt><dd>One real poster at one real event.</dd></dl>
+          <a class="src" href="https://www.reddit.com/r/SideProject/comments/1rs4dny/i_launched_a_onetimefee_saas_app_realized_the/">A maker's post ↗</a>
+        </article>
+        <article class="idea">
+          <span class="k">For a club lead after a meeting</span>
+          <h3>Voice note to brief</h3>
+          <p>A short brief and a task list from a two-minute voice note.</p>
+          <dl><dt>Loop</dt><dd>Recording → transcript → brief → check → editable delivery</dd><dt>Check</dt><dd>Every name, date and number in the brief appears in the transcript.</dd><dt>First test</dt><dd>One real recording, used by the team.</dd></dl>
+          <a class="src" href="https://x.com/louispereira/status/1639879959224393728">A maker's post ↗</a>
+        </article>
+        <article class="idea">
+          <span class="k">For someone doing the books</span>
+          <h3>Bank statement to checked CSV</h3>
+          <p>A statement PDF turned into a CSV that imports cleanly into a spreadsheet.</p>
+          <dl><dt>Loop</dt><dd>PDF in → extract → check → CSV out</dd><dt>Check</dt><dd>Opening balance plus movements equals closing balance, or it stops.</dd><dt>First test</dt><dd>A made-up statement first, then one real one with consent.</dd></dl>
+          <a class="src" href="https://www.reddit.com/r/SideProject/comments/12zdwff/i_built_a_bank_statement_converter_to_get/">A maker's post ↗</a>
+        </article>
+        <article class="idea">
+          <span class="k">For a student applying for jobs</span>
+          <h3>CV check and clean rebuild</h3>
+          <p>What an application system can read, and a clean CV with only the student's own facts.</p>
+          <dl><dt>Loop</dt><dd>CV in → read → rebuild → check → export</dd><dt>Check</dt><dd>Every date, employer and degree matches the original. No invented numbers.</dd><dt>First test</dt><dd>Three classmates' CVs, with their consent.</dd></dl>
+          <a class="src" href="https://www.reddit.com/r/passive_income/comments/1vpzzpo/i_built_a_resume_saas_with_ai_coding_tools_and/">A maker's post ↗</a>
+        </article>
       </div>
+      <p class="note" style="margin-top:18px">From the Autonomous Business Field Guide, researched on 7 October 2026. Makers' reports are not audited.</p>
+    </div>
+  </section>
+
+  <section class="section" id="wrong">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">7 · How it goes wrong</p>
+        <h2>Three lessons from real makers</h2>
+        <p class="lede">Each one breaks one of the six things the challenge asks for.</p>
+      </div>
+      <div class="grid3">
+        <div class="card warn">
+          <span class="k">No real user</span>
+          <h3>Nine months of building. Almost no users.</h3>
+          <p>A maker reports building a complete AI video tool and getting almost no users after nine months. A working pipeline is not demand.</p>
+          <p class="lesson">Talk to real users before you build.</p>
+          <a class="src" href="https://www.reddit.com/r/SideProject/comments/1u6dqf9/i_spent_9_months_building_a_full_ai_saas_got_zero/">Source ↗</a>
+        </div>
+        <div class="card warn">
+          <span class="k">No check</span>
+          <h3>The AI invented numbers in a CV.</h3>
+          <p>A commenter reports that an AI CV tool added performance numbers the person never gave. A more convincing sentence is not a true one.</p>
+          <p class="lesson">Check facts against the input before you deliver.</p>
+          <a class="src" href="https://www.reddit.com/r/SideProject/comments/1mbwzbj/i_trained_an_ai_to_outsmart_the_other_ais_that/">Source ↗</a>
+        </div>
+        <div class="card warn">
+          <span class="k">Hidden manual work</span>
+          <h3>Auto-posting still needed people to step in.</h3>
+          <p>An automatic video-posting tool's own FAQ discusses low views and suggests posting from the account by hand. The loop stops before the result the user wants.</p>
+          <p class="lesson">Count every manual fix as part of your loop.</p>
+          <a class="src" href="https://autoshorts.ai/faq">Source ↗</a>
+        </div>
+      </div>
+      <p class="note" style="margin-top:18px">Collected in the Autonomous Business Field Guide, 7 October 2026. Makers' reports are not audited.</p>
+
       <div class="btnrow" style="margin-top:36px">
         <a class="btn primary" href="../challenge/">Take the challenge →</a>
         <a class="btn" href="../lesson/#exercise">Design your first loop</a>
@@ -198,7 +296,7 @@
 
 <footer>
   <div class="wrap">
-    <p>Autonomous Business Lab · Guest lecture at SSE Riga, 13 October 2026. Comic and atlas images are compressed copies.</p>
+    <p>Autonomous Business Lab · Guest lecture by Danielius Stasiulis at SSE Riga, 13 October 2026 · Updated 12 October 2026. Comic and atlas images are compressed copies.</p>
     <p><a href="../">Home</a> · <a href="../challenge/">Challenge</a> · <a href="../lesson/">Lesson</a></p>
   </div>
 </footer>

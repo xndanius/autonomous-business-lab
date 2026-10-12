@@ -47,7 +47,8 @@
         <a href="#control"><b>4</b>You stay in control</a>
         <a href="#ai-native"><b>5</b>Become AI native</a>
         <a href="#exercise"><b>6</b>Your turn</a>
-        <a href="#tools"><b>7</b>Tools</a>
+        <a href="#build"><b>7</b>Build it</a>
+        <a href="#tools"><b>8</b>Tools</a>
       </nav>
     </div>
   </section>
@@ -113,7 +114,7 @@
       <div class="section-head">
         <p class="eyebrow">3 · One loop up close</p>
         <h2>Order, make, check, deliver. And when it fails.</h2>
-        <p class="lede">Real screens from the lecture demo, the 60-Second Startup. Click through the steps.</p>
+        <p class="lede">Step through one loop. Order, Make and Deliver show real screens from the lecture demo, the 60-Second Startup.</p>
       </div>
       <div class="stepper">
         <div class="steps" role="tablist" aria-label="Steps of the Serve loop">
@@ -133,8 +134,8 @@
             <div><h3>2 · Make</h3><p>AI does the parts that need judgment: the offer, who pays, what they get. Fixed rules do the rest, like the layout and the price format.</p><p class="note" style="margin-top:12px">Ask yourself: which steps need AI, and which can use fixed rules?</p></div>
           </div>
           <div class="panel" role="tabpanel" id="p-check" aria-labelledby="t-check" hidden>
-            <div class="failcard" style="border-color:var(--lime);background:#171E15"><span class="t" style="color:var(--lime)">Separate check</span><span class="m">Complete? Safe? True? What the user asked for?</span></div>
-            <div><h3>3 · Check</h3><p>Before anyone sees the result, a separate check reads it. The maker does not grade its own work. In the demo, the checker stops jokes, unsafe text and false claims.</p><p class="note" style="margin-top:12px">Ask yourself: how does my loop check a result before it is delivered?</p></div>
+            <div class="failcard" style="border-color:var(--lime);background:#171E15"><span class="t" style="color:var(--lime)">Real reasons from a checker</span><span class="q">“Physical robotics and vehicle servicing are outside a two-week beginner build.”</span><span class="q">“The page documents a template and setup, but provides no independently verified usage or outcomes.”</span><span class="by">While You Sleep, 11–12 October: two ideas its checker stopped.</span></div>
+            <div><h3>3 · Check</h3><p>Before anyone sees the result, a separate check reads it. The maker does not grade its own work. In the demo, the checker stops jokes, unsafe text and false claims.</p><p class="howto"><b>How to build it:</b> send the result and a short checklist to a second AI call. It answers PASS or FAIL with one reason. Only PASS is delivered.</p><p class="note" style="margin-top:12px">Ask yourself: how does my loop check a result before it is delivered?</p></div>
           </div>
           <div class="panel" role="tabpanel" id="p-deliver" aria-labelledby="t-deliver" hidden>
             <div class="shot"><img src="../assets/img/step-deliver.jpg" alt="The delivered page: Society Sponsor Follow-up, turn event notes into a clear sponsor follow-up email in one day." loading="lazy"></div>
@@ -156,14 +157,14 @@
         <h2>AI does the routine. You own the goal, the limits and the exceptions.</h2>
       </div>
       <div class="ctl">
-        <div class="rail down" aria-hidden="true"><span>Goals and limits</span><i></i><i></i></div>
+        <div class="rail down" aria-hidden="true"><span>Goals and limits</span></div>
         <div class="slabs">
           <div class="slab you"><b>You</b><p>Goal, limits, final say.</p></div>
           <div class="slab"><b>Control panel</b><p>See results, cost and errors. Approve. Stop.</p></div>
           <div class="slab"><b>Loops</b><p>Grow · Serve · Improve</p></div>
           <div class="slab"><b>Tools and memory</b><p>AI models, forms, data, a log. Runs on events or a schedule.</p></div>
         </div>
-        <div class="rail up" aria-hidden="true"><span>Results and questions</span><i></i><i></i></div>
+        <div class="rail up" aria-hidden="true"><span>Results and questions</span></div>
       </div>
       <p class="sr-only">Goals and limits go down from you to the tools. Results and questions come up to you.</p>
 
@@ -207,7 +208,7 @@
         <div class="callout">
           <span class="eyebrow">From the lecture</span>
           <p class="soft">Danielius built the lecture's live demo in one weekend by directing AI agents, with no hand-written code. Two weeks of daily practice can change what you are able to build.</p>
-          <a href="../challenge/#start">Your first 14 days →</a>
+          <a href="../challenge/#plan">Your plan for the next weeks →</a>
         </div>
       </div>
     </div>
@@ -218,7 +219,7 @@
       <div class="section-head">
         <p class="eyebrow">6 · Your turn</p>
         <h2>Design your first autonomous loop.</h2>
-        <p class="lede">8 minutes. Pairs or threes. Any AI chat works, Gemini too. Nothing on this page is sent or stored online.</p>
+        <p class="lede">In class: 8 minutes, in pairs or threes. At home: 15 minutes on your own. Any AI chat works, Gemini too. Nothing on this page is sent or stored online.</p>
       </div>
       <div class="steps3">
         <div class="step3"><span class="n">1</span><h3>Pick a user</h3><p>Open your 60-Second Startup page, or pick one real user and one small problem.</p></div>
@@ -235,9 +236,25 @@ Give a simple arrow chain. Mark untested assumptions. Do not claim anything is a
       </div>
 
       <div class="subhead">
-        <p class="eyebrow">Write six lines</p>
-        <h3>Bring them to the n8n workshop</h3>
-        <p class="note">Your draft stays only in this browser. Copy it when you are done.</p>
+        <p class="eyebrow">What good looks like</p>
+        <h3>Example: six lines for one small service</h3>
+        <p class="note">Made up for teaching, based on one page the lecture demo produced.</p>
+      </div>
+      <div class="card example-six">
+        <dl class="mapping six-ex">
+          <dt>User and value</dt><dd>A student society treasurer gets a ready thank-you email for a sponsor within a day after an event.</dd>
+          <dt>Trigger and loop</dt><dd>A form with event notes and the sponsor's name → AI drafts the email → check → the draft goes to the treasurer → the request is logged.</dd>
+          <dt>Check</dt><dd>A second step compares the draft with the notes: names, numbers and dates must match. Fixed rules check the length, and that no money or promise is invented.</dd>
+          <dt class="ctrl">Human control</dt><dd>The treasurer approves every email before it reaches the sponsor. A simple panel shows requests, cost and errors, and has a pause switch.</dd>
+          <dt>Feedback</dt><dd>The treasurer rates each draft from 1 to 5. After 10 ratings, test one change to the instructions on the same 10 examples.</dd>
+          <dt>First test</dt><dd>Five real event notes from two societies. Save the input, the draft, the check result and the rating.</dd>
+        </dl>
+      </div>
+
+      <div class="subhead">
+        <p class="eyebrow">Now yours</p>
+        <h3>Write your six lines</h3>
+        <p class="note">Use them in the n8n workshop and on Thursday, when teams form. Your draft stays only in this browser. Copy it when you are done.</p>
       </div>
       <div class="card">
         <div class="six">
@@ -256,7 +273,7 @@ Give a simple arrow chain. Mark untested assumptions. Do not claim anything is a
 
       <div class="subhead">
         <p class="eyebrow">After class</p>
-        <h3>Three more prompts</h3>
+        <h3>Four more prompts</h3>
       </div>
       <div class="xprompts">
         <details>
@@ -278,6 +295,18 @@ Do not guess that the problem is fixed. Give the most likely cause, one safe dia
           </div>
         </details>
         <details>
+          <summary>Write the check for your loop</summary>
+          <div class="prompt">
+            <div class="prompt-head"><b>When you need a PASS or FAIL checklist</b><button class="copy" type="button" data-copy="#prompt-check">Copy</button></div>
+<pre id="prompt-check">Help me write the check for my loop.
+The user and what they get: [one sentence].
+One example of a good result: [paste it].
+One example of a bad result: [paste it].
+
+Write 5 to 7 yes-or-no questions that a second AI step can answer about every result before it is delivered. Each question must be checkable from the input and the result alone. Then write the instruction for the checker: answer PASS or FAIL, with one short reason. Finally, give me three test inputs that should FAIL.</pre>
+          </div>
+        </details>
+        <details>
           <summary>Check how autonomous it really is</summary>
           <div class="prompt">
             <div class="prompt-head"><b>When you need an honest audit</b><button class="copy" type="button" data-copy="#prompt-audit">Copy</button></div>
@@ -288,17 +317,59 @@ Do not guess that the problem is fixed. Give the most likely cause, one safe dia
     </div>
   </section>
 
-  <section class="section" id="tools">
+  <section class="section" id="build">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">7 · Tools</p>
+        <p class="eyebrow">7 · Build it</p>
+        <h2>From a design to a running loop, in five steps</h2>
+        <p class="lede">Each step proves one of the six things the challenge asks for.</p>
+      </div>
+      <ol class="buildpath">
+        <li><b>Do it by hand once</b><p>Serve one real user yourself, step by step. Save the input and the result. Now you know what “done” means.</p><span class="proves">Proves: a real user</span></li>
+        <li><b>Automate the Serve loop</b><p>Trigger → AI step → check → deliver. Build it in n8n, or with Codex or Claude Code. Test with made-up data first.</p><span class="proves">Proves: it runs without you, it checks first</span></li>
+        <li><b>Add a log and a stop</b><p>Every request gets one row: input, result, check, time, cost. Add a pause switch. A spreadsheet is enough to start.</p><span class="proves">Proves: you stay in control</span></li>
+        <li><b>Break it on purpose</b><p>Send missing input, a bad answer, the same request twice. The loop must retry, stop safely or ask you, and never send twice.</p><span class="proves">Proves: it handles failure</span></li>
+        <li><b>Run it for real users</b><p>Let it run for a week. Count your minutes. Change one thing from feedback, and test old and new on the same examples.</p><span class="proves">Proves: it learns</span></li>
+      </ol>
+
+      <div class="subhead">
+        <p class="eyebrow">A first loop in n8n</p>
+        <h3>Six nodes. One request in, one checked result out.</h3>
+      </div>
+      <div class="recipe" role="list">
+        <div class="node" role="listitem"><span class="stage-name">Order</span><b>Form Trigger</b><p>The user fills a form. That starts the loop.</p></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="node" role="listitem"><span class="stage-name">Make</span><b>AI step</b><p>An OpenAI or AI Agent node drafts the result from the form.</p></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="node check" role="listitem"><span class="stage-name">Check</span><b>Second AI step</b><p>Gets the result and your checklist. Answers PASS or FAIL, with a reason.</p></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="node" role="listitem"><span class="stage-name">Decide</span><b>If node</b><p>PASS goes on. FAIL tries once more, then emails you.</p></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="node" role="listitem"><span class="stage-name">Deliver</span><b>Gmail</b><p>Sends the checked result to the user.</p></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="node" role="listitem"><span class="stage-name">Record</span><b>Google Sheets</b><p>One row per request: time, input, result, check, reason. Your first control panel.</p></div>
+      </div>
+      <p class="note" style="margin-top:14px">Add an error workflow with the Error Trigger node, so a crash sends you a message instead of failing silently. <a href="https://docs.n8n.io/flow-logic/error-handling/">How ↗</a></p>
+    </div>
+  </section>
+
+  <section class="section alt" id="tools">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">8 · Tools</p>
         <h2>Learn. Build. Run.</h2>
         <p class="lede">What matters is the job each tool does, not a long list of brands.</p>
       </div>
       <div class="grid3">
-        <div class="card"><span class="k">Learn</span><h3>Any AI chat</h3><p>ChatGPT, Claude or Gemini. Ask it to explain, plan and criticise. It is a tutor, not yet a running system.</p></div>
-        <div class="card"><span class="k">Build</span><h3>Codex or Claude Code</h3><p>AI agents that write, run and fix code with you. You describe the goal; they build, and you check.</p></div>
-        <div class="card"><span class="k">Run</span><h3>n8n, or another tool</h3><p>Runs your loop on an event or a schedule, so it keeps going after you close the laptop. Dmitrijs shows n8n at 14:00.</p></div>
+        <div class="card"><span class="k">Learn</span><h3>Any AI chat</h3><p>ChatGPT, Claude or Gemini. Ask it to explain, plan and criticise. It is a tutor, not yet a running system.</p>
+          <p class="cost">Cost: all three have free plans to start.</p>
+          <div class="toollinks"><a href="https://chatgpt.com/">ChatGPT ↗</a><a href="https://claude.ai/">Claude ↗</a><a href="https://gemini.google.com/">Gemini ↗</a></div></div>
+        <div class="card"><span class="k">Build</span><h3>Codex or Claude Code</h3><p>AI agents that write, run and fix code with you. You describe the goal; they build, and you check.</p>
+          <p class="cost">Cost: Codex comes with paid ChatGPT plans. Claude Code needs a paid Claude plan.</p>
+          <div class="toollinks"><a href="https://openai.com/codex/">Codex ↗</a><a href="https://code.claude.com/docs/en/overview">Claude Code ↗</a><a href="https://academy.claude.com/">Free courses ↗</a></div></div>
+        <div class="card"><span class="k">Run</span><h3>n8n, or another tool</h3><p>Runs your loop on an event or a schedule, so it keeps going after you close the laptop. Dmitrijs shows n8n at 14:00.</p>
+          <p class="cost">Cost: n8n has a free trial in the cloud, or runs free on your own computer.</p>
+          <div class="toollinks"><a href="https://docs.n8n.io/try-it-out/">First workflow ↗</a><a href="https://docs.n8n.io/flow-logic/error-handling/">Handle errors ↗</a></div></div>
       </div>
       <div class="callout" style="margin-top:20px">
         <span class="eyebrow">Building is not running</span>
@@ -314,7 +385,7 @@ Do not guess that the problem is fixed. Give the most likely cause, one safe dia
 
 <footer>
   <div class="wrap">
-    <p>Autonomous Business Lab · Guest lecture at SSE Riga, 13 October 2026</p>
+    <p>Autonomous Business Lab · Guest lecture by Danielius Stasiulis at SSE Riga, 13 October 2026 · Updated 12 October 2026</p>
     <p><a href="../">Home</a> · <a href="../challenge/">Challenge</a> · <a href="../examples/">Examples</a></p>
   </div>
 </footer>

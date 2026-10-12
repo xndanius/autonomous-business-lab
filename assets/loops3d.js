@@ -17,6 +17,7 @@
     try {
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     } catch (e) { stage.classList.add('no3d'); return; }
+    var ready = false;
     var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var compact = stage.hasAttribute('data-compact');
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -61,18 +62,41 @@
 
     // stations on the Serve ring (dots move with decreasing angle = clockwise on screen)
     var stations = [
-      { name: 'Order', a: 2.45 }, { name: 'Make', a: 0.95 }, { name: 'Check', a: -0.55 }, { name: 'Deliver', a: -2.05 }
+      { name: 'Order', a: 2.55 }, { name: 'Make', a: 0.95 }, { name: 'Check', a: -0.3 }, { name: 'Deliver', a: -1.25 }
     ];
     stations.forEach(function (s) {
       var m = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.2, 0.2), new THREE.MeshBasicMaterial({ color: s.name === 'Check' ? ORANGE : WHITE }));
       ringPoint(serve, s.a, m.position); group.add(m); s.mesh = m;
     });
 
+    // fixed arrows that say how the loops feed each other (readable even in a still frame)
+    var LINK = 0x8C9A93;
+    function bezierPts(a, b, lift) {
+      var mid = a.clone().add(b).multiplyScalar(0.5); mid.y += lift; mid.z += lift * 0.35;
+      return new THREE.QuadraticBezierCurve3(a.clone(), mid, b.clone());
+    }
+    var links = [
+      { a: ringPoint(grow, 0.6), b: ringPoint(serve, stations[0].a), lift: 0.7, text: 'new customers', at: 0.45, dy: 0.38 },
+      { a: ringPoint(serve, stations[3].a), b: ringPoint(improve, Math.PI + 0.5), lift: -0.5, text: 'results + ratings', at: 0.5, dy: -0.32 },
+      { a: ringPoint(improve, 2.2), b: ringPoint(serve, stations[1].a), lift: 0.8, text: 'a better rule', at: 0.42, dy: 0.38 }
+    ];
+    links.forEach(function (l) {
+      l.curve = bezierPts(l.a, l.b, l.lift);
+      var line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(l.curve.getPoints(48)),
+        new THREE.LineDashedMaterial({ color: LINK, dashSize: 0.12, gapSize: 0.08, transparent: true, opacity: 0.9 }));
+      line.computeLineDistances(); group.add(line);
+      var head = new THREE.Mesh(new THREE.ConeGeometry(0.075, 0.22, 12), new THREE.MeshBasicMaterial({ color: LINK }));
+      head.position.copy(l.curve.getPoint(0.97));
+      head.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), l.curve.getTangent(0.97).normalize());
+      group.add(head);
+    });
+
     // HTML tags
     var tags = [];
-    function addTag(text, cls, getPos) { var el = document.createElement('div'); el.className = 'tag ' + cls; el.textContent = text; stage.appendChild(el); tags.push({ el: el, pos: getPos }); }
-    rings.forEach(function (ring) { addTag(ring.name, 'big' + (ring.key === 'serve' ? ' serve' : ''), function () { var p = ringPoint(ring, -Math.PI / 2); p.y -= 0.62; return p; }); });
+    function addTag(text, cls, getPos) { var el = document.createElement('div'); el.className = 'tag ' + cls; el.textContent = text; el.style.visibility = 'hidden'; stage.appendChild(el); tags.push({ el: el, pos: getPos }); }
+    rings.forEach(function (ring) { addTag(ring.name, 'big' + (ring.key === 'serve' ? ' serve' : ''), function () { return new THREE.Vector3(ring.cx, 0, 0); }); });
     if (!compact) stations.forEach(function (s) { addTag(s.name, 'small', function () { var p = ringPoint(serve, s.a); var dir = p.clone().sub(new THREE.Vector3(serve.cx, 0, 0)).normalize(); return p.add(dir.multiplyScalar(0.6)); }); });
+    links.forEach(function (l) { addTag(l.text, 'link', function () { var p = l.curve.getPoint(l.at); p.y += l.dy; return p; }); });
     var tip = document.createElement('div'); tip.className = 'tip'; stage.appendChild(tip);
     var defaultTip = 'Dots are orders. An orange dot failed the check: it goes back and gets fixed.';
     tip.textContent = defaultTip;
@@ -92,17 +116,17 @@
     }
     function spawnCustomer() {
       if (dots.length > 26) return;
-      var d = makeDot(WHITE, 0.06); d.state = 'grow'; d.a = Math.random() * Math.PI * 2; d.left = 0.8 + Math.random() * 1.6; d.speed = 1.3;
+      var d = makeDot(WHITE, 0.06); d.state = 'grow'; d.a = 0.6 + 0.4 + Math.random() * Math.PI * 1.6; d.speed = 1.3; // leaves Grow where the arrow starts
       dots.push(d);
     }
     function toFly(d, curve, dur, next, color) { d.state = 'fly'; d.curve = curve; d.t = 0; d.dur = dur; d.next = next; if (color) d.setColor(color); }
     var tmp = new THREE.Vector3();
     function stepDot(d, dt) {
       if (d.state === 'grow') {
-        d.a -= d.speed * dt; d.left -= dt; ringPoint(grow, d.a, d.obj.position);
-        if (d.left <= 0) {
-          var from = ringPoint(grow, d.a), to = ringPoint(serve, stations[0].a);
-          toFly(d, bezier(from, to, 1.2), 1.1, function () { d.state = 'serve'; d.a = stations[0].a; d.speed = 0.85; d.setColor(LIME); d.checked = false; });
+        d.a -= d.speed * dt; ringPoint(grow, d.a, d.obj.position);
+        if (d.a <= 0.6) {
+          var from = ringPoint(grow, 0.6), to = ringPoint(serve, stations[0].a);
+          toFly(d, bezier(from, to, 0.7), 0.9, function () { d.state = 'serve'; d.a = stations[0].a; d.speed = 0.85; d.setColor(LIME); d.checked = false; });
         }
       } else if (d.state === 'serve') {
         var before = d.a; d.a -= d.speed * dt; ringPoint(serve, d.a, d.obj.position);
@@ -117,15 +141,15 @@
         }
         if (before > deliver && d.a <= deliver) {
           if (Math.random() < 0.55) { // results go to Improve
-            var q1 = ringPoint(serve, deliver), q2 = ringPoint(improve, Math.PI);
-            toFly(d, bezier(q1, q2, 1.0), 1.0, function () { d.state = 'improve'; d.a = Math.PI; d.left = 1.4 + Math.random(); d.speed = 1.4; d.setColor(SOFT); });
+            var q1 = ringPoint(serve, deliver), q2 = ringPoint(improve, Math.PI + 0.5);
+            toFly(d, bezier(q1, q2, -0.5), 0.9, function () { d.state = 'improve'; d.a = Math.PI + 0.5; d.exitA = 2.2 - Math.PI * 2; d.speed = 2.4; d.setColor(SOFT); });
           } else { d.state = 'fade'; d.life = 0.6; }
         }
       } else if (d.state === 'improve') {
-        d.a -= d.speed * dt; d.left -= dt; ringPoint(improve, d.a, d.obj.position);
-        if (d.left <= 0) {
-          var r1 = ringPoint(improve, d.a), r2 = ringPoint(serve, stations[1].a);
-          toFly(d, bezier(r1, r2, 2.2), 1.6, function () { d.state = 'fade'; d.life = 0.5; }, WHITE);
+        d.a -= d.speed * dt; ringPoint(improve, d.a, d.obj.position);
+        if (d.a <= d.exitA) { // one turn of learning, then a better rule flies back to Make
+          var r1 = ringPoint(improve, d.exitA), r2 = ringPoint(serve, stations[1].a);
+          toFly(d, bezier(r1, r2, 0.8), 1.2, function () { d.state = 'fade'; d.life = 0.5; }, WHITE);
         }
       } else if (d.state === 'fly') {
         d.t += dt / d.dur; if (d.t >= 1) { d.t = 1; }
@@ -148,6 +172,7 @@
       camera.position.set(0, d * 0.2, d); camera.lookAt(0, -0.2, 0);
       scene.fog.near = d - 1.5; scene.fog.far = d + 9;
       camera.updateProjectionMatrix();
+      if (ready) draw();
     }
     resize();
     if (window.ResizeObserver) new ResizeObserver(resize).observe(stage); else window.addEventListener('resize', resize);
@@ -198,14 +223,19 @@
       group.rotation.x += (target.x - group.rotation.x) * 0.05;
       var pulse = 1 + Math.sin(now / 300) * 0.08;
       stations[2].mesh.scale.set(pulse, pulse, pulse);
+      draw();
+      rafId = requestAnimationFrame(frame);
+    }
+    function draw() {
       renderer.render(scene, camera);
       var w = stage.clientWidth, h = stage.clientHeight;
       for (var k = 0; k < tags.length; k++) {
         var p = tags[k].pos(); group.localToWorld(p); p.project(camera);
         tags[k].el.style.left = ((p.x + 1) / 2 * w) + 'px'; tags[k].el.style.top = ((1 - p.y) / 2 * h) + 'px';
+        tags[k].el.style.visibility = '';
       }
-      rafId = requestAnimationFrame(frame);
     }
+    ready = true; group.updateMatrixWorld(true); draw(); // a first still frame, even before animation starts
     kick();
   }
 

@@ -51,10 +51,19 @@
       });
     });
     var clear = $('[data-clear-six]');
-    if (clear) clear.addEventListener('click', function () {
-      six.forEach(function (t) { t.value = ''; });
-      try { localStorage.removeItem(KEY); } catch (e) { /* ignore */ }
-    });
+    if (clear) {
+      var armed = null, clearLabel = clear.textContent;
+      clear.addEventListener('click', function () {
+        if (!armed) {
+          clear.textContent = 'Press again to clear all six';
+          armed = setTimeout(function () { armed = null; clear.textContent = clearLabel; }, 3000);
+          return;
+        }
+        clearTimeout(armed); armed = null; clear.textContent = clearLabel;
+        six.forEach(function (t) { t.value = ''; });
+        try { localStorage.removeItem(KEY); } catch (e) { /* ignore */ }
+      });
+    }
   }
 
   /* ---------- lesson stepper (tabs) ---------- */
@@ -165,7 +174,7 @@
       tiles.forEach(function (t) { minX = Math.min(minX, t.x); maxX = Math.max(maxX, t.x); minY = Math.min(minY, t.y); maxY = Math.max(maxY, t.y); });
       var els = tiles.map(function (t) {
         var im = document.createElement('img');
-        im.src = base + t.img; im.alt = ''; im.draggable = false; im.decoding = 'async';
+        im.src = base + t.img.replace('/atlas/', '/atlas-s/'); im.setAttribute('data-full', base + t.img); im.alt = ''; im.draggable = false; im.decoding = 'async';
         im.style.left = ((t.x - minX) * T) + 'px'; im.style.top = ((t.y - minY) * T) + 'px';
         im.setAttribute('data-title', t.id + '. ' + t.title); im.setAttribute('data-at', t.at);
         plane.appendChild(im); return im;
@@ -173,7 +182,11 @@
       var W = (maxX - minX + 1) * T, H = (maxY - minY + 1) * T;
       plane.style.width = W + 'px'; plane.style.height = H + 'px';
       var s = 1, tx = 0, ty = 0;
-      function apply() { plane.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + s + ')'; plane.style.transformOrigin = '0 0'; }
+      var sharp = false;
+      function apply() {
+        plane.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + s + ')'; plane.style.transformOrigin = '0 0';
+        if (!sharp && s > 0.6) { sharp = true; els.forEach(function (im) { im.src = im.getAttribute('data-full'); }); } // full tiles only when zoomed in
+      }
       function fit() {
         var r = atlas.getBoundingClientRect();
         s = Math.min(r.width / W, r.height / H) * 0.92;
@@ -207,10 +220,24 @@
       $('[data-zoom-in]', atlas).addEventListener('click', function () { var r = atlas.getBoundingClientRect(); zoomAt(1.35, r.width / 2, r.height / 2); });
       $('[data-zoom-out]', atlas).addEventListener('click', function () { var r = atlas.getBoundingClientRect(); zoomAt(1 / 1.35, r.width / 2, r.height / 2); });
 
+      // phones: the map is locked until the user taps "Explore", so the page still scrolls
+      var coarse = !!(window.matchMedia && (window.matchMedia('(pointer: coarse)').matches || window.matchMedia('(hover: none)').matches));
+      if (coarse) name.textContent = 'Tap a tile to read its name';
+      var exploreBtn = $('[data-explore]', atlas), doneBtn = $('[data-done]', atlas);
+      function lock(on) {
+        atlas.classList.toggle('locked', on);
+        if (exploreBtn) exploreBtn.hidden = !on;
+        if (doneBtn) doneBtn.hidden = on || !coarse;
+      }
+      lock(coarse);
+      if (exploreBtn) exploreBtn.addEventListener('click', function () { lock(false); });
+      if (doneBtn) doneBtn.addEventListener('click', function () { lock(true); });
+
       // pointer: drag with one finger or the mouse, pinch with two
       var pts = {}, last = null, pinch = null, moved = false;
       atlas.addEventListener('pointerdown', function (e) {
         if (e.target.closest('button')) return;
+        if (atlas.classList.contains('locked') && e.pointerType !== 'mouse') return;
         atlas.setPointerCapture(e.pointerId); pts[e.pointerId] = { x: e.clientX, y: e.clientY }; moved = false;
         var ids = Object.keys(pts);
         if (ids.length === 2) {
@@ -219,6 +246,7 @@
         } else { last = { x: e.clientX, y: e.clientY }; }
       });
       atlas.addEventListener('pointermove', function (e) {
+        if (atlas.classList.contains('locked') && e.pointerType !== 'mouse') return;
         var r = atlas.getBoundingClientRect();
         if (!pts[e.pointerId]) {
           var hit = document.elementFromPoint(e.clientX, e.clientY);
@@ -274,10 +302,22 @@
         if (typeof st.candidates === 'number') set('checked', st.candidates.toLocaleString('en-GB'));
         if (typeof st.published === 'number') set('published', String(st.published));
         if (typeof st.totalCostUsd === 'number') set('cost', '$' + st.totalCostUsd.toFixed(2));
+        if (Array.isArray(m.versions)) {
+          var kept = m.versions.filter(function (v) { return v && v.adopted; }).length;
+          set('rules', m.versions.length + ' / ' + kept);
+        }
+        if (s2.lastPublishedAt) {
+          var hrs = Math.round((Date.now() - new Date(s2.lastPublishedAt).getTime()) / 3600000);
+          set('pub', hrs < 1 ? 'within 1 h' : hrs < 48 ? hrs + ' h ago' : Math.round(hrs / 24) + ' days ago');
+        }
+        if (typeof st.published === 'number' && typeof st.candidates === 'number' && st.candidates > 0) {
+          set('line', 'Only ' + st.published + ' of ' + st.candidates.toLocaleString('en-GB') + ' researched ideas passed the check so far. The rest were stopped.');
+        }
         var lastRun = s2.lastRunAt || s2.lastLoopAt;
         if (lastRun) {
           var mins = Math.round((Date.now() - new Date(lastRun).getTime()) / 60000);
-          set('last', mins < 1 ? 'now' : mins < 90 ? mins + ' min ago' : Math.round(mins / 60) + ' h ago');
+          if (mins > 180) { set('last', 'paused'); live.classList.add('stale'); }
+          else set('last', mins < 1 ? 'now' : mins < 90 ? mins + ' min ago' : Math.round(mins / 60) + ' h ago');
         }
         live.hidden = false;
       })
