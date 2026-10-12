@@ -12,6 +12,9 @@ business to launch. The page is `simulation/`. The engine is `sim/engine.mjs`.
   (`simulation/people.json`), the class list, the idea board and the last 24
   messages.
 - The engine enforces the rules (backing limits, production, dropping).
+- A manual run can cover a fixed stretch of time: Actions → Class simulation →
+  Run workflow with ticks 70 and gap 5 runs one tick every 5 minutes for about
+  6 hours, then ends. Useful when GitHub starts scheduled runs late.
 - Data is written to the `sim-data` branch: `state.json` (board, latest
   messages, stats) and `chat/YYYY-MM-DD.json` (every message of a day).
   The branch is kept as a single commit; the page reads it from

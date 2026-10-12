@@ -4,6 +4,9 @@ name: Class simulation
 # Every ~5 minutes a few of them speak. Data goes to the sim-data branch,
 # which the Simulation page reads. To stop: set the repository variable
 # SIM_PAUSED to 1, or disable this workflow in the Actions tab.
+#
+# A manual run can also cover a fixed stretch of time: for example
+# ticks=70 and gap=5 runs one tick every 5 minutes for about 6 hours, then ends.
 
 on:
   schedule:
@@ -11,8 +14,11 @@ on:
   workflow_dispatch:
     inputs:
       ticks:
-        description: "Ticks to run now (1-6)"
+        description: "Ticks to run (1-70)"
         default: "1"
+      gap:
+        description: "Minutes between ticks (0 = back to back)"
+        default: "0"
 
 permissions:
   contents: write
@@ -24,7 +30,7 @@ concurrency:
 jobs:
   tick:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 358
     steps:
       - uses: actions/checkout@v5
         with:
@@ -48,6 +54,7 @@ jobs:
 
       - name: Let the class talk
         env:
+          GH_TOKEN: ${{ github.token }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           SIM_MODEL: ${{ vars.SIM_MODEL }}
           SIM_FALLBACK_MODEL: ${{ vars.SIM_FALLBACK_MODEL }}
@@ -60,28 +67,27 @@ jobs:
           SIM_NIGHT_SPEAKERS: ${{ vars.SIM_NIGHT_SPEAKERS }}
           SIM_PAUSED: ${{ vars.SIM_PAUSED }}
           TICKS: ${{ github.event.inputs.ticks || '1' }}
+          GAP: ${{ github.event.inputs.gap || '0' }}
           FORCE: ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}
-        run: node sim/engine.mjs --data data --ticks "$TICKS" $FORCE
-
-      - name: Save
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
-          cd data
-          if [ -z "$(git status --porcelain)" ]; then
-            echo "Nothing new."
+          N=$(printf '%s' "$TICKS" | tr -cd '0-9'); N=${N:-1}
+          [ "$N" -lt 1 ] && N=1
+          [ "$N" -gt 70 ] && N=70
+          G=$(printf '%s' "$GAP" | tr -cd '0-9'); G=${G:-0}
+          [ "$G" -gt 10 ] && G=10
+          if [ "$G" -eq 0 ]; then
+            node sim/engine.mjs --data data --ticks "$N" $FORCE
+            bash sim/save.sh
             exit 0
           fi
-          TICK=$(node -p "require('./state.json').tick" 2>/dev/null || echo "?")
-          git checkout --quiet --orphan snapshot
-          git add -A
-          git -c user.name="class-sim" -c user.email="class-sim@users.noreply.github.com" commit --quiet -m "Class chat, tick ${TICK}"
-          for i in 1 2 3; do
-            if git push --quiet --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/sim-data; then
-              # refresh the fallback mirror the page uses if raw.githubusercontent.com is slow or limited
-              curl -s -m 20 "https://purge.jsdelivr.net/gh/${GITHUB_REPOSITORY}@sim-data/state.json" > /dev/null || true
-              exit 0
+          for i in $(seq 1 "$N"); do
+            if [ "$SIM_PAUSED" = "1" ] || [ "$SIM_PAUSED" = "true" ]; then echo "Paused."; break; fi
+            START=$(date +%s)
+            node sim/engine.mjs --data data --ticks 1 $FORCE || echo "tick $i failed"
+            bash sim/save.sh || echo "save $i failed"
+            FORCE=""
+            if [ "$i" -lt "$N" ]; then
+              WAIT=$(( G * 60 - ($(date +%s) - START) ))
+              [ "$WAIT" -gt 0 ] && sleep "$WAIT"
             fi
-            sleep 5
           done
-          exit 1
