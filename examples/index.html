@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en" data-base="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examples · Autonomous Business Lab</title>
+<meta name="description" content="Loops that ran on their own: the 60-Second Startup, the While You Sleep ideas channel, a comic and a map that grew every five minutes, and two small companies.">
+<meta name="theme-color" content="#0F1318">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Examples: loops that ran on their own">
+<meta property="og:description" content="A startup machine, an ideas channel that runs every hour, a comic and a map that grew every five minutes.">
+<meta property="og:image" content="https://xndanius.github.io/autonomous-business-lab/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230F1318'/%3E%3Ccircle cx='15' cy='32' r='8' fill='none' stroke='%23B7C1BA' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='11' fill='none' stroke='%23B9E46B' stroke-width='5'/%3E%3Ccircle cx='49' cy='32' r='8' fill='none' stroke='%23B7C1BA' stroke-width='4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="Autonomous Business Lab, home">
+      <svg width="34" height="20" viewBox="0 0 34 20" aria-hidden="true"><circle cx="6" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/><circle cx="17" cy="10" r="6.5" fill="none" stroke="#B9E46B" stroke-width="2.4"/><circle cx="28" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/></svg>
+      <span>Autonomous Business Lab</span>
+    </a>
+    <nav aria-label="Main">
+      <a href="../challenge/">Challenge</a>
+      <a href="../lesson/">Lesson</a>
+      <a href="./" aria-current="page">Examples</a>
+    </nav>
+    <a class="btn primary" href="../lesson/#exercise">First exercise</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow">Examples</p>
+      <h1>Loops that ran <span class="lime">on their own.</span></h1>
+      <p class="lede">Four loops Danielius built by directing AI agents, and two small companies. Each shows a part of the model: Grow, Serve, Improve, and a human in control.</p>
+      <nav class="toc" aria-label="On this page">
+        <a href="#startup"><b>1</b>The 60-Second Startup</a>
+        <a href="#wys"><b>2</b>While You Sleep</a>
+        <a href="#comic"><b>3</b>The Long Run</a>
+        <a href="#atlas"><b>4</b>The Unfinished Atlas</a>
+        <a href="#companies"><b>5</b>Small teams, real money</a>
+      </nav>
+    </div>
+  </section>
+
+  <section class="section" id="startup">
+    <div class="wrap example">
+      <div class="media">
+        <div class="phones">
+          <div class="phone"><img src="../assets/img/phone-go.jpg" alt="Phone screen: One skill. One new business. Type one skill you have, or one problem you have seen." loading="lazy"></div>
+          <div class="phone"><img src="../assets/img/phone-page.jpg" alt="Phone screen: the delivered startup page, Society Sponsor Follow-up, 25 euros per email draft." loading="lazy"></div>
+        </div>
+      </div>
+      <div class="facts">
+        <p class="eyebrow">Example 1 · Built for the lecture</p>
+        <h2>The 60-Second Startup</h2>
+        <p class="soft">Students scan a QR code and type one skill or one problem. Less than a minute later, each one gets a checked startup page with its own link: the offer, who pays, the price, and how the business could run itself.</p>
+        <dl class="mapping">
+          <dt>Grow</dt><dd>Every page says “Make your own”.</dd>
+          <dt>Serve</dt><dd>Order → Make → Check → Deliver, with no human step.</dd>
+          <dt>Check</dt><dd>A separate checker stops jokes, unsafe text and false claims.</dd>
+          <dt>Improve</dt><dd>After enough ratings, it tests one change. Old and new run on the same ideas; the new one ships only if a grader scores it higher.</dd>
+          <dt class="ctrl">Control</dt><dd>The board counts human touches per order. The goal is zero.</dd>
+        </dl>
+        <div class="links">
+          <a class="btn" href="https://sse-riga-60-second-startup.xndanius.chatgpt.site/startup/be19d901-2f42-4f15-bc22-1315e215602c">See one delivered page ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="wys">
+    <div class="wrap example rev">
+      <div class="media">
+        <a class="shot-frame" href="https://xndanius.github.io/while-you-sleep/" style="display:block"><img src="../assets/img/wys.jpg" alt="The While You Sleep website: While you sleep, the ideas keep coming." loading="lazy"></a>
+      </div>
+      <div class="facts">
+        <p class="eyebrow">Example 2 · Runs every hour, in the cloud</p>
+        <h2>While You Sleep</h2>
+        <p class="soft">An ideas channel. Every hour it reads public sources and drafts small AI business ideas a student could build. A separate check rejects most of them. Only checked ideas are published.</p>
+        <div class="livebar" data-wys-live hidden>
+          <div><b data-wys="checked">–</b><span>ideas researched</span></div>
+          <div><b data-wys="published">–</b><span>published</span></div>
+          <div><b data-wys="cost">–</b><span>estimated cost so far</span></div>
+          <div><b data-wys="last">–</b><span><i class="livedot"></i>last run</span></div>
+        </div>
+        <dl class="mapping">
+          <dt>Grow</dt><dd>Ideas that score 7 out of 10 or more go to a LinkedIn page, at most two a day.</dd>
+          <dt>Serve</dt><dd>Research → draft → check → publish, on its own clock.</dd>
+          <dt>Check</dt><dd>A separate checker. When it cannot verify an idea, nothing is published.</dd>
+          <dt>Improve</dt><dd>It proposes one rule change at a time. The change is kept only if blind grading scores it higher.</dd>
+          <dt class="ctrl">Control</dt><dd>A daily cap, a code freeze before the lecture, and every run logged in public.</dd>
+        </dl>
+        <div class="links">
+          <a class="btn" href="https://xndanius.github.io/while-you-sleep/">The website ↗</a>
+          <a class="btn" href="https://xndanius.github.io/while-you-sleep/machine/">How it runs ↗</a>
+          <a class="btn" href="https://github.com/xndanius/while-you-sleep">Code ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="comic">
+    <div class="wrap example">
+      <div class="media">
+        <div class="comic" data-comic tabindex="0" aria-label="Comic viewer. Use the left and right arrow keys to turn pages.">
+          <img src="../assets/img/comic/001.jpg" alt="Comic page 1" width="760" height="505">
+          <div class="cap">
+            <b>1. The Familiar Trail</b>
+            <div class="dia"></div>
+            <p class="story">Loading the comic…</p>
+          </div>
+          <div class="ctrl">
+            <button type="button" data-prev aria-label="Previous page">←</button>
+            <input type="range" min="1" max="74" value="1" aria-label="Page" disabled>
+            <button type="button" data-next aria-label="Next page">→</button>
+            <button type="button" class="wide" data-play aria-pressed="false">Play</button>
+            <span class="count">1 / 74</span>
+          </div>
+        </div>
+      </div>
+      <div class="facts">
+        <p class="eyebrow">Example 3 · A creative loop</p>
+        <h2>The Long Run</h2>
+        <p class="soft">A comic that wrote and drew itself, one page every five minutes, from one ordinary trail run in the Vilnius forests. Each new page saw only the last image and a short recap, so the loop had to keep its own story straight.</p>
+        <dl class="mapping">
+          <dt>Pages</dt><dd>74, drawn on 11 October.</dd>
+          <dt>Rhythm</dt><dd>One page every five minutes.</dd>
+          <dt>Memory</dt><dd>The last image and a short recap.</dd>
+          <dt class="ctrl">Lesson</dt><dd>It ran on a laptop, so it stopped when the laptop did. A loop for real users needs to run in the cloud.</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="atlas">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Example 4 · A map that grows</p>
+        <h2>The Unfinished Atlas</h2>
+        <p class="lede">Every five minutes, a new tile was drawn to fit its neighbours. The world grew outward from one clearing: 149 tiles on 11 and 12 October. Drag to explore. Press Replay to watch it grow.</p>
+      </div>
+      <div class="atlas" data-atlas tabindex="0" aria-label="The Unfinished Atlas. Drag to move. Use the plus and minus buttons to zoom.">
+        <div class="plane"></div>
+        <div class="tools"><button type="button" data-replay>Replay</button><button type="button" data-fit>Fit</button></div>
+        <div class="name">Point at a tile to read its name</div>
+        <div class="counter">Loading…</div>
+        <div class="zoom"><button type="button" data-zoom-out aria-label="Zoom out">−</button><button type="button" data-zoom-in aria-label="Zoom in">+</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="companies">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">5 · Small teams, real money</p>
+        <h2>Small teams. Simple tools. Real customers.</h2>
+      </div>
+      <div class="cases">
+        <div class="card case">
+          <span class="k">Photo AI</span>
+          <span class="big">$105K</span>
+          <p>a month in revenue. The site, photoai.com, is a single PHP file of 40,870 lines.</p>
+          <small>Reported by the founder, Pieter Levels, 6 March 2026. <a href="https://levels.io/photoai-40870-line-index-php-105k-mo-revenue">Source ↗</a></small>
+        </div>
+        <div class="card case">
+          <span class="k">Tally</span>
+          <span class="big">$100K</span>
+          <p>in monthly recurring revenue for an online form builder, run by a bootstrapped team of 3.</p>
+          <small>Reported by the team, 1 March 2024. <a href="https://blog.tally.so/our-bootstrapped-journey-towards-100k-mrr/">Source ↗</a></small>
+        </div>
+      </div>
+
+      <div class="subhead">
+        <p class="eyebrow">What every example has</p>
+        <h3>The same four parts</h3>
+      </div>
+      <div class="together">
+        <div><b>A trigger</b><p>An order, a schedule or a new item starts it.</p></div>
+        <div><b>A check</b><p>A separate step reads the result before anyone sees it.</p></div>
+        <div><b>A record</b><p>Every run leaves a trace you can inspect.</p></div>
+        <div><b>A human</b><p>Who sets the goal and the limits, and can stop it.</p></div>
+      </div>
+      <div class="btnrow" style="margin-top:36px">
+        <a class="btn primary" href="../challenge/">Take the challenge →</a>
+        <a class="btn" href="../lesson/#exercise">Design your first loop</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Autonomous Business Lab · Guest lecture at SSE Riga, 13 October 2026. Comic and atlas images are compressed copies.</p>
+    <p><a href="../">Home</a> · <a href="../challenge/">Challenge</a> · <a href="../lesson/">Lesson</a></p>
+  </div>
+</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>
