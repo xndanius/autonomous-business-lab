@@ -5,10 +5,12 @@
   if (!chat) return;
 
   var RAW = 'https://raw.githubusercontent.com/xndanius/autonomous-business-lab/sim-data/';
+  var CDN = 'https://cdn.jsdelivr.net/gh/xndanius/autonomous-business-lab@sim-data/'; // fallback mirror
   var q = new URLSearchParams(location.search).get('data');
-  var DATA = q && /^\/(?!\/)[\w\-\/.]*\/$/.test(q) ? q : RAW; // ?data=/local/dir/ for testing (same origin only)
+  var local = q && /^\/(?!\/)[\w\-\/.]*\/$/.test(q); // ?data=/local/dir/ for testing (same origin only)
+  var BASES = local ? [q] : [RAW, CDN];
   var TZ = 'Europe/Riga';
-  var POLL_MS = 60000;
+  var POLL_MS = 120000;
   var MAJORITY = 20;
 
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -52,20 +54,46 @@
     a.setAttribute('aria-hidden', 'true');
     return a;
   }
-  function getJSON(url) {
-    var u = url + (url.indexOf('?') < 0 ? '?' : '&') + 't=' + Math.floor(Date.now() / 30000);
-    return fetch(u, { cache: 'no-store' }).then(function (r) {
-      if (r.status === 404) return null;
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.json();
+  function getJSON(path) {
+    var i = 0;
+    function attempt() {
+      var base = BASES[i];
+      var u = base + path + (base === CDN ? '' : '?t=' + Math.floor(Date.now() / 30000));
+      return fetch(u, { cache: 'no-store' }).then(function (r) {
+        if (r.status === 404) return null;
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      }).catch(function (e) {
+        if (++i < BASES.length) return attempt();
+        throw e;
+      });
+    }
+    return attempt();
+  }
+  function oldPrices(i) {
+    var seen = {}, out = [];
+    (i.hist || []).forEach(function (h) {
+      var c = h.ch && h.ch.price;
+      if (c && c[0] && c[0] !== i.price && !seen[c[0]]) { seen[c[0]] = 1; out.push(c[0]); }
     });
+    return out.slice(-2);
   }
   function fieldList(i) {
     var dl = el('dl', 'sim-fields');
     [['Payer', i.payer], ['Price', i.price], ['First test', i.test], ['Runs without them', i.loop]].forEach(function (f) {
       if (!f[1]) return;
       dl.appendChild(el('dt', null, f[0]));
-      dl.appendChild(el('dd', f[0] === 'Price' ? 'price' : null, f[1]));
+      var dd = el('dd', f[0] === 'Price' ? 'price' : null, f[1]);
+      if (f[0] === 'Price') {
+        var was = oldPrices(i);
+        if (was.length) {
+          var w = el('span', 'sim-was');
+          w.appendChild(document.createTextNode('was '));
+          was.forEach(function (x, k) { if (k) w.appendChild(document.createTextNode(', ')); w.appendChild(el('s', null, x)); });
+          dd.appendChild(w);
+        }
+      }
+      dl.appendChild(dd);
     });
     return dl;
   }
@@ -298,7 +326,7 @@
     var target = firstDay;
     var tryDay = function (idx) {
       if (idx < 0) return Promise.resolve(0);
-      return getJSON(DATA + 'chat/' + days[idx] + '.json').then(function (arr) {
+      return getJSON('chat/' + days[idx] + '.json').then(function (arr) {
         var added = prependMessages(arr || []);
         if (!added) return tryDay(idx - 1);
         return added;
@@ -432,7 +460,7 @@
     }
   }
   function load() {
-    return getJSON(DATA + 'state.json').then(apply).catch(function () {
+    return getJSON('state.json').then(apply).catch(function () {
       if (!state) setStatus('waiting', 'Could not reach the class data. It will retry in a minute.');
     });
   }
@@ -443,7 +471,7 @@
     return load();
   }).catch(function () { setStatus('paused', 'Could not load the class list.'); });
 
-  setInterval(function () { if (!document.hidden) load(); }, POLL_MS);
+  setInterval(function () { if (!document.hidden) setTimeout(load, Math.random() * 15000); }, POLL_MS);
   document.addEventListener('visibilitychange', function () { if (!document.hidden) load(); });
   setInterval(function () { if (state) { renderStatus(); } }, 30000);
 })();

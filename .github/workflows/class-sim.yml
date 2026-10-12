@@ -77,7 +77,11 @@ jobs:
           git add -A
           git -c user.name="class-sim" -c user.email="class-sim@users.noreply.github.com" commit --quiet -m "Class chat, tick ${TICK}"
           for i in 1 2 3; do
-            git push --quiet --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/sim-data && exit 0
+            if git push --quiet --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/sim-data; then
+              # refresh the fallback mirror the page uses if raw.githubusercontent.com is slow or limited
+              curl -s -m 20 "https://purge.jsdelivr.net/gh/${GITHUB_REPOSITORY}@sim-data/state.json" > /dev/null || true
+              exit 0
+            fi
             sleep 5
           done
           exit 1

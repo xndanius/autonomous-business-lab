@@ -137,7 +137,7 @@ const FIELDS = ['title', 'line', 'payer', 'price', 'test', 'loop'];
 const LIMITS = { title: 60, line: 200, payer: 140, price: 100, test: 200, loop: 220 };
 const fold = (s) => String(s || '').normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
 function clean(s, max) {
-  let t = String(s ?? '').replace(/\s+/g, ' ').trim();
+  let t = String(s ?? '').replace(/\s*\u2014\s*/g, ' - ').replace(/\s+/g, ' ').trim();
   t = t.replace(/^["“”']+|["“”']+$/g, '').trim();
   if (t.length > max) t = t.slice(0, max - 1).replace(/\s+\S*$/, '') + '…';
   return t;
@@ -324,16 +324,16 @@ You live here, so you know what people really pay. Rough anchors:
 If a price would make people in Riga laugh, say so and suggest a better one with a reason from real life. Don't invent statistics.
 
 CHAT RULES
-1. Write like a real student in a group chat: short (1-3 sentences, under 60 words), specific, in your own voice. English is the class language; an occasional word in your own language is fine.
-2. No assistant tone. No bullet lists, no hashtags. Never "Great idea!" without a reason.
-3. Use your own life: your town, family, jobs, what you have seen people pay for.
-4. Disagree when you disagree. Ask the hard questions: who exactly pays, how much, how do we reach the first 10, what runs without us?
-5. Don't repeat what was just said. Move the discussion forward.
-6. Stay on business. Personal stories are welcome. No politics, no insults.
-7. Ideas must be legal, decent and possible for students to start this month.
-8. Use first names. You can @mention a classmate.
+1. This is a group chat, not an essay. Most messages are 5-30 words. Sometimes just "ok I'm in" or "no way, too pricey for here". Never more than 3 sentences.
+2. Write the way your profile says you write. People sound different: some lowercase, some blunt, some funny, some careful.
+3. Don't start with a classmate's name unless you are answering them. Don't open with "In my experience" or "From my job at". Bring in your own life only when it adds a fact.
+4. Take positions. When you have heard enough about an idea, back it or oppose it, with one reason. Refine an idea when you can make its price, payer or first test more realistic.
+5. Disagree when you disagree. Ask the hard questions: who exactly pays, how much, how do we reach the first 10, what runs without us?
+6. Don't repeat what was just said. Move the discussion forward.
+7. English is the class language; an occasional word in your own language is fine. No em dashes, no bullet lists, no hashtags, no assistant tone.
+8. Stay on business. Personal stories are welcome. No politics, no insults. Ideas must be legal, decent and possible for students to start this month.
 9. You are a real student here: never mention AI agents, models, prompts or a simulation. Don't name real private people.
-10. If you have little to add, a short reaction or a back with one reason is fine.
+10. Use first names. You can @mention a classmate.
 
 WHAT YOU CAN DO (one action per message)
 - "talk": say something without changing the board (question, story, objection, joke).
@@ -354,7 +354,7 @@ REPLY FORMAT
 Reply with one JSON object and nothing else:
 {"say": "your chat message", "do": "talk|pitch|refine|back|oppose|allin|drop", "idea": "I7" or null, "fields": {...} or null, "conviction": 1-5}
 - "fields" for pitch: all six keys. For refine: only the keys you change. Otherwise null.
-  title: max 6 words. line: what it is, one sentence. payer: who pays. price: euros with a unit ("€15 a month per salon", "€2 per booking"). test: the first test this week. loop: what runs without the founders, and what a human checks.
+  Keep fields short, like a sticky note. title: max 5 words. line: what it is, max 15 words. payer: who pays, max 12 words. price: only the amount and unit ("€15 a month per salon", "€2 per booking"). test: the first test this week, max 20 words. loop: what runs without the founders and what a human checks, max 20 words.
 - "conviction": how strongly you feel about this message, 1 (meh) to 5 (would bet my summer on it).`;
 }
 
@@ -383,12 +383,13 @@ const ANGLES = [
   'Propose a cheaper, faster first test for one idea.',
   'Point out a practical risk: law, data, trust, time or seasonality.',
   'Ask what really runs without the founders, and what still needs a human.',
-  'Back the idea you believe in most, and say why in one line.',
+  'If you have made up your mind about an idea, back it or oppose it now, with one reason.',
+  'If you have made up your mind about an idea, back it or oppose it now, with one reason.',
   'Push back on the last message if you disagree.',
   'Say something short and human (a joke, a doubt, a late-night thought) that still helps.',
+  'Answer a question someone asked recently, if you know the answer.',
   'Do what you would naturally do here.',
-  'Do what you would naturally do here.',
-];
+]
 
 function nudge(s, people, p, rnd) {
   const msgs = s.recent.filter((m) => m.by !== 'sys');
@@ -404,6 +405,7 @@ function nudge(s, people, p, rnd) {
   const near = open.filter((i) => i.backers.length >= RULES.majority - 5 && !i.backers.includes(p.id) && !i.opp.includes(p.id)).sort((a, b) => b.backers.length - a.backers.length)[0];
   if (near) out.push(`${near.id} is close to production (${near.backers.length}/${RULES.majority}). Decide where you stand.`);
   if (open.length < 3) out.push('The board needs ideas. If something from your own life fits, pitch it.');
+  if (out.length < 2 && open.length >= 2 && !open.some((i) => i.backers.includes(p.id)) && rnd() < 0.5) out.push('You back no idea yet. Back one you believe in, or say what would convince you.');
   if (out.length < 2) {
     const pitched = s.ps[p.id]?.p || 0;
     if (open.length < RULES.maxOpen && !pitched && rnd() < 0.35) out.push('If you have a better idea than what is on the board, pitch it.');
@@ -433,7 +435,6 @@ Your story: ${p.story}
 Character: ${p.character}
 You believe: ${(p.believes || []).join('; ')}
 Your sense of prices: ${p.prices}
-How you write: ${p.style}
 
 YOUR POSITION
 You back: ${backs.length ? backs.join(', ') : 'nothing yet'}.
@@ -452,7 +453,7 @@ LAST MESSAGES (oldest first)
 ${recent || '(the chat is empty)'}
 
 YOUR MOVE: ${nudge(s, people, p, rnd)}
-Reply with the JSON object only.`;
+Write as yourself (${p.style}). Short. Reply with the JSON object only.`;
 }
 
 // ---------------------------------------------------------------- model call
