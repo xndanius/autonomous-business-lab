@@ -161,7 +161,7 @@
       }
     }
     // seed
-    for (var i = 0; i < 7; i++) { var d0 = makeDot(LIME, 0.07); d0.state = 'serve'; d0.a = stations[0].a - i * 0.9; d0.speed = 0.85; d0.checked = d0.a < stations[2].a; dots.push(d0); }
+    for (var i = 0; i < 7; i++) { var d0 = makeDot(LIME, 0.07); d0.state = 'serve'; d0.a = stations[0].a - i * 0.9; d0.speed = 0.85; d0.checked = d0.a < stations[2].a; ringPoint(serve, d0.a, d0.obj.position); dots.push(d0); }
 
     // sizing
     function resize() {
