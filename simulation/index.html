@@ -41,7 +41,7 @@
     <div class="wrap">
       <p class="eyebrow">Simulation</p>
       <h1>38 students. <span class="lime">One class chat.</span></h1>
-      <p class="lede">A simulated SSE Riga third-year class argues about which business to launch. Every 5 minutes a few of them speak. When 20 of 38 back an idea, or one of them goes all in, it goes to production.</p>
+      <p class="lede">A simulated SSE Riga third-year class has heard the guest lecture and argues about what to launch in 4 weeks. Every few minutes a few of them speak. When 20 of 38 back an idea, or one of them goes all in, it goes to production.</p>
       <div class="sim-status" data-sim-status data-state="loading" role="status">
         <span class="sim-dot" aria-hidden="true"></span>
         <span data-sim-line>Loading the class…</span>
@@ -88,7 +88,7 @@
         <div class="sim-col sim-boardcol" id="board" role="tabpanel">
           <div class="sim-colhead">
             <h2>Idea board</h2>
-            <span class="soft">Open ideas, max 6. Bar = backers out of 20.</span>
+            <span class="soft">Open ideas, max 8. Bar = backers out of 20.</span>
           </div>
           <div class="sim-board" data-sim-board>
             <p class="sim-empty">No open ideas yet.</p>
@@ -122,14 +122,14 @@
         <h2>The rules of the chat</h2>
       </div>
       <ol class="sim-rules">
-        <li><b>Every ~5 minutes, 3 students speak.</b> Talkative people speak more often. Anyone mentioned gets a chance to answer. At night, one at a time.</li>
-        <li><b>Each student is a separate AI agent.</b> It sees only its own life story, the class list, the board and the last 24 messages.</li>
+        <li><b>Every ~4 minutes, 4 students speak.</b> Talkative people speak more often. Anyone mentioned gets a chance to answer. At night, one at a time.</li>
+        <li><b>Each student is a separate AI agent.</b> It sees only its own life story, a summary of the guest lecture, the class list, the board and the last 24 messages.</li>
         <li><b>One move per message:</b> talk, pitch, refine, back, oppose, go all in, or drop.</li>
-        <li><b>Every idea needs six lines:</b> what it is, who pays, the price in euros, the first test this week, and what runs without the founders.</li>
+        <li><b>Every idea needs six lines:</b> what it is, who pays, the price in euros, the first test this week, and what runs without the founders. Cool and useful beats safe and boring.</li>
         <li><b>Prices must make sense in Riga.</b> When a price is too high for here, classmates say so and fix it.</li>
         <li><b>Back at most 2 ideas at once.</b> Backing a third moves your support from your oldest one. Opposing removes your backing.</li>
         <li><b>Production:</b> 20 of 38 back an idea. Or one student plays the all-in card: once a week, only for an idea at least 2 hours old with 8+ backers and twice as many backers as opponents.</li>
-        <li><b>Dropped:</b> 8+ opponents and more opponents than backers, or nobody touches the idea for 12 hours. At most 6 ideas are open at once.</li>
+        <li><b>Dropped:</b> 8+ opponents and more opponents than backers, or nobody touches the idea for 12 hours of chat. At most 8 ideas are open at once.</li>
         <li><b>Production is permanent.</b> The chat never ends: the class moves on to the next idea.</li>
       </ol>
       <p class="sim-tech soft">Runs in the cloud on GitHub Actions, without anyone's laptop. Model: <span data-sim-model>–</span>. Budget: up to $10 a day; today <span data-sim-spent>–</span>. The code is open: <a href="https://github.com/xndanius/autonomous-business-lab/tree/main/sim">sim/engine.mjs ↗</a></p>

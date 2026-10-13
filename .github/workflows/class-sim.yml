@@ -6,8 +6,8 @@ name: Class simulation
 # SIM_PAUSED to 1, or disable this workflow in the Actions tab.
 #
 # A manual run can also cover a fixed stretch of time: for example
-# ticks=70 and gap=5 runs one tick every 5 minutes for about 6 hours, then ends.
-# parts=2 runs two such parts one after another (about 12 hours), then ends.
+# ticks=85 and gap=4 runs one tick every 4 minutes for about 5.7 hours, then ends.
+# parts=4 runs four such parts one after another (about 23 hours), then ends.
 
 on:
   schedule:
@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
     inputs:
       ticks:
-        description: "Ticks to run (1-70)"
+        description: "Ticks to run per part (1-85)"
         default: "1"
       gap:
         description: "Minutes between ticks (0 = back to back)"
@@ -83,7 +83,7 @@ jobs:
         run: |
           N=$(printf '%s' "$TICKS" | tr -cd '0-9'); N=${N:-1}
           [ "$N" -lt 1 ] && N=1
-          [ "$N" -gt 70 ] && N=70
+          [ "$N" -gt 85 ] && N=85
           G=$(printf '%s' "$GAP" | tr -cd '0-9'); G=${G:-0}
           [ "$G" -gt 10 ] && G=10
           if [ "$G" -eq 0 ]; then

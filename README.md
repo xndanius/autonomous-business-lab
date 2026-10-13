@@ -4,7 +4,7 @@ The public website for the guest lecture "Businesses that run while you sleep" a
 
 Four parts:
 
-- `challenge/`: the challenge. One loop, one real user. What to show, key dates, support, FAQ.
+- `challenge/`: the challenge. One loop, real users, four weeks. What to show, the plan, support, FAQ.
 - `lesson/`: the lecture on one page, with the exercise prompt and the six lines.
 - `examples/`: the 60-Second Startup, While You Sleep, The Long Run comic, The Unfinished Atlas, and two small companies.
 - `simulation/`: 38 fictional SSE Riga students argue about which business to launch. Runs every 5 minutes on GitHub Actions; see `sim/README.md`.
