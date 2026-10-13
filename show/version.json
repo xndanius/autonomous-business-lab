@@ -35,12 +35,13 @@
   "startup_count": 1,
   "files": {
     "index.html": {
-      "bytes": 37442,
-      "sha256": "8c842cd155f15859d8f4165bbb69130e90b72a30f74def631e8c097e108aa255"
+      "bytes": 37436,
+      "sha256": "98ccdce70d410edffc85fd4fdcff812befa6cf07d84a2c3d1ac95116a7d157a5"
     },
     "lecture-offline.html": {
-      "bytes": 2589159,
-      "sha256": "4eed68b15e01bdc20a4a8f6fd3d64cdacf01e6c3c27fff43ef744b70906870c5"
+      "bytes": 2589153,
+      "sha256": "8aa2144a5df2ac6c485876084d66b322529b4dc9e23373f5b773d478339cb668"
     }
-  }
+  },
+  "resource_navigation": "Loop theory now links to /learn/; historical slides unchanged."
 }

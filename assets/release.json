@@ -1,5 +1,5 @@
 {
-  "edition": "student-path-3",
+  "edition": "student-loops-4",
   "workshop_date": "2026-10-13",
   "slides": 18,
   "accepted_ideas": 33,
@@ -9,9 +9,11 @@
   "entry": "https://xndanius.github.io/autonomous-business-lab/",
   "navigation": [
     "Challenge",
+    "Learn loops",
+    "My builds",
     "Class ideas",
-    "Learn & build"
+    "Build yours"
   ],
   "opportunity": "Weekly mentoring by Danielius, with potential job or co-founding conversations depending on fit and progress.",
-  "student_path": "Choose an idea, write a brief, build one useful result, test with real people."
+  "student_path": "Learn the delivery and improvement loops, inspect six real builds, choose an idea, and build one useful routine."
 }
