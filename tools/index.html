@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI tools · Autonomous Business Lab</title>
-<meta name="description" content="The AI tools to use for the challenge, one per job: think, build, run, create and keep up. What each one does, what it costs, and how to follow AI news on X.">
+<meta name="description" content="A practical AI-native founder workflow: brief agents, build and test a useful product, run a checked loop, and turn AI news into evidence. Tools and official sources for the four-week challenge.">
 <meta name="theme-color" content="#0F1318">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Your AI toolkit: one tool per job">
-<meta property="og:description" content="Think, build, run, create, keep up. Autonomous Business Lab · SSE Riga.">
+<meta property="og:title" content="Your AI toolkit: build, check, repeat">
+<meta property="og:description" content="A small stack, a reusable agent brief and a working loop. Autonomous Business Lab · SSE Riga.">
 <meta property="og:image" content="https://xndanius.github.io/autonomous-business-lab/assets/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230F1318'/%3E%3Ccircle cx='15' cy='32' r='8' fill='none' stroke='%23B7C1BA' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='11' fill='none' stroke='%23B9E46B' stroke-width='5'/%3E%3Ccircle cx='49' cy='32' r='8' fill='none' stroke='%23B7C1BA' stroke-width='4'/%3E%3C/svg%3E">
@@ -16,8 +16,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/tools.css">
 </head>
-<body>
+<body class="toolkit">
 <a class="skip" href="#main">Skip to content</a>
 <header class="nav">
   <div class="wrap">
@@ -37,187 +38,173 @@
 </header>
 
 <main id="main">
-  <section class="pagehead">
+  <section class="pagehead tk-hero">
     <div class="wrap">
-      <p class="eyebrow">AI tools</p>
-      <h1>Your AI toolkit. <span class="lime">One tool per job.</span></h1>
-      <p class="lede">You don't need many tools. You need one for each job: think, build, run, create, and keep up. Start free. Pay for one tool when it saves you hours.</p>
-      <p class="tk-checked">Plans and prices checked on 13 October 2026. They change often, so check before you pay.</p>
+      <p class="eyebrow">The AI-native founder</p>
+      <h1>Your AI toolkit.<br><span class="lime">Build. Check. Repeat.</span></h1>
+      <p class="lede">Four weeks. Real users. A loop that runs every day. Use AI to turn a clear goal into a small working product, then improve it with evidence.</p>
+      <nav class="tk-jumps" aria-label="On this page">
+        <a href="#work">How to work</a><a href="#stack">Choose your tools</a><a href="#runbook">A loop in practice</a><a href="#news">Keep up on X</a>
+      </nav>
+      <p class="tk-checked">Checked <time datetime="2026-10-13">13 October 2026</time> · <a href="#sources">Official sources</a> · Check live plans for current access and prices.</p>
     </div>
   </section>
 
-  <section class="section" id="map">
+  <section class="section" id="work">
     <div class="wrap">
-      <ol class="tk-map" aria-label="Five jobs and their tools">
-        <li><a href="#think"><span class="n">1</span><b>Think</b><span class="tk-job">Ask, plan, learn</span><span class="tk-chips"><i>ChatGPT</i><i>Claude</i><i>Gemini</i><i>Grok</i></span></a></li>
-        <li><a href="#build"><span class="n">2</span><b>Build</b><span class="tk-job">You describe it, an agent codes it</span><span class="tk-chips"><i>Codex</i><i>Claude Code</i></span></a></li>
-        <li><a href="#run"><span class="n">3</span><b>Run</b><span class="tk-job">It keeps going without you</span><span class="tk-chips"><i>n8n</i><i>GitHub</i><i>Grok Bot</i></span></a></li>
-        <li><a href="#create"><span class="n">4</span><b>Create</b><span class="tk-job">Video, images, voice</span><span class="tk-chips"><i>Higgsfield</i></span></a></li>
-        <li><a href="#news"><span class="n">5</span><b>Keep up</b><span class="tk-job">AI news in 15 minutes a day</span><span class="tk-chips"><i>X</i><i>@grok</i></span></a></li>
+      <div class="section-head">
+        <p class="eyebrow">01 · The way you work</p>
+        <h2>Direct the work.<br>Stay close to the evidence.</h2>
+        <p class="lede">You own the user, the goal and the decisions. Agents help you research, build and test. A workflow repeats the useful routine.</p>
+      </div>
+      <ol class="tk-routine">
+        <li><span class="tk-num">01</span><div><h3>Find a real job</h3><p>Talk to five people you can reach. Watch how they solve it today. Ask AI to organise the evidence and challenge your assumptions.</p><p class="tk-proof"><b>Keep:</b> one user, one recurring need, real examples.</p></div></li>
+        <li><span class="tk-num">02</span><div><h3>Write the brief</h3><p>Give the agent the goal, context, constraints and a clear finish line. Attach examples. Ask for a short plan and the next smallest useful step.</p><p class="tk-proof"><b>Keep:</b> a brief the team can reuse.</p></div></li>
+        <li><span class="tk-num">03</span><div><h3>Build one complete slice</h3><p>Make one real input become one useful result. Ask the agent to run it, test it and show what changed. Try it yourself, then watch a user use it.</p><p class="tk-proof"><b>Keep:</b> a working link and evidence of actual use.</p></div></li>
+        <li><span class="tk-num">04</span><div><h3>Check the awkward cases</h3><p>Save 5–10 examples: normal requests, missing input, duplicates and past failures. Use fixed rules for facts you can test, plus a separate review for judgment.</p><p class="tk-proof"><b>Keep:</b> pass/fail results, not “the AI says it works”.</p></div></li>
+        <li><span class="tk-num">05</span><div><h3>Put the routine in the cloud</h3><p>Choose its trigger, allowed actions, retry limit and stop condition. Log every run. Keep human approval for sensitive actions and exceptions.</p><p class="tk-proof"><b>Keep:</b> a daily run, a cost cap and a stop button.</p></div></li>
+        <li><span class="tk-num">06</span><div><h3>Improve one thing</h3><p>Review repeat use, failures, cost per useful result and your minutes. Change one thing. Compare old and new on the same saved cases before shipping.</p><p class="tk-proof"><b>Keep:</b> one measured improvement each week.</p></div></li>
       </ol>
-      <div class="callout tk-start">
-        <p class="eyebrow">Start here</p>
-        <p class="soft">One assistant on a free plan. One coding agent for about $20 a month: Codex with ChatGPT Plus, or Claude Code with Claude Pro. GitHub and n8n are free to start. Add Higgsfield only if your product needs video. Up to 3 challenge teams get an AI tool budget from Danielius.</p>
-      </div>
+
+      <details class="tk-disclosure tk-brief" id="brief">
+        <summary>A starting brief you can copy <span>Goal → Context → Constraints → Done</span></summary>
+        <div class="tk-detail-body">
+          <p>Replace the brackets. Keep the brief, examples and decisions in your project files so the next session can pick up the work.</p>
+          <pre id="founder-brief">GOAL
+Help [five named testers] get [one useful result] every [day/week].
+
+CONTEXT
+They currently [do this]. Here are real examples, approved sources and what we learned: [attach].
+
+CONSTRAINTS
+Use the current project and the smallest useful change. Daily budget: [amount]. Keep secrets out of code. Agree before the first live send, spend or data change. Then work within those limits; ask before exceeding them. Flag missing facts.
+
+DONE WHEN
+One input becomes a checked result. These examples pass: [attach]. Show the working result, checks, changed files, remaining risks and how to stop it.
+
+First: propose a short plan. Then build and verify the first slice.</pre>
+          <button class="btn" type="button" data-copy="#founder-brief" aria-live="polite">Copy the brief</button>
+        </div>
+      </details>
     </div>
   </section>
 
-  <section class="section alt" id="think">
+  <section class="section alt" id="stack">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">1 · Think</p>
-        <h2>An assistant to think with</h2>
-        <p class="lede">Your tutor. Ask it to explain, plan and criticise your idea. Then check what it says.</p>
+        <p class="eyebrow">02 · Choose your tools</p>
+        <h2>Start with a small stack.</h2>
+        <p class="lede">One assistant. One coding agent. One place for your evidence. Add a cloud runtime when the job is ready to repeat.</p>
       </div>
-      <div class="tk-grid">
-        <article class="tk-card">
-          <div class="tk-top"><h3>ChatGPT</h3><span class="tk-by">OpenAI</span></div>
-          <p>All-round assistant: questions, plans, writing, images and voice.</p>
-          <dl class="tk-dl"><dt>Use it for</dt><dd>Learning anything fast, first drafts, images.</dd><dt>Cost</dt><dd>Free plan. Plus is about $20 a month and includes Codex.</dd></dl>
-          <a class="tk-link" href="https://chatgpt.com/">chatgpt.com ↗</a>
+      <div class="tk-grid tk-tool-grid">
+        <article class="tk-card" id="think">
+          <div class="tk-top"><p class="tk-by">Think &amp; research</p><h3>ChatGPT, Claude or Gemini</h3></div>
+          <p>Use the assistant you already have. Explore options, understand unfamiliar work and draft interview questions. Give it your evidence; ask for sources and uncertainty.</p>
+          <p class="tk-proof"><b>Leave with:</b> a decision, a reason and a next test.</p>
+          <div class="tk-links"><a href="https://chatgpt.com/">ChatGPT ↗</a><a href="https://claude.ai/">Claude ↗</a><a href="https://gemini.google.com/">Gemini ↗</a></div>
         </article>
-        <article class="tk-card">
-          <div class="tk-top"><h3>Claude</h3><span class="tk-by">Anthropic</span></div>
-          <p>Careful thinking and writing. The desktop app can also work on your own files and finish longer tasks. Cowork is now part of it.</p>
-          <dl class="tk-dl"><dt>Use it for</dt><dd>Long documents, careful analysis, work on your files.</dd><dt>Cost</dt><dd>Free plan. Pro is $20 a month ($17 billed yearly) and includes Claude Code.</dd></dl>
-          <a class="tk-link" href="https://claude.ai/">claude.ai ↗</a>
+        <article class="tk-card" id="build">
+          <div class="tk-top"><p class="tk-by">Build &amp; verify</p><h3>Codex or Claude Code</h3></div>
+          <p>Let an agent work in your project: edit files, run commands and tests, and fix failures. Give it a small deliverable and an explicit way to verify it.</p>
+          <p class="tk-proof"><b>Leave with:</b> a working slice, a readable change and test evidence.</p>
+          <div class="tk-links"><a href="https://learn.chatgpt.com/guides/best-practices">Codex guide ↗</a><a href="https://code.claude.com/docs/en/best-practices">Claude Code guide ↗</a></div>
         </article>
-        <article class="tk-card">
-          <div class="tk-top"><h3>Gemini</h3><span class="tk-by">Google</span></div>
-          <p>Google's assistant. With NotebookLM you upload your own sources and ask questions only about them.</p>
-          <dl class="tk-dl"><dt>Use it for</dt><dd>Studying from your notes and readings.</dd><dt>Cost</dt><dd>Free plan. Google has run free offers for students: check gemini.google/students.</dd></dl>
-          <a class="tk-link" href="https://gemini.google.com/">gemini.google.com ↗</a>
+        <article class="tk-card" id="run">
+          <div class="tk-top"><p class="tk-by">Connect &amp; repeat</p><h3>n8n or a hosted job</h3></div>
+          <p>Connect a form, schedule, model call, check and delivery. n8n provides a visual workflow; an agent can also write a small program that runs on a server.</p>
+          <p class="tk-proof"><b>Leave with:</b> a trigger, a run log, a retry limit and an owner.</p>
+          <div class="tk-links"><a href="https://docs.n8n.io/try-it-out">First n8n workflow ↗</a><a href="https://docs.n8n.io/choose-how-to-use-n8n">Hosting options ↗</a></div>
         </article>
-        <article class="tk-card">
-          <div class="tk-top"><h3>Grok</h3><span class="tk-by">xAI</span></div>
-          <p>The assistant inside X. Good at what is happening right now.</p>
-          <dl class="tk-dl"><dt>Use it for</dt><dd>Explaining a post, a trend or a new release.</dd><dt>Cost</dt><dd>Free to try. SuperGrok is about $30 a month.</dd></dl>
-          <a class="tk-link" href="https://grok.com/">grok.com ↗</a>
+        <article class="tk-card" id="create">
+          <div class="tk-top"><p class="tk-by">Make useful media</p><h3>Your assistant or Higgsfield</h3></div>
+          <p>Start with your assistant for simple visuals. Add Higgsfield when video is part of the product. Specify audience, format, reference and what a good result must show.</p>
+          <p class="tk-proof"><b>Leave with:</b> one useful asset. Check accuracy, consent and rights before publishing.</p>
+          <div class="tk-links"><a href="https://higgsfield.ai/">Higgsfield ↗</a><a href="https://higgsfield.ai/pricing">Current plans &amp; credits ↗</a></div>
         </article>
       </div>
+      <div class="tk-notes">
+        <div><h3>Your team's memory</h3><p>A shared document or sheet holds interviews, source links, test cases and costs. GitHub keeps versions of code and briefs. Save decisions there; do not rely on one long chat.</p></div>
+        <div><h3>Your running costs</h3><p>Start free where possible. Pay for one bottleneck. Budget separately for subscriptions, API calls and hosting; check how your chosen route is billed. <a href="../challenge/#support">Challenge support →</a></p></div>
+      </div>
+      <details class="tk-disclosure">
+        <summary>Useful extras, when you have a reason <span>Sources, long tasks, deployment</span></summary>
+        <div class="tk-detail-body tk-extra-grid">
+          <div><h3>Questions about your sources</h3><p><a href="https://notebook.google/">Gemini Notebook (formerly NotebookLM)</a> grounds answers in selected sources and provides citations. Good for interview notes and course material. Open the cited passage and check the claim.</p></div>
+          <div><h3>Long research tasks</h3><p><a href="https://docs.x.ai/grok-bot/overview">Grok Bot</a> offers a cloud computer for delegated work. Availability and plans vary. Review its work and permissions; give it a bounded task.</p></div>
+          <div><h3>A public URL</h3><p><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits">GitHub Pages</a> fits static class demos and project documentation. Choose an appropriate app host for a customer-facing service or backend.</p></div>
+          <div><h3>A dependable runtime</h3><p>n8n Cloud is managed hosting with a trial, then paid plans. Community Edition is free to self-host; the server and upkeep are yours. <a href="https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule">Actions schedules</a> can be delayed or dropped. Choose a runtime that meets your users' timing needs.</p></div>
+        </div>
+      </details>
     </div>
   </section>
 
-  <section class="section" id="build">
+  <section class="section" id="runbook">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">2 · Build</p>
-        <h2>A coding agent that builds with you</h2>
-        <p class="lede">You describe what you want. The agent writes, runs, tests and fixes the code. You check the result.</p>
+        <p class="eyebrow">03 · A loop in practice</p>
+        <h2>An internship scout for five classmates.</h2>
+        <p class="lede">Test the result by hand first. Then make this small routine repeat. The tools serve the job.</p>
       </div>
-      <div class="tk-grid">
-        <article class="tk-card">
-          <div class="tk-top"><h3>Codex</h3><span class="tk-by">OpenAI</span></div>
-          <p>A coding agent in the Codex app, in your terminal and in ChatGPT. It can work on several tasks at once.</p>
-          <dl class="tk-dl"><dt>Use it for</dt><dd>Week 1 tiny things, then your product.</dd><dt>Cost</dt><dd>Limited on ChatGPT Free and Go. Included in Plus. Longer sessions on Pro.</dd></dl>
-          <a class="tk-link" href="https://openai.com/codex/">openai.com/codex ↗</a>
-        </article>
-        <article class="tk-card">
-          <div class="tk-top"><h3>Claude Code</h3><span class="tk-by">Anthropic</span></div>
-          <p>A coding agent in your terminal, the desktop app, the browser and your phone. Strong on bigger projects.</p>
-          <dl class="tk-dl"><dt>Use it for</dt><dd>Building and fixing a real codebase.</dd><dt>Cost</dt><dd>Included in every paid Claude plan, from Pro at $20 a month. Not on the free plan.</dd></dl>
-          <a class="tk-link" href="https://docs.claude.com/en/docs/claude-code/overview">Claude Code docs ↗</a>
-        </article>
-        <article class="tk-card tk-tip">
-          <div class="tk-top"><h3>Which one?</h3></div>
-          <p>Take the one that comes with the plan you already pay for. Use it every day in week 1. When you don't know how to do something, ask the agent to explain, then test it yourself.</p>
-          <a class="tk-link" href="../challenge/#plan">The 4-week plan →</a>
-        </article>
+      <ol class="tk-flow" aria-label="Internship scout workflow">
+        <li><span>Trigger</span><b>Every weekday</b><p>A hosted schedule starts the run.</p></li>
+        <li><span>Collect</span><b>Approved sources</b><p>Read employer pages the team selected.</p></li>
+        <li><span>Make</span><b>A short shortlist</b><p>Match roles to the student's stated interests.</p></li>
+        <li class="tk-check"><span>Check</span><b>Links, dates, fit</b><p>Reject expired roles, duplicates and unsupported claims.</p></li>
+        <li><span>Deliver</span><b>One opted-in digest</b><p>Send once; keep failed deliveries visible.</p></li>
+        <li><span>Learn</span><b>Useful or ignored?</b><p>Record clicks, feedback, cost and your minutes.</p></li>
+      </ol>
+      <div class="tk-control-grid">
+        <div><h3>Before it runs alone</h3><p>Approve the first editions. Save normal and broken examples. Put secrets in the host's secret settings; give each connection only the access it needs.</p></div>
+        <div><h3>Make limits real</h3><p>Enforce a daily spend cap and limits on results and retries in the workflow. Stop or ask you when checks fail. Put the stop control and failure log where the team can find them.</p></div>
+        <div><h3>Grow · Serve · Improve</h3><p>Invite the next five users with a useful sample. Deliver a checked shortlist. Each week, test one change against the same cases and user feedback.</p></div>
       </div>
-    </div>
-  </section>
-
-  <section class="section alt" id="run">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">3 · Run</p>
-        <h2>Something that runs it without you</h2>
-        <p class="lede">A loop has to keep going when you close the laptop. These run on a schedule or an event, in the cloud.</p>
-      </div>
-      <div class="tk-grid">
-        <article class="tk-card">
-          <div class="tk-top"><h3>n8n</h3><span class="tk-by">Workflows</span></div>
-          <p>Visual workflows with AI steps, started by a schedule, a form or a new email. Dmitrijs's workshop today at 14:00.</p>
-          <dl class="tk-dl"><dt>Use it for</dt><dd>Your loop: order, make, check, deliver.</dd><dt>Cost</dt><dd>Free on your own computer. A free trial in the cloud.</dd></dl>
-          <a class="tk-link" href="https://docs.n8n.io/try-it-out/">Your first workflow ↗</a>
-        </article>
-        <article class="tk-card">
-          <div class="tk-top"><h3>GitHub</h3><span class="tk-by">Pages and Actions</span></div>
-          <p>Free website hosting, plus scheduled jobs that run in the cloud. This site and its <a href="../simulation/">class simulation</a> run this way.</p>
-          <dl class="tk-dl"><dt>Use it for</dt><dd>Publishing your product and running it every day.</dd><dt>Cost</dt><dd>Free for public projects. Schedules can start late, so plan for it.</dd></dl>
-          <a class="tk-link" href="https://docs.github.com/en/pages">GitHub Pages ↗</a>
-        </article>
-        <article class="tk-card">
-          <div class="tk-top"><h3>Grok Bot</h3><span class="tk-by">xAI</span></div>
-          <p>A personal AI teammate on its own cloud computer, with memory, a browser and a terminal. It keeps working when your laptop is closed.</p>
-          <dl class="tk-dl"><dt>Use it for</dt><dd>Long research and tasks that take hours.</dd><dt>Cost</dt><dd>Comes with SuperGrok plans, from about $30 a month, and with paid Cursor plans. Tagging @bot on X does not work for EU accounts yet.</dd></dl>
-          <a class="tk-link" href="https://docs.x.ai/grok-bot">Grok Bot docs ↗</a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="create">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">4 · Create</p>
-        <h2>Video, images and voice</h2>
-        <p class="lede">Only if your product needs it: a launch video, ads, a radio voice, visuals.</p>
-      </div>
-      <div class="tk-grid">
-        <article class="tk-card">
-          <div class="tk-top"><h3>Higgsfield</h3><span class="tk-by">Video studio</span></div>
-          <p>AI video, images and voice in one app. It runs many models, such as Kling, Veo, Sora 2 and Seedance, plus its own.</p>
-          <dl class="tk-dl"><dt>Use it for</dt><dd>Launch videos, ads, trailers and visuals.</dd><dt>Cost</dt><dd>The free plan is limited: no video, no commercial use. Starter is $19 a month for 270 credits. Video uses credits fast.</dd></dl>
-          <a class="tk-link" href="https://higgsfield.ai/">higgsfield.ai ↗</a>
-        </article>
-        <article class="tk-card tk-tip">
-          <div class="tk-top"><h3>Before you publish</h3></div>
-          <p>Check that you may use the result commercially. Never imitate a real person or a real brand. Say that AI made it.</p>
-          <p class="soft">For simple images, start with the image tools inside ChatGPT or Gemini.</p>
-        </article>
-      </div>
+      <p class="tk-bottom-note">Keep your first loop simple. Add parallel agents or more tools when one measured bottleneck justifies them. <a href="../lesson/#control">Build the control panel →</a></p>
     </div>
   </section>
 
   <section class="section alt" id="news">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">5 · Keep up</p>
-        <h2>AI news on X, in 15 minutes a day</h2>
-        <p class="lede">New tools and models ship every week, and most of them appear on X first. Set it up once.</p>
+        <p class="eyebrow">04 · Keep up without losing the day</p>
+        <h2>Use X as a radar.<br>Turn a claim into a test.</h2>
+        <p class="lede">A launch post is a lead to investigate. Your own result decides whether a new tool earns a place in the stack.</p>
       </div>
-      <div class="grid2 tk-news">
-        <ol class="tk-steps">
-          <li><b>Make an X account for AI news only.</b> Keep your personal feed separate.</li>
-          <li><b>Follow the starter list.</b> Fifteen accounts are enough to begin.</li>
-          <li><b>Put them in an X List called “AI”.</b> Read the List, not the “For you” feed.</li>
-          <li><b>Turn on notifications</b> for the two or three tools you use every day.</li>
-          <li><b>Don't get a post? Ask Grok.</b> Reply “@grok explain this simply” or “@grok is this true? Show sources.” The answer is public, so ask nothing private.</li>
-          <li><b>15 minutes a day.</b> Bookmark what you want to try. Try one new thing every week.</li>
-        </ol>
-        <div class="tk-follow">
-          <p class="eyebrow">Starter list</p>
-          <div class="tk-group"><span class="k">The labs</span><p><a href="https://x.com/OpenAI">@OpenAI</a> <a href="https://x.com/AnthropicAI">@AnthropicAI</a> <a href="https://x.com/GoogleDeepMind">@GoogleDeepMind</a> <a href="https://x.com/xai">@xai</a></p></div>
-          <div class="tk-group"><span class="k">The tools</span><p><a href="https://x.com/OpenAIDevs">@OpenAIDevs</a> <a href="https://x.com/claudeai">@claudeai</a> <a href="https://x.com/GeminiApp">@GeminiApp</a></p></div>
-          <div class="tk-group"><span class="k">Builders</span><p><a href="https://x.com/karpathy">@karpathy</a> <a href="https://x.com/levelsio">@levelsio</a> <a href="https://x.com/simonw">@simonw</a> <a href="https://x.com/swyx">@swyx</a></p></div>
-          <div class="tk-group"><span class="k">Explainers</span><p><a href="https://x.com/emollick">@emollick</a> <a href="https://x.com/AndrewYNg">@AndrewYNg</a> <a href="https://x.com/rowancheung">@rowancheung</a> <a href="https://x.com/_akhaliq">@_akhaliq</a></p></div>
-          <p class="soft tk-hype">Hype is cheap. Before you build on a claim, test it yourself.</p>
+      <ol class="tk-news-routine">
+        <li><span>2 min</span><div><h3>Scan a small List</h3><p>Use a private X List: the tools you use, two builders and people in your users' world. Read that instead of an endless feed.</p></div></li>
+        <li><span>3 min</span><div><h3>Open the original</h3><p>Find the official release or docs. Check the date, availability, price and limits. Grok can help find sources; read them yourself.</p></div></li>
+        <li><span>4 min</span><div><h3>Try one saved task</h3><p>Use the same input as your current tool. Compare quality, minutes and cost. Queue a bounded experiment if it needs longer.</p></div></li>
+        <li><span>1 min</span><div><h3>Keep it or skip it</h3><p>Write one line: claim → evidence → result → decision. Adopt it only if it improves your product. Then return to building.</p></div></li>
+      </ol>
+      <details class="tk-disclosure">
+        <summary>Set up your X List <span>A small starter set</span></summary>
+        <div class="tk-detail-body">
+          <p><a href="https://help.x.com/en/using-x/x-lists">Create a private List and pin it</a> using your existing account. Pick a few accounts, not every one below.</p>
+          <div class="tk-follow-links"><a href="https://x.com/OpenAI">@OpenAI</a><a href="https://x.com/AnthropicAI">@AnthropicAI</a><a href="https://x.com/GoogleDeepMind">@GoogleDeepMind</a><a href="https://x.com/xai">@xai</a><a href="https://x.com/OpenAIDevs">@OpenAIDevs</a><a href="https://x.com/simonw">@simonw</a><a href="https://x.com/karpathy">@karpathy</a><a href="https://x.com/levelsio">@levelsio</a></div>
+          <p>Add local founders, customers and people doing the job you want to improve. Product demand is a signal too.</p>
+          <p class="tk-ask"><b>Ask Grok:</b> “Find the original announcement for this claim. Link the official docs. What is available to me, and what would I need to test?” Keep private work out of public replies.</p>
         </div>
-      </div>
+      </details>
     </div>
   </section>
 
-  <section class="section" id="safe">
+  <section class="section tk-finish" id="sources">
     <div class="wrap">
-      <div class="callout">
-        <p class="eyebrow orange">Use them safely</p>
-        <p class="soft">Never paste a password, an API key or someone else's personal data into a chat or a terminal. Keep keys in the tool's secret settings. Tell your users when AI made the result.</p>
-      </div>
-      <div class="btnrow" style="margin-top:28px">
-        <a class="btn primary" href="../challenge/">Take the challenge →</a>
-        <a class="btn" href="../lesson/#exercise">Design your first loop</a>
-      </div>
+      <div class="tk-next"><div><p class="eyebrow">Do one thing now</p><h2>Write the brief.<br>Ship the first slice.</h2><p>Use the next hour to put one useful result in front of a real person.</p></div><a class="btn primary" href="../lesson/#exercise">Design your first loop →</a></div>
+      <details class="tk-disclosure tk-sources">
+        <summary>Sources &amp; current access <span>Checked 13 October 2026</span></summary>
+        <div class="tk-detail-body">
+          <p>The working method above adapts the official guidance below to this four-week challenge. Product capabilities, availability and prices change; follow the live provider pages before paying.</p>
+          <ul>
+            <li>Briefs and verification: <a href="https://learn.chatgpt.com/guides/best-practices">Codex best practices</a> · <a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a>.</li>
+            <li>Start simple, then evaluate: <a href="https://www.anthropic.com/engineering/building-effective-agents">Building effective agents</a> · <a href="https://developers.openai.com/api/docs/guides/evaluation-best-practices">OpenAI evaluation guidance</a>.</li>
+            <li>Permissions, approvals and budgets: <a href="https://developers.openai.com/api/docs/guides/agents/guardrails-approvals">Guardrails and approvals</a> · <a href="https://developers.openai.com/api/docs/guides/spend-limits">Spend limits</a>.</li>
+            <li>Hosting: <a href="https://docs.n8n.io/choose-how-to-use-n8n">n8n deployment options</a> · <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits">Pages limits</a> · <a href="https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule">Actions scheduling</a>.</li>
+            <li>Source research and media: <a href="https://support.google.com/gemininotebook/answer/16179559?hl=en">Notebook source chat</a> · <a href="https://docs.x.ai/grok-bot/overview">Grok Bot</a> · <a href="https://higgsfield.ai/pricing">Higgsfield plans</a> · <a href="https://higgsfield.ai/terms-of-use-agreement">Higgsfield terms</a>.</li>
+            <li>News habits: <a href="https://help.x.com/en/using-x/x-lists">X Lists</a> · <a href="https://help.x.com/en/using-x/about-grok">Grok on X</a>.</li>
+            <li>Subscription access: <a href="https://chatgpt.com/pricing/">ChatGPT</a> · <a href="https://claude.com/pricing">Claude</a> · <a href="https://gemini.google/subscriptions/">Gemini</a>.</li>
+          </ul>
+        </div>
+      </details>
     </div>
   </section>
 </main>

@@ -1,0 +1,91 @@
+/* Tools page: practical founder workflow. All rules stay local to this page. */
+.toolkit .tk-hero{padding:64px 0 48px}
+.toolkit .section{padding:72px 0}
+.toolkit .section-head{margin-bottom:32px}
+.toolkit .tk-hero h1{font-size:clamp(43px,6.2vw,78px);max-width:1050px}
+.toolkit .tk-hero .lede{max-width:780px}
+.toolkit .tk-jumps{display:flex;flex-wrap:wrap;gap:10px;margin:27px 0 20px}
+.toolkit .tk-jumps a{border:1px solid var(--line2);border-radius:999px;padding:7px 14px;color:var(--text);font-size:15px;font-weight:700}
+.toolkit .tk-jumps a:hover{border-color:var(--lime);text-decoration:none}
+.toolkit .tk-checked{font-size:14px;color:var(--soft)}
+.toolkit .tk-checked a{color:var(--soft);text-decoration:underline;text-underline-offset:3px}
+.toolkit section[id]{scroll-margin-top:20px}
+.toolkit article[id],.toolkit details[id]{scroll-margin-top:86px}
+.toolkit .tk-routine{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.toolkit .tk-routine li{display:flex;gap:14px;padding:22px;border:1px solid var(--line);border-radius:var(--r);background:var(--card)}
+.toolkit .tk-num{flex:none;font:500 14px var(--mono);color:var(--lime);padding-top:5px}
+.toolkit .tk-routine h3{font-size:22px;line-height:1.2;margin:0 0 12px}
+.toolkit .tk-routine p{font-size:16px;line-height:1.55;color:var(--soft)}
+.toolkit .tk-proof{margin-top:14px!important;padding-top:12px;border-top:1px solid var(--line);font-size:14.5px!important;line-height:1.5;color:var(--soft)}
+.toolkit .tk-proof b{color:var(--text)}
+.toolkit .tk-disclosure{border:1px solid var(--line2);border-radius:var(--r);margin-top:24px;background:var(--card)}
+.toolkit .tk-disclosure summary{position:relative;cursor:pointer;padding:19px 24px;font-family:var(--display);font-size:21px;font-weight:700;line-height:1.3;color:var(--text)}
+.toolkit .tk-disclosure summary::marker{color:var(--lime);font-size:16px}
+.toolkit .tk-disclosure summary span{display:block;margin:6px 0 0 20px;font:400 14px/1.5 var(--body);color:var(--soft)}
+.toolkit .tk-disclosure[open] summary{border-bottom:1px solid var(--line)}
+.toolkit .tk-detail-body{padding:22px 24px;color:var(--soft);font-size:16px}
+.toolkit .tk-detail-body p+p{margin-top:14px}
+.toolkit .tk-brief{border-color:#536641;background:linear-gradient(120deg,#19221a,var(--card))}
+.toolkit .tk-brief pre{font:400 14px/1.65 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere;padding:22px;margin:18px 0;border:1px solid var(--line2);background:var(--bg);border-radius:12px;color:var(--text)}
+.toolkit .tk-tool-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.toolkit .tk-card{padding:25px;gap:14px}
+.toolkit .tk-top{display:block}
+.toolkit .tk-top .tk-by{font-size:12px;margin-bottom:10px;letter-spacing:.13em}
+.toolkit .tk-top h3{font-size:27px}
+.toolkit .tk-card>p{font-size:17px}
+.toolkit .tk-card .tk-proof{margin-top:auto!important}
+.toolkit .tk-links{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:15px;font-weight:700}
+.toolkit .tk-notes{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:28px}
+.toolkit .tk-notes>div{border-left:2px solid var(--lime);padding-left:20px}
+.toolkit .tk-notes h3,.toolkit .tk-extra-grid h3,.toolkit .tk-control-grid h3{font-size:21px;line-height:1.3;margin-bottom:9px}
+.toolkit .tk-notes p,.toolkit .tk-extra-grid p,.toolkit .tk-control-grid p{font-size:16px;color:var(--soft)}
+.toolkit .tk-extra-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px 30px}
+.toolkit .tk-flow{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));list-style:none;padding:0;margin:0;border:1px solid var(--line2);border-radius:var(--r);overflow:hidden;background:var(--card)}
+.toolkit .tk-flow li{position:relative;padding:22px 17px;border-right:1px solid var(--line2)}
+.toolkit .tk-flow li:last-child{border-right:0}
+.toolkit .tk-flow span{display:block;font:700 12px/1.4 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--lime);margin-bottom:13px}
+.toolkit .tk-flow b{display:block;font:700 20px/1.25 var(--display);margin-bottom:10px}
+.toolkit .tk-flow p{font-size:15px;line-height:1.5;color:var(--soft)}
+.toolkit .tk-flow .tk-check{background:#262219}
+.toolkit .tk-flow .tk-check span{color:var(--orange)}
+.toolkit .tk-control-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;margin-top:28px}
+.toolkit .tk-control-grid>div{padding-top:18px;border-top:2px solid var(--line2)}
+.toolkit .tk-bottom-note{margin-top:27px;color:var(--soft);font-size:16px}
+.toolkit .tk-news-routine{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:24px 36px}
+.toolkit .tk-news-routine li{display:flex;gap:18px;align-items:flex-start}
+.toolkit .tk-news-routine li>span{flex:none;font:500 13px/1.4 var(--mono);background:var(--lime);color:var(--lime-ink);border-radius:7px;padding:8px 9px;min-width:64px;text-align:center}
+.toolkit .tk-news-routine h3{font-size:23px;line-height:1.2;margin-bottom:9px}
+.toolkit .tk-news-routine p{font-size:16px;line-height:1.55;color:var(--soft)}
+.toolkit .tk-follow-links{display:flex;flex-wrap:wrap;gap:8px 18px;margin:18px 0;font:400 14px/1.6 var(--mono)}
+.toolkit .tk-ask{padding-left:16px;border-left:2px solid var(--lime)}
+.toolkit .tk-next{display:flex;align-items:center;justify-content:space-between;gap:32px}
+.toolkit .tk-next h2{font-size:clamp(34px,4vw,48px);margin:12px 0 18px}
+.toolkit .tk-next p:last-child{font-size:17px;color:var(--soft)}
+.toolkit .tk-next .btn{flex:none}
+.toolkit .tk-sources{margin-top:36px;background:transparent}
+.toolkit .tk-sources ul{margin:18px 0 0;padding-left:21px;display:grid;gap:10px}
+.toolkit .tk-sources li{font-size:15px;line-height:1.55}
+@media(max-width:1000px){
+  .toolkit .nav .btn{display:none}
+  .toolkit .tk-routine{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .toolkit .tk-flow{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .toolkit .tk-flow li:nth-child(3){border-right:0}
+  .toolkit .tk-flow li:nth-child(-n+3){border-bottom:1px solid var(--line2)}
+}
+@media(max-width:700px){
+  .toolkit .section{padding:52px 0}
+  .toolkit .tk-hero{padding:42px 0 34px}
+  .toolkit .tk-routine,.toolkit .tk-tool-grid,.toolkit .tk-notes,.toolkit .tk-extra-grid,.toolkit .tk-control-grid,.toolkit .tk-news-routine{grid-template-columns:1fr}
+  .toolkit .tk-routine li{padding:20px}
+  .toolkit .tk-detail-body{padding:20px}
+  .toolkit .tk-disclosure summary{padding:18px 20px;font-size:19px}
+  .toolkit .tk-brief pre{padding:15px;font-size:12.5px}
+  .toolkit .tk-flow{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .toolkit .tk-flow li{padding:19px 16px;border-right:1px solid var(--line2);border-bottom:1px solid var(--line2)}
+  .toolkit .tk-flow li:nth-child(3){border-right:1px solid var(--line2)}
+  .toolkit .tk-flow li:nth-child(even){border-right:0}
+  .toolkit .tk-flow li:nth-last-child(-n+2){border-bottom:0}
+  .toolkit .tk-next{align-items:flex-start;flex-direction:column;gap:24px}
+  .toolkit .tk-jumps{gap:8px}
+  .toolkit .tk-jumps a{font-size:14px;padding:7px 12px}
+}
