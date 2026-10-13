@@ -7,6 +7,7 @@ name: Class simulation
 #
 # A manual run can also cover a fixed stretch of time: for example
 # ticks=70 and gap=5 runs one tick every 5 minutes for about 6 hours, then ends.
+# parts=2 runs two such parts one after another (about 12 hours), then ends.
 
 on:
   schedule:
@@ -19,6 +20,11 @@ on:
       gap:
         description: "Minutes between ticks (0 = back to back)"
         default: "0"
+      parts:
+        description: "Parts of up to 6 hours, run one after another"
+        type: choice
+        options: ["1", "2", "3", "4"]
+        default: "1"
 
 permissions:
   contents: write
@@ -31,6 +37,11 @@ jobs:
   tick:
     runs-on: ubuntu-latest
     timeout-minutes: 358
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        part: ${{ fromJSON(github.event.inputs.parts == '4' && '[1,2,3,4]' || github.event.inputs.parts == '3' && '[1,2,3]' || github.event.inputs.parts == '2' && '[1,2]' || '[1]') }}
     steps:
       - uses: actions/checkout@v5
         with:

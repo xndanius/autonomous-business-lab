@@ -82,7 +82,7 @@ export const RULES = {
   allinRatio: 2, // backers >= 2 x opponents
   allinMinAgeMin: 120,
   dropOpp: 8, // voted down: >= 8 opponents and more opponents than backers
-  staleHours: 12, // no activity -> dropped
+  staleTicks: 144, // about 12 hours of chat with no activity -> dropped
   recentPrompt: 24, // messages a student sees
   recentKeep: 80, // messages kept in state.json
   droppedKeep: 40,
@@ -204,9 +204,13 @@ function dropIdea(s, idea, why, now) {
   s.stats.dropped++;
   return sysMsg(s, now, `${idea.id} “${idea.title}” is dropped: ${why}.`, 'drop', idea.id);
 }
+function touch(s, idea, now) {
+  idea.act = iso(now);
+  idea.actTick = s.tick;
+}
 function back(s, sid, idea, now) {
   idea.opp = idea.opp.filter((x) => x !== sid);
-  idea.act = iso(now);
+  touch(s, idea, now);
   if (idea.backers.includes(sid)) return null;
   idea.bt = idea.bt || {};
   const mine = openIdeas(s).filter((i) => i.id !== idea.id && i.backers.includes(sid));
@@ -225,7 +229,7 @@ function oppose(s, sid, idea, now) {
   idea.backers = idea.backers.filter((x) => x !== sid);
   if (idea.bt) delete idea.bt[sid];
   if (!idea.opp.includes(sid)) idea.opp.push(sid);
-  idea.act = iso(now);
+  touch(s, idea, now);
 }
 function allinBlock(s, sid, idea, now, week) {
   if (s.allin[sid] === week) return 'the all-in card is already used this week';
@@ -245,7 +249,8 @@ function checkIdea(s, idea, now, people) {
 function housekeeping(s, now) {
   const out = [];
   for (const i of openIdeas(s)) {
-    if (minutesSince(i.act || i.at, now) > RULES.staleHours * 60) out.push(dropIdea(s, i, `nobody touched it for ${RULES.staleHours} hours`, now));
+    if (i.actTick === undefined) i.actTick = s.tick; // ideas from before this rule start fresh
+    if (s.tick - i.actTick > RULES.staleTicks) out.push(dropIdea(s, i, 'nobody touched it for about 12 hours of chat', now));
   }
   // keep state.json small: archive old dropped ideas
   const dropped = s.ideas.filter((i) => i.status === 'dropped');
@@ -406,6 +411,15 @@ function nudge(s, people, p, rnd) {
   if (near) out.push(`${near.id} is close to production (${near.backers.length}/${RULES.majority}). Decide where you stand.`);
   if (open.length < 3) out.push('The board needs ideas. If something from your own life fits, pitch it.');
   if (out.length < 2 && open.length >= 2 && !open.some((i) => i.backers.includes(p.id)) && rnd() < 0.5) out.push('You back no idea yet. Back one you believe in, or say what would convince you.');
+  const week = isoWeek(riga(CLOCK.now).date);
+  if (out.length < 2 && s.allin[p.id] !== week && rnd() < 0.3) {
+    const q = open.find((i) => i.backers.includes(p.id) && !allinBlock(s, p.id, i, CLOCK.now, week));
+    if (q) out.push(`${q.id}, which you back, qualifies for an all-in. If you would bet your summer on it, play your card now; if not, keep debating.`);
+  }
+  if (out.length < 2 && rnd() < 0.5) {
+    const old = open.filter((i) => minutesSince(i.at, CLOCK.now) > 360 && !i.backers.includes(p.id) && !i.opp.includes(p.id)).sort((a, b) => b.backers.length - a.backers.length)[0];
+    if (old) out.push(`${old.id} has been debated for hours and you have not decided. Back it or oppose it now, with one reason.`);
+  }
   if (out.length < 2) {
     const pitched = s.ps[p.id]?.p || 0;
     if (open.length < RULES.maxOpen && !pitched && rnd() < 0.35) out.push('If you have a better idea than what is on the board, pitch it.');
@@ -644,7 +658,7 @@ function applyReply(s, people, p, j, now) {
     else if (s.ideas.some((i) => i.status !== 'dropped' && similar(i.title, f.title))) notes.push('Similar idea already on the list');
     else {
       const id = 'I' + s.nextIdea++;
-      const it = { id, ...Object.fromEntries(FIELDS.map((k) => [k, f[k] || ''])), by: p.id, at: iso(now), act: iso(now), backers: [], opp: [], bt: {}, ver: 1, hist: [], status: 'open' };
+      const it = { id, ...Object.fromEntries(FIELDS.map((k) => [k, f[k] || ''])), by: p.id, at: iso(now), act: iso(now), actTick: s.tick, backers: [], opp: [], bt: {}, ver: 1, hist: [], status: 'open' };
       s.ideas.push(it);
       const moved = back(s, p.id, it, now);
       if (moved) notes.push(`Support moved from ${moved.id}`);
@@ -659,7 +673,7 @@ function applyReply(s, people, p, j, now) {
     for (const k of FIELDS) if (f[k] && f[k] !== idea[k]) { ch[k] = [idea[k], f[k]]; idea[k] = f[k]; }
     m.idea = idea.id;
     if (Object.keys(ch).length) {
-      idea.ver++; idea.hist.push({ t: iso(now), by: p.id, ch }); idea.hist = idea.hist.slice(-12); idea.act = iso(now);
+      idea.ver++; idea.hist.push({ t: iso(now), by: p.id, ch }); idea.hist = idea.hist.slice(-12); touch(s, idea, now);
       m.act = 'refine'; m.ch = ch; s.stats.refined++;
     }
   } else if (act === 'back') {
