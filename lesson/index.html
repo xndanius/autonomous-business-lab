@@ -15,31 +15,90 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/site.css?v=20261013-simple">
-<link rel="stylesheet" href="../assets/lesson.css">
+<link rel="stylesheet" href="../assets/site.css?v=20261013-clear">
+<link rel="stylesheet" href="../assets/lesson.css?v=20261013-clear">
 
 <link rel="canonical" href="https://xndanius.github.io/autonomous-business-lab/lesson/">
 </head>
 <body class="lesson-short">
 <a class="skip" href="#main">Skip to content</a><header class="nav"><div class="wrap"><a class="brand" href="../" aria-label="Autonomous Business Lab, home"><svg width="34" height="20" viewBox="0 0 34 20" aria-hidden="true"><circle cx="6" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/><circle cx="17" cy="10" r="6.5" fill="none" stroke="#B9E46B" stroke-width="2.4"/><circle cx="28" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/></svg><span>Autonomous Business Lab</span></a><nav aria-label="Main"><a href="../">Challenge</a><a href="../ideas/">Class ideas</a><a href="../lesson/" aria-current="page">Learn & build</a></nav><a class="btn primary" href="../#join">Join the challenge</a></div></header>
 
-<main id="main">
-  <section class="pagehead">
+<main id="main"><section class="pagehead"><div class="wrap"><p class="eyebrow">Learn &amp; build</p><h1>One idea.<br><span class="lime">One useful result.</span></h1><p class="lede">Start with a small service for people you can reach. Write the brief, build a first version, then use their feedback to improve it.</p><nav class="toc" aria-label="On this page"><a href="#exercise"><b>1</b>Write your brief</a><a href="#build"><b>2</b>Build and test</a><a href="#downloads"><b>3</b>Use the templates</a></nav><p class="guide-reference-link">Need the concepts first? <a href="#model">Understand how the loop works →</a></p></div></section><section class="section alt" id="exercise">
     <div class="wrap">
-      <p class="eyebrow">Learn &amp; build</p>
-      <h1>Make your first <span class="lime">useful loop.</span></h1>
-      <p class="lede">Understand the model, write a clear brief and build one routine that works for real people. This is your practical guide from idea to a tested first version.</p>
-      <nav class="toc" aria-label="On this page">
-        <a href="#idea"><b>1</b>Understand the model</a>
-        <a href="#exercise"><b>2</b>Write your brief</a>
-        <a href="#build"><b>3</b>Build in five steps</a>
-        <a href="#downloads"><b>4</b>Download templates</a>
-        <a href="#next"><b>5</b>Go deeper</a>
-      </nav>
-    </div>
-  </section>
+      <div class="section-head">
+        <p class="eyebrow">Step 1 · Write your brief</p>
+        <h2>Turn your idea into six clear lines.</h2>
+        <p class="lede">Choose one idea, then fill in the brief below. A first draft is enough: write what you know and mark what you still need to test. <a href="../ideas/">Choose a class idea</a> or use your own.</p>
+      </div>
+      <aside id="selected-idea" class="selected-idea" hidden aria-labelledby="selected-idea-title"><p class="eyebrow">Your starting idea</p><h3 id="selected-idea-title"></h3><p id="selected-idea-original"></p><p id="selected-idea-proposal" class="soft"></p><p class="note">The proposal is AI-generated and untested. Change it to fit people you can reach.</p><button type="button" class="btn" id="use-selected-idea" hidden>Fill empty fields from this idea</button><p class="note" id="selected-idea-status" role="status"></p></aside>
+<div class="lesson-exercise">
 
-  <section class="section" id="idea">
+
+        <div class="card lesson-six">
+          <h3>Save your six-line loop brief.</h3>
+          <div class="six">
+            <label>User and value<textarea name="user" data-label="User and value" placeholder="Who can you reach this week? What useful result will they get?"></textarea></label>
+            <label>Start, steps and delivery<textarea name="trigger" data-label="Start, steps and delivery" placeholder="What starts it? Make → Check → Deliver where?"></textarea></label>
+            <label>Check and failure action<textarea name="check" data-label="Check and failure action" placeholder="What passes? If it fails, retry once, hold or stop?"></textarea></label>
+            <label>Human control<textarea name="control" data-label="Human control" placeholder="What needs approval? What are the spending and action limits? How do you stop it?"></textarea></label>
+            <label>Feedback and improvement<textarea name="feedback" data-label="Feedback and improvement" placeholder="What will you learn from users? How will you test one change?"></textarea></label>
+            <label>First test<textarea name="test" data-label="First test" placeholder="What can five people try this week? What result will you measure?"></textarea></label>
+          </div>
+          <div class="six-foot">
+            <button class="copy" type="button" data-copy="six" aria-live="polite">Copy my six lines</button>
+            <button class="btn" type="button" data-clear-six>Clear</button>
+          </div>
+          <p class="note">Your draft stays in this browser. Copy it into your own document before switching devices or clearing browser data.</p>
+          <p class="note">Use real user feedback to challenge your brief. An AI score is advice, not a grade or proof of demand.</p>
+        </div>
+      </div>
+  <details class="lesson-more guide-help"><summary>Need help writing the brief? Use this prompt.</summary><div class="prompt">
+          <div class="prompt-head"><b>Draft your loop with AI</b><button class="copy" type="button" data-copy="#prompt-main" aria-live="polite">Copy prompt</button></div>
+<pre id="prompt-main">Help me design one useful loop for real users.
+My idea: [who it helps and what useful result it gives them].
+What I still need to test: [the biggest assumption or weakness].
+Use simple words. Ask if anything is unclear.
+Give six short lines: user and value; trigger, steps and delivery; pass/fail check and safe action on failure; human approvals, limits and stop; user feedback and a measured improvement; first test this week.
+Keep the first version small enough for a student team to build in four weeks.
+Mark guesses. Distinguish what exists from what we still need to build. Do not invent customers, revenue or working integrations.</pre>
+        </div></details><details class="lesson-more guide-help"><summary>Optional: inspect a workshop example first</summary><div class="lesson-board card">
+          <h3>Inspect a real result.</h3>
+          <p>Open the page you saved in class. Read it as its intended user: is the offer clear, useful and believable? Note one weakness. Write down one change you would test.</p>
+          <p>No saved page? Inspect this delivered example and do the same review.</p>
+          <a class="btn" href="https://sse-riga-60-second-startup.xndanius.chatgpt.site/startup/be19d901-2f42-4f15-bc22-1315e215602c">Inspect an existing example →</a>
+          <p class="note">Seeing a polished page is not evidence that customers want the offer.</p>
+        </div></details></div></section><section class="section" id="build">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Step 2 · Build a first version</p>
+        <h2>Build it in five testable steps.</h2>
+        <p class="lede">Use your six lines as the specification. Build one small path all the way to a real result before adding more features.</p>
+      </div>
+      <dl class="lesson-three card" aria-label="Five steps to build your first loop">
+        <div><dt>1 · Input</dt><dd>Pick one real user and one request you can handle. Save a concrete example input and write the useful output they should receive. Start with a form, message or scheduled data source you have permission to use.</dd></div>
+        <div><dt>2 · First result</dt><dd>Ask your coding agent to make the smallest working path from that input to that output. Run it yourself once. Show the result to five people outside your team; find out whether it is useful.</dd></div>
+        <div><dt>3 · Check</dt><dd>Save good, bad and edge-case inputs. Define a pass/fail rule and test that it catches the bad results. Choose a safe failure action: a bounded retry, holding delivery for review, or stopping. Test the failure path too.</dd></div>
+        <div><dt>4 · Run again</dt><dd>Add the trigger or daily schedule, a running server, saved run status and delivery. Record what has already been sent so retries do not send duplicates. Test a restart and a failed delivery. Set limits, alerts and a stop control before leaving it unattended.</dd></div>
+        <div><dt>5 · Measure</dt><dd>Record real users, returning users, successful and failed deliveries, cost per useful result, and minutes of manual work. Review the evidence daily. Test one change at a time against saved cases and real user feedback.</dd></div>
+      </dl>
+      <p class="note">A laptop script stops when its runtime stops. A hosted service still needs working credentials, scheduling, monitoring and someone responsible for exceptions. Keep the templates below with your project.</p>
+    </div>
+  </section><section class="section alt" id="downloads">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Take it into your project</p>
+        <h2>Download the working templates.</h2>
+        <p class="lede">Write the brief before building. Save test cases as you find them. Keep evidence of what runs, what users get and what still needs you.</p>
+      </div>
+      <dl class="lesson-three card" aria-label="Downloadable project templates">
+        <div><dt>Brief</dt><dd><a href="../resources/first-loop-brief.md" download>Six-line brief and instructions for your coding agent · Markdown</a></dd></div>
+        <div><dt>Test cases</dt><dd><a href="../resources/test-cases.csv" download>Normal, broken and edge-case inputs with expected results · CSV</a></dd></div>
+        <div><dt>Run log</dt><dd><a href="../resources/evidence-log.csv" download>Deliveries, failures, cost, users and human minutes · CSV</a></dd></div>
+        <div><dt>Weekly update</dt><dd><a href="../resources/weekly-update.md" download>What users got, what changed and what you will test next · Markdown</a></dd></div>
+        <div><dt>Challenge</dt><dd><a href="../resources/challenge.pdf" download>The challenge in one page · PDF</a></dd></div>
+      </dl>
+    </div>
+  </section><details class="model-reference" id="model"><summary><span class="eyebrow">Reference · open when you need it</span><strong>How loops, agents and controls work</strong></summary><section class="section" id="idea">
     <div class="wrap">
       <div class="section-head">
         <p class="eyebrow">Understand the model · Task vs loop</p>
@@ -59,9 +118,7 @@
         <div><dt>Loop</dt><dd>A routine that can run again when triggered. It can contain a workflow, an agent, or both. Repeating alone does not make it an agent.</dd></div>
       </dl>
     </div>
-  </section>
-
-  <section class="section alt" id="one-loop">
+  </section><section class="section alt" id="one-loop">
     <div class="wrap">
       <div class="section-head">
         <p class="eyebrow">Understand the model · One loop up close</p>
@@ -78,9 +135,7 @@
         <figcaption>The next accepted request starts the same routine. The output is a concept page: the proposed business, integrations and demand have not been proven by generating it.</figcaption>
       </figure>
     </div>
-  </section>
-
-  <section class="section" id="three-loops">
+  </section><section class="section" id="three-loops">
     <div class="wrap">
       <div class="section-head">
         <p class="eyebrow">Understand the model · Three jobs to design</p>
@@ -94,9 +149,7 @@
       </dl>
       <p class="note">This improvement changes instructions, not the model's training. A higher AI test score is evidence about those tests, not proof of happier customers. Check real user outcomes too.</p>
     </div>
-  </section>
-
-  <section class="section alt" id="control">
+  </section><section class="section alt" id="control">
     <div class="wrap">
       <div class="section-head">
         <p class="eyebrow">Understand the model · You stay in control</p>
@@ -115,9 +168,7 @@
       </div>
       <p class="note">Use code for rules you can state exactly. Use an AI review for judgment, with saved examples to test it. Neither catches every mistake. Decide in advance whether a failure means retry once, hold for review or stop.</p>
     </div>
-  </section>
-
-  <section class="section" id="ai-native">
+  </section><section class="section" id="ai-native">
     <div class="wrap">
       <div class="section-head">
         <p class="eyebrow">Build with AI</p>
@@ -126,90 +177,7 @@
       </div>
       <blockquote class="lesson-ask card"><p>“Build the smallest version that turns this sample request into this useful result. First explain the steps. Then implement one step, show how to test it, and tell me what still needs a person.”</p></blockquote>
     </div>
-  </section>
-
-  <section class="section alt" id="exercise">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Write your brief · Two connected activities</p>
-        <h2>Inspect a result. Design a better routine.</h2>
-        <p class="lede">Start with your workshop page, an existing example below, or an idea from the <a href="../ideas/">class archive</a>. Carry one weakness you notice into your own loop brief.</p>
-      </div>
-      <div class="lesson-exercise">
-        <div class="lesson-board card">
-          <h3>Activity 1 · Inspect your page.</h3>
-          <p>Open the page you saved in class. Read it as its intended user: is the offer clear, useful and believable? Note one weakness. If a rating is available, rate it and say why.</p>
-          <p>No saved page? Inspect this delivered example and do the same review.</p>
-          <a class="btn" href="https://sse-riga-60-second-startup.xndanius.chatgpt.site/startup/be19d901-2f42-4f15-bc22-1315e215602c">Inspect an existing example →</a>
-          <p class="note">Seeing a polished page is not evidence that customers want the offer.</p>
-        </div>
-        <div class="prompt">
-          <div class="prompt-head"><b>Activity 2 · Design your own loop</b><button class="copy" type="button" data-copy="#prompt-main" aria-live="polite">Copy prompt</button></div>
-<pre id="prompt-main">Help me design one useful loop for real users.
-My idea, from my workshop page or a better problem: [who it helps and what it does].
-One weakness I noticed when reviewing a page: [what needs to be better].
-Use simple words. Ask if anything is unclear.
-Give six short lines: user and value; trigger, steps and delivery; pass/fail check and safe action on failure; human approvals, limits and stop; user feedback and a measured improvement; first test this week.
-Keep the first version small enough for a student team to build in four weeks.
-Mark guesses. Distinguish what exists from what we still need to build. Do not invent customers, revenue or working integrations.</pre>
-        </div>
-        <div class="card lesson-six">
-          <h3>Save your six-line loop brief.</h3>
-          <div class="six">
-            <label>User and value<textarea name="user" data-label="User and value" placeholder="Who can you reach this week? What useful result will they get?"></textarea></label>
-            <label>Start, steps and delivery<textarea name="trigger" data-label="Start, steps and delivery" placeholder="What starts it? Make → Check → Deliver where?"></textarea></label>
-            <label>Check and failure action<textarea name="check" data-label="Check and failure action" placeholder="What passes? If it fails, retry once, hold or stop?"></textarea></label>
-            <label>Human control<textarea name="control" data-label="Human control" placeholder="What needs approval? What are the spending and action limits? How do you stop it?"></textarea></label>
-            <label>Feedback and improvement<textarea name="feedback" data-label="Feedback and improvement" placeholder="What will you learn from users? How will you test one change?"></textarea></label>
-            <label>First test<textarea name="test" data-label="First test" placeholder="What can five people try this week? What result will you measure?"></textarea></label>
-          </div>
-          <div class="six-foot">
-            <button class="copy" type="button" data-copy="six" aria-live="polite">Copy my six lines</button>
-            <button class="btn" type="button" data-clear-six>Clear</button>
-          </div>
-          <p class="note">Your draft stays in this browser. Copy it into your own document before switching devices or clearing browser data.</p>
-          <p class="note">Use real user feedback to challenge your brief. An AI score is advice, not a grade or proof of demand.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="build">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">From brief to a working loop</p>
-        <h2>Build it in five testable steps.</h2>
-        <p class="lede">Use your six lines as the specification. Build one small path all the way to a real result before adding more features.</p>
-      </div>
-      <dl class="lesson-three card" aria-label="Five steps to build your first loop">
-        <div><dt>1 · Input</dt><dd>Pick one real user and one request you can handle. Save a concrete example input and write the useful output they should receive. Start with a form, message or scheduled data source you have permission to use.</dd></div>
-        <div><dt>2 · First result</dt><dd>Ask your coding agent to make the smallest working path from that input to that output. Run it yourself once. Show the result to five people outside your team; find out whether it is useful.</dd></div>
-        <div><dt>3 · Check</dt><dd>Save good, bad and edge-case inputs. Define a pass/fail rule and test that it catches the bad results. Choose a safe failure action: a bounded retry, holding delivery for review, or stopping. Test the failure path too.</dd></div>
-        <div><dt>4 · Run again</dt><dd>Add the trigger or daily schedule, a running server, saved run status and delivery. Record what has already been sent so retries do not send duplicates. Test a restart and a failed delivery. Set limits, alerts and a stop control before leaving it unattended.</dd></div>
-        <div><dt>5 · Measure</dt><dd>Record real users, returning users, successful and failed deliveries, cost per useful result, and minutes of manual work. Review the evidence daily. Test one change at a time against saved cases and real user feedback.</dd></div>
-      </dl>
-      <p class="note">A laptop script stops when its runtime stops. A hosted service still needs working credentials, scheduling, monitoring and someone responsible for exceptions. Keep the templates below with your project.</p>
-    </div>
-  </section>
-
-  <section class="section alt" id="downloads">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Take it into your project</p>
-        <h2>Download the working templates.</h2>
-        <p class="lede">Write the brief before building. Save test cases as you find them. Keep evidence of what runs, what users get and what still needs you.</p>
-      </div>
-      <dl class="lesson-three card" aria-label="Downloadable project templates">
-        <div><dt>Brief</dt><dd><a href="../resources/first-loop-brief.md" download>Six-line brief and instructions for your coding agent · Markdown</a></dd></div>
-        <div><dt>Test cases</dt><dd><a href="../resources/test-cases.csv" download>Normal, broken and edge-case inputs with expected results · CSV</a></dd></div>
-        <div><dt>Run log</dt><dd><a href="../resources/evidence-log.csv" download>Deliveries, failures, cost, users and human minutes · CSV</a></dd></div>
-        <div><dt>Weekly update</dt><dd><a href="../resources/weekly-update.md" download>What users got, what changed and what you will test next · Markdown</a></dd></div>
-        <div><dt>Challenge</dt><dd><a href="../resources/challenge.pdf" download>The challenge in one page · PDF</a></dd></div>
-      </dl>
-    </div>
-  </section>
-
-  <section class="section" id="next">
+  </section></details><section class="section" id="next">
     <div class="wrap">
       <div class="section-head">
         <p class="eyebrow">Go deeper when you need it</p>
@@ -252,10 +220,10 @@ Give one likely cause and one test. Say what would show that the fix worked.</pr
       </details>
       <p><a class="btn primary" href="../#join">Ready to build with a team? Join the challenge →</a></p>
     </div>
-  </section>
-</main>
+  </section></main>
 
 <footer><div class="wrap"><p>Autonomous Business Lab · SSE Riga · <a href="mailto:danielius.stasiulis@gmail.com">Contact Danielius</a></p><nav aria-label="Footer"><a href="../">Challenge</a><a href="../ideas/">Class ideas</a><a href="../lesson/">Learn & build</a></nav></div></footer>
-<script src="../assets/site.js?v=20261013-simple" defer></script>
+<script src="../assets/site.js?v=20261013-clear" defer></script>
+<script src="../assets/brief.js?v=20261013-clear" defer></script>
 </body>
 </html>

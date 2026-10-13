@@ -1,5 +1,5 @@
 {
-  "edition": "challenge-first-2",
+  "edition": "student-path-3",
   "workshop_date": "2026-10-13",
   "slides": 18,
   "accepted_ideas": 33,
@@ -12,5 +12,6 @@
     "Class ideas",
     "Learn & build"
   ],
-  "opportunity": "Weekly mentoring by Danielius, with potential job or co-founding conversations depending on fit and progress."
+  "opportunity": "Weekly mentoring by Danielius, with potential job or co-founding conversations depending on fit and progress.",
+  "student_path": "Choose an idea, write a brief, build one useful result, test with real people."
 }

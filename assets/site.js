@@ -332,3 +332,22 @@
   var right = cur.offsetLeft - nav.offsetLeft + cur.offsetWidth;
   if (right > nav.clientWidth - 28) nav.scrollLeft = right - nav.clientWidth + 36;
 })();
+
+/* Old deep links can land inside optional reference sections. Reveal their target. */
+(function () {
+  function revealFragment() {
+    if (!location.hash) return;
+    var target;
+    try { target = document.getElementById(decodeURIComponent(location.hash.slice(1))); }
+    catch (e) { return; }
+    if (!target) return;
+    var node = target, revealed = false;
+    while (node) {
+      if (node.tagName === 'DETAILS' && !node.open) { node.open = true; revealed = true; }
+      node = node.parentElement;
+    }
+    if (revealed) requestAnimationFrame(function () { target.scrollIntoView({block: 'start'}); });
+  }
+  window.addEventListener('hashchange', revealFragment);
+  revealFragment();
+})();

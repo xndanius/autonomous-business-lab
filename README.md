@@ -5,8 +5,8 @@ Public follow-up to the SSE Riga workshop, 13 October 2026. GitHub Pages publish
 ## Student path
 The main menu has three destinations, in this order:
 - **Challenge** (`/`): the opportunity, weekly mentoring from Danielius, conditional job or co-founding opportunities, joining, four-week plan and evidence targets.
-- **Class ideas** (`ideas/`): 33 accepted workshop submissions from 42 entries, with original wording and AI suggestions separated.
-- **Learn & build** (`lesson/`): the model, two activities, five steps to a running loop, downloadable templates and optional deeper references.
+- **Class ideas** (`ideas/`): 33 accepted workshop submissions from 42 entries, with original wording and AI suggestions separated; submission order is the default, AI score is optional. Each idea can be carried into a local brief.
+- **Learn & build** (`lesson/`): the six-line brief first, five steps to a running loop, downloadable templates, and an optional model/reference section. The workshop-page review is optional.
 
 The primary call to action is **Join the challenge** (`/#join`). It opens the joining instructions; the email button only opens a draft.
 
@@ -26,4 +26,4 @@ Run `python3 scripts/build-student-show.py --source-public /path/to/reviewed/pre
 ## Publishing
 Review changes, commit and push to `main`. Verify the GitHub Pages deployment and the public routes before sharing. Keep simulation engine/workflow changes out of content-only releases.
 
-The site uses plain HTML/CSS/JavaScript. Three.js is vendored under its MIT license. User-entered lesson drafts stay in that browser; no analytics or new server-side collection was added.
+The site uses plain HTML/CSS/JavaScript. Three.js is vendored under its MIT license. User-entered lesson drafts stay in that browser; no analytics or new server-side collection was added. A `?idea=<seq>` link loads a public suggestion panel. Only an explicit click fills empty brief fields; existing writing is kept, and human-control/feedback decisions stay with the student. Deep links reveal the relevant collapsed reference section.

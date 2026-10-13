@@ -27,17 +27,17 @@ for n,title,body in weeks:
  c.setStrokeColor(line);c.line(margin,y-2,W-margin,y-2);y-=22
  text(margin,y,n,15,green,'Helvetica-Bold');text(margin+28,y,title,11,ink,'Helvetica-Bold')
  y=para(body,margin+28,y-7,W-2*margin-28,9.6,soft)-9
-y-=12;text(margin,y,'SIX THINGS TO SHOW',10,green,'Helvetica-Bold');y-=17
+y-=12;text(margin,y,'PROJECT REQUIREMENTS: SIX THINGS TO SHOW',10,green,'Helvetica-Bold');y-=17
 rules=[('Real users','People outside the team use it every week, or pay.'),('Runs without you','The recurring routine works daily; each request is handled once.'),('Checks first','Show a specific check and a result it stopped.'),('Handles failure','Show a safe retry, stop or human escalation.'),('You stay in control','Show results, cost, human minutes and a working stop control.'),('Improves from feedback','Compare one change on the same saved test cases; keep it only if better.')]
 for title,body in rules:
  y=para('<b>'+title+'.</b> '+body,margin,y,W-2*margin,9.6,ink)-6
 y-=12
 c.setFillColor(HexColor('#e4eed9'));c.roundRect(margin,y-67,W-2*margin,68,7,fill=1,stroke=0)
-para('<b>Evidence targets</b><br/>30+ users outside the team, or 3 paying customers. At least 2 weeks running daily on its own. People return week by week. Record cost and human work.',margin+13,y-10,W-2*margin-26,10,ink)
+para('<b>Targets to aim for</b><br/>30+ users outside the team, or 3 paying customers. At least 2 weeks running daily on its own. People return week by week. Record cost and human work.',margin+13,y-10,W-2*margin-26,10,ink)
 y-=88;text(margin,y,'JOIN & SUPPORT',10,green,'Helvetica-Bold');y-=12
-y=para('Teams form <b>Thu 15 October</b>. Bring your six-line brief and a plan to reach five real users. Final demo: at the end of the course project; <b>SSE sets the date</b>. AI tool budget for up to 3 teams, with terms confirmed by Danielius.',margin,y,W-2*margin-88,9.5,soft)
+y=para('Teams form <b>Thu 15 October</b>. Choose this challenge for your SSE course project. Email Danielius your <b>team members, rough idea and users you can reach</b>. No finished product needed. Final demo: at the end of the course project; <b>SSE sets the date</b>. AI tool budget for up to 3 teams; Danielius confirms terms.',margin,y,W-2*margin-88,9.5,soft)
 q=QrCodeWidget('https://xndanius.github.io/autonomous-business-lab/');d=Drawing(73,73);b=q.getBounds();d.add(q);d.scale(73/(b[2]-b[0]),73/(b[3]-b[1]));renderPDF.draw(d,c,W-margin-76,y-4)
-y=para('Questions: <link href="mailto:danielius.stasiulis@gmail.com" color="#416b26">danielius.stasiulis@gmail.com</link>',margin,y-10,W-2*margin-88,9.5,soft)
+y=para('Join: <link href="mailto:danielius.stasiulis@gmail.com" color="#416b26">danielius.stasiulis@gmail.com</link>',margin,y-8,W-2*margin-88,9.5,soft)
 assert y>55, y
 c.setStrokeColor(line);c.line(margin,47,W-margin,47)
 para('<link href="https://xndanius.github.io/autonomous-business-lab/" color="#416b26">xndanius.github.io/autonomous-business-lab</link>  |  Challenge, class ideas, Learn &amp; build',margin,36,W-2*margin,8,soft)
