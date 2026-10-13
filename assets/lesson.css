@@ -1,0 +1,61 @@
+/* Lesson layout. Shared site styles and navigation stay in place. */
+.lesson-short .pagehead{padding:56px 0 40px}
+.lesson-short .pagehead h1{font-size:clamp(44px,6.2vw,78px);max-width:1000px}
+.lesson-short .section{padding:64px 0}
+.lesson-short .section-head{margin-bottom:30px}
+.lesson-short .section-head h2{font-size:clamp(32px,4vw,48px)}
+.lesson-short .lesson-loop{margin:0}
+.lesson-short .lesson-loop ol{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line2);border-radius:var(--r);overflow:hidden;background:var(--card)}
+.lesson-short .lesson-loop li{padding:22px 18px;border-right:1px solid var(--line2);min-width:0}
+.lesson-short .lesson-loop li:last-child{border-right:0}
+.lesson-short .lesson-loop h3{display:flex;align-items:center;gap:10px;font-size:24px}
+.lesson-short .lesson-loop h3 span{font:400 14px var(--mono);color:var(--lime)}
+.lesson-short .lesson-loop p{font-size:17px;color:var(--soft);margin:14px 0 18px;min-height:55px}
+.lesson-short .lesson-loop img{width:100%;height:auto;border-radius:8px}
+.lesson-short .lesson-check{background:#242218}
+.lesson-short .lesson-check h3 span{color:var(--orange)}
+.lesson-short .lesson-check-picture{display:flex;align-items:center;justify-content:center;min-height:120px;color:var(--orange)}
+.lesson-short .lesson-check-picture svg{width:86px;height:86px}
+.lesson-short .lesson-loop figcaption{font-size:15px;color:var(--soft);margin-top:14px}
+.lesson-short .lesson-three{margin:0;display:grid;gap:20px}
+.lesson-short .lesson-three>div{display:grid;grid-template-columns:120px 1fr;gap:20px}
+.lesson-short .lesson-three dt{font:700 24px/1.4 var(--display);color:var(--lime)}
+.lesson-short .lesson-three dd{margin:0;color:var(--soft)}
+.lesson-short .lesson-ask{margin:0;border-left:3px solid var(--lime);max-width:860px}
+.lesson-short .lesson-ask p{font-size:clamp(20px,2vw,24px)}
+.lesson-short .lesson-exercise{display:grid;gap:20px;max-width:900px}
+.lesson-short .lesson-board{display:block}
+.lesson-short .lesson-board h3,.lesson-short .lesson-six h3{font-size:24px;margin-bottom:20px}
+.lesson-short .lesson-checks{list-style:none;padding:0;margin:0 0 22px;display:flex;flex-wrap:wrap;gap:8px}
+.lesson-short .lesson-checks li{border:1px solid var(--line2);border-radius:8px;padding:6px 10px;font-size:15px;color:var(--soft)}
+.lesson-short .prompt pre{max-height:none;overflow:visible;font-size:14px;line-height:1.6}
+.lesson-short .lesson-six .note{margin-top:16px;font-size:14px}
+.lesson-short .six-foot .btn{padding:8px 16px;font-size:14px}
+.lesson-short .lesson-more{margin-top:30px;border:1px solid var(--line2);border-radius:var(--r);background:var(--card)}
+.lesson-short .lesson-more>summary{cursor:pointer;padding:18px 22px;font:700 21px/1.4 var(--display)}
+.lesson-short .lesson-more>summary::marker{color:var(--lime)}
+.lesson-short .lesson-more .xprompts{padding:0 18px 18px}
+.lesson-short .xprompts details[open]>summary::after{content:"\2013"}
+.lesson-short #build,.lesson-short #tools{scroll-margin-top:90px}
+@media (max-width:1000px){.lesson-short .nav .btn{display:none}}
+@media (max-width:760px){
+  .lesson-short .pagehead{padding:40px 0 30px}
+  .lesson-short .section{padding:48px 0}
+  .lesson-short .lesson-loop ol{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lesson-short .lesson-loop li:nth-child(2){border-right:0}
+  .lesson-short .lesson-loop li:nth-child(-n+2){border-bottom:1px solid var(--line2)}
+  .lesson-short .lesson-loop p{min-height:0}
+  .lesson-short .lesson-three>div{grid-template-columns:1fr;gap:6px}
+}
+@media (max-width:480px){
+  .lesson-short .lesson-loop ol{grid-template-columns:1fr}
+  .lesson-short .lesson-loop li{border-right:0;border-bottom:1px solid var(--line2);padding:20px}
+  .lesson-short .lesson-loop li:last-child{border-bottom:0}
+  .lesson-short .lesson-loop img{max-width:290px;margin:auto}
+  .lesson-short .lesson-loop p{margin:12px 0 18px}
+  .lesson-short .lesson-check-picture{min-height:96px}
+  .lesson-short .lesson-board,.lesson-short .lesson-six{padding:22px}
+  .lesson-short .prompt-head{padding:14px 16px}
+  .lesson-short .prompt pre{padding:18px 16px}
+  .lesson-short .lesson-more .xprompts{padding:0 10px 10px}
+}
