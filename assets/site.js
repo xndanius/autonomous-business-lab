@@ -324,3 +324,11 @@
       .catch(function () { live.hidden = true; });
   });
 })();
+/* nav-current-scroll: on small screens the nav scrolls sideways; show the current page */
+(function () {
+  var nav = document.querySelector('.nav nav');
+  var cur = nav && nav.querySelector('[aria-current="page"]');
+  if (!cur || nav.scrollWidth <= nav.clientWidth) return;
+  var right = cur.offsetLeft - nav.offsetLeft + cur.offsetWidth;
+  if (right > nav.clientWidth - 28) nav.scrollLeft = right - nav.clientWidth + 36;
+})();
