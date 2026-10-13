@@ -1,4 +1,4 @@
-/* Three loops in 3D: Grow -> Serve -> Improve. Dots are orders and results moving through a business. */
+/* Design illustration: Grow -> Serve -> Improve. Randomized dots illustrate requests, results and a repair path; they are not live operating data. */
 (function () {
   'use strict';
   var LIME = 0xB9E46B, ORANGE = 0xF4A259, SOFT = 0xB7C1BA, DIM = 0x56616B, WHITE = 0xEEF2EA;
@@ -36,9 +36,9 @@
     var floor = new THREE.GridHelper(26, 26, 0x2A333D, 0x1F262E); floor.position.y = -1.55; floor.material.transparent = true; floor.material.opacity = 0.55; scene.add(floor);
 
     var rings = [
-      { key: 'grow', name: 'Grow', cx: -3.2, R: 1.05, color: SOFT, tip: 'Grow: bring the next customer. Every page says "Make your own".', href: stage.getAttribute('data-href-grow') },
-      { key: 'serve', name: 'Serve', cx: 0, R: 1.5, color: LIME, tip: 'Serve: order, make, check, deliver. Every time, without you.', href: stage.getAttribute('data-href-serve') },
-      { key: 'improve', name: 'Improve', cx: 3.2, R: 1.05, color: SOFT, tip: 'Improve: learn from ratings. Keep a change only if it is better.', href: stage.getAttribute('data-href-improve') }
+      { key: 'grow', name: 'Grow', cx: -3.2, R: 1.05, color: SOFT, tip: 'Grow: invite the next user, then measure whether the invitation works.', href: stage.getAttribute('data-href-grow') },
+      { key: 'serve', name: 'Serve', cx: 0, R: 1.5, color: LIME, tip: 'Serve: order, make, check and deliver within the limits you set.', href: stage.getAttribute('data-href-serve') },
+      { key: 'improve', name: 'Improve', cx: 3.2, R: 1.05, color: SOFT, tip: 'Improve: test a change from feedback. Keep it only if the comparison is better.', href: stage.getAttribute('data-href-improve') }
     ];
     function ringPoint(ring, a, out) {
       out = out || new THREE.Vector3();
@@ -78,7 +78,7 @@
     var links = [
       { a: ringPoint(grow, 0.6), b: ringPoint(serve, stations[0].a), lift: 0.7, text: 'new customers', at: 0.45, dy: 0.38 },
       { a: ringPoint(serve, stations[3].a), b: ringPoint(improve, Math.PI + 0.5), lift: -0.5, text: 'results + ratings', at: 0.5, dy: -0.32 },
-      { a: ringPoint(improve, 2.2), b: ringPoint(serve, stations[1].a), lift: 0.8, text: 'a better rule', at: 0.42, dy: 0.38 }
+      { a: ringPoint(improve, 2.2), b: ringPoint(serve, stations[1].a), lift: 0.8, text: 'keep only if better', at: 0.42, dy: 0.38 }
     ];
     links.forEach(function (l) {
       l.curve = bezierPts(l.a, l.b, l.lift);
@@ -98,7 +98,7 @@
     if (!compact) stations.forEach(function (s) { addTag(s.name, 'small', function () { var p = ringPoint(serve, s.a); var dir = p.clone().sub(new THREE.Vector3(serve.cx, 0, 0)).normalize(); return p.add(dir.multiplyScalar(0.6)); }); });
     links.forEach(function (l) { addTag(l.text, 'link', function () { var p = l.curve.getPoint(l.at); p.y += l.dy; return p; }); });
     var tip = document.createElement('div'); tip.className = 'tip'; stage.appendChild(tip);
-    var defaultTip = 'Dots are orders. An orange dot failed the check: it goes back and gets fixed.';
+    var defaultTip = 'Illustration: dots are requests. Orange shows a repair path; a real loop can also stop or ask a person.';
     tip.textContent = defaultTip;
 
     // particles
@@ -147,7 +147,7 @@
         }
       } else if (d.state === 'improve') {
         d.a -= d.speed * dt; ringPoint(improve, d.a, d.obj.position);
-        if (d.a <= d.exitA) { // one turn of learning, then a better rule flies back to Make
+        if (d.a <= d.exitA) { // an illustrative comparison returns a candidate change to Make
           var r1 = ringPoint(improve, d.exitA), r2 = ringPoint(serve, stations[1].a);
           toFly(d, bezier(r1, r2, 0.8), 1.2, function () { d.state = 'fade'; d.life = 0.5; }, WHITE);
         }

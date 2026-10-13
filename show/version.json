@@ -1,0 +1,46 @@
+{
+  "title": "SSE Riga lecture archive",
+  "lecture_date": "2026-10-13",
+  "edition": "v33 student edition",
+  "slide_count": 18,
+  "source_sha256": "fac2e3332c64376f81fb6d98ac3bf11b9ff07a08f90cf3d63e8b5b91c925831b",
+  "source_css_sha256": "8333f6deb8f2decd68421ee17baf6a1f53fad730350936c0848c617b37f398a1",
+  "generated_at_utc": "2026-10-13T12:52:43.368829+00:00",
+  "scope": "Read-only public lecture archive. No live intake, API requests, private presenter notes, admin controls or classroom counters.",
+  "recorded_example_counts": {
+    "startup": {
+      "value": 1,
+      "at": "2026-10-13T12:56:00+03:00",
+      "source_asset": "assets/loops/startup-v31.png"
+    },
+    "wys": {
+      "value": 7,
+      "at": "2026-10-13T12:13:00+03:00"
+    },
+    "comic": {
+      "value": 74,
+      "date": "2026-10-11"
+    },
+    "atlas": {
+      "value": 149,
+      "date": "2026-10-12"
+    },
+    "simulation": {
+      "value": 436,
+      "voted_ideas": 3,
+      "at": "2026-10-13T12:48:00+03:00",
+      "source_asset": "assets/loops/classroom-preview.png"
+    }
+  },
+  "startup_count": 1,
+  "files": {
+    "index.html": {
+      "bytes": 37427,
+      "sha256": "398d6b5f12be8f31166e03481512a31c462a632204b7b926a8a9494536628e7d"
+    },
+    "lecture-offline.html": {
+      "bytes": 2589144,
+      "sha256": "abfb96429259634060925be6f85af9110b7871b150d9ddf5ab1d0b012f6d1c8d"
+    }
+  }
+}

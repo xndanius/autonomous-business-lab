@@ -15,27 +15,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/site.css?v=20261013-postworkshop">
 <link rel="stylesheet" href="../assets/tools.css">
+<link rel="canonical" href="https://xndanius.github.io/autonomous-business-lab/tools/">
 </head>
 <body class="toolkit">
-<a class="skip" href="#main">Skip to content</a>
-<header class="nav">
-  <div class="wrap">
-    <a class="brand" href="../" aria-label="Autonomous Business Lab, home">
-      <svg width="34" height="20" viewBox="0 0 34 20" aria-hidden="true"><circle cx="6" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/><circle cx="17" cy="10" r="6.5" fill="none" stroke="#B9E46B" stroke-width="2.4"/><circle cx="28" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/></svg>
-      <span>Autonomous Business Lab</span>
-    </a>
-    <nav aria-label="Main">
-      <a href="../challenge/">Challenge</a>
-      <a href="../lesson/">Lesson</a>
-      <a href="./" aria-current="page">Tools</a>
-      <a href="../examples/">Examples</a>
-      <a href="../simulation/">Simulation</a>
-    </nav>
-    <a class="btn primary" href="../lesson/#exercise">First exercise</a>
-  </div>
-</header>
+<a class="skip" href="#main">Skip to content</a><header class="nav"><div class="wrap"><a class="brand" href="../" aria-label="Autonomous Business Lab, home"><svg width="34" height="20" viewBox="0 0 34 20" aria-hidden="true"><circle cx="6" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/><circle cx="17" cy="10" r="6.5" fill="none" stroke="#B9E46B" stroke-width="2.4"/><circle cx="28" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/></svg><span>Autonomous Business Lab</span></a><nav aria-label="Main"><a href="../show/">Slides</a><a href="../lesson/">Lesson</a><a href="../ideas/">Class ideas</a><a href="../examples/">Examples</a><a href="../tools/" aria-current="page">Tools</a><a href="../challenge/">Challenge</a></nav><a class="btn primary" href="../resources/">Resources</a></div></header>
 
 <main id="main">
   <section class="pagehead tk-hero">
@@ -46,7 +31,7 @@
       <nav class="tk-jumps" aria-label="On this page">
         <a href="#work">How to work</a><a href="#stack">Choose your tools</a><a href="#runbook">A loop in practice</a><a href="#news">Keep up on X</a>
       </nav>
-      <p class="tk-checked">Checked <time datetime="2026-10-13">13 October 2026</time> · <a href="#sources">Official sources</a> · Check live plans for current access and prices.</p>
+      <p class="tk-checked">Reviewed for this workshop <time datetime="2026-10-13">13 October 2026</time> · <a href="#sources">Official sources</a> · Check live plans for current access and prices.</p>
     </div>
   </section>
 
@@ -62,7 +47,7 @@
         <li><span class="tk-num">02</span><div><h3>Write the brief</h3><p>Give the agent the goal, context, constraints and a clear finish line. Attach examples. Ask for a short plan and the next smallest useful step.</p><p class="tk-proof"><b>Keep:</b> a brief the team can reuse.</p></div></li>
         <li><span class="tk-num">03</span><div><h3>Build one complete slice</h3><p>Make one real input become one useful result. Ask the agent to run it, test it and show what changed. Try it yourself, then watch a user use it.</p><p class="tk-proof"><b>Keep:</b> a working link and evidence of actual use.</p></div></li>
         <li><span class="tk-num">04</span><div><h3>Check the awkward cases</h3><p>Save 5–10 examples: normal requests, missing input, duplicates and past failures. Use fixed rules for facts you can test, plus a separate review for judgment.</p><p class="tk-proof"><b>Keep:</b> pass/fail results, not “the AI says it works”.</p></div></li>
-        <li><span class="tk-num">05</span><div><h3>Put the routine in the cloud</h3><p>Choose its trigger, allowed actions, retry limit and stop condition. Log every run. Keep human approval for sensitive actions and exceptions.</p><p class="tk-proof"><b>Keep:</b> a daily run, a cost cap and a stop button.</p></div></li>
+        <li><span class="tk-num">05</span><div><h3>Give the routine a reliable runtime</h3><p>Choose its trigger, allowed actions, retry limit and stop condition. Log every run. Keep human approval for sensitive actions and exceptions.</p><p class="tk-proof"><b>Keep:</b> a daily run, a cost cap and a stop button.</p></div></li>
         <li><span class="tk-num">06</span><div><h3>Improve one thing</h3><p>Review repeat use, failures, cost per useful result and your minutes. Change one thing. Compare old and new on the same saved cases before shipping.</p><p class="tk-proof"><b>Keep:</b> one measured improvement each week.</p></div></li>
       </ol>
 
@@ -107,8 +92,8 @@ First: propose a short plan. Then build and verify the first slice.</pre>
         <article class="tk-card" id="build">
           <div class="tk-top"><p class="tk-by">Build &amp; verify</p><h3>Codex or Claude Code</h3></div>
           <p>Let an agent work in your project: edit files, run commands and tests, and fix failures. Give it a small deliverable and an explicit way to verify it.</p>
-          <p class="tk-cost"><b>Cost (checked 13 Oct 2026):</b> <a href="https://learn.chatgpt.com/docs/pricing">Codex</a> is limited on Free and Go, included in Plus ($20/month), with more usage on Pro.</p>
-          <p class="tk-cost"><b>Cost (checked 13 Oct 2026):</b> <a href="https://claude.com/pricing">Claude Code</a> is in paid Claude plans from Pro ($20/month, about $17/month billed yearly); not on Free.</p>
+          <p class="tk-cost"><b>Access:</b> <a href="https://learn.chatgpt.com/docs/pricing">Codex plans and current limits</a>. Free access is limited; available features depend on plan and rollout. API usage is billed separately.</p>
+          <p class="tk-cost"><b>Access:</b> <a href="https://claude.com/pricing">Claude Code plans</a>. Check current plan access and usage limits before paying.</p>
           <p class="tk-proof"><b>Leave with:</b> a working slice, a readable change and test evidence.</p>
           <div class="tk-links"><a href="https://learn.chatgpt.com/guides/best-practices">Codex guide ↗</a><a href="https://code.claude.com/docs/en/best-practices">Claude Code guide ↗</a></div>
         </article>
@@ -122,7 +107,7 @@ First: propose a short plan. Then build and verify the first slice.</pre>
         <article class="tk-card" id="create">
           <div class="tk-top"><p class="tk-by">Make useful media</p><h3>Your assistant or Higgsfield</h3></div>
           <p>Start with your assistant for simple visuals. Add Higgsfield when video is part of the product. Specify audience, format, reference and what a good result must show.</p>
-          <p class="tk-cost"><b>Cost (checked 13 Oct 2026):</b> Limited free tier; paid plans from about $9 to $15/month. Prices change often, so check the <a href="https://higgsfield.ai/pricing">pricing page</a>. <a href="https://higgsfield.ai/creator-hub/help-center/account/who-owns-my-generations-and-can-i-use-them-commercially">Commercial use is allowed under its terms</a>.</p>
+          <p class="tk-cost"><b>Cost:</b> Check <a href="https://higgsfield.ai/pricing">current plans and credits</a>. Verify the terms for your intended commercial use and budget for the actual generations you need.</p>
           <p class="tk-proof"><b>Leave with:</b> one useful asset. Check accuracy, consent and rights before publishing.</p>
           <div class="tk-links"><a href="https://higgsfield.ai/">Higgsfield ↗</a><a href="https://higgsfield.ai/pricing">Current plans &amp; credits ↗</a></div>
         </article>
@@ -135,7 +120,7 @@ First: propose a short plan. Then build and verify the first slice.</pre>
         <summary>Useful extras, when you have a reason <span>Sources, long tasks, deployment</span></summary>
         <div class="tk-detail-body tk-extra-grid">
           <div><h3>Questions about your sources</h3><p><a href="https://notebook.google/">Gemini Notebook (formerly NotebookLM)</a> grounds answers in selected sources and provides citations. Good for interview notes and course material. Open the cited passage and check the claim.</p></div>
-          <div><h3>Long research tasks</h3><p><a href="https://docs.x.ai/grok-bot/overview">Grok Bot</a> offers a cloud computer for delegated work. Review its work and permissions; give it a bounded task.</p><p class="tk-cost"><b>Cost (checked 13 Oct 2026):</b> <a href="https://docs.x.ai/x-subscription/pricing">From $30/month on The X Subscription Premium</a>; existing SuperGrok and paid Cursor plans also qualify.</p><p><a href="https://docs.x.ai/grok-bot/tag-on-x">Tagging @bot on X is not available for EU-based accounts</a>, including Latvia.</p></div>
+          <div><h3>Long research tasks</h3><p><a href="https://docs.x.ai/grok-bot/overview">Grok Bot</a> offers a cloud computer for delegated work. Review its work and permissions; give it a bounded task.</p><p class="tk-cost"><b>Access:</b> See the <a href="https://docs.x.ai/grok-bot/overview">current Grok Bot access requirements</a>; plan access and regional features can change.</p><p><a href="https://docs.x.ai/grok-bot/tag-on-x">Tagging @bot on X is not available for EU-based accounts</a>, including Latvia.</p></div>
           <div><h3>A public URL</h3><p><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits">GitHub Pages</a> fits static class demos and project documentation. Choose an appropriate app host for a customer-facing service or backend.</p><p class="tk-cost"><b>Cost (checked 13 Oct 2026):</b> <a href="https://docs.github.com/en/pages/getting-started-with-github-pages">Pages</a> and <a href="https://docs.github.com/en/actions/concepts/billing-and-usage">Actions with standard hosted runners</a> are free for public repositories.</p></div>
           <div><h3>A dependable runtime</h3><p>n8n Cloud is managed hosting with a trial, then paid plans. Community Edition is free to self-host; the server and upkeep are yours. <a href="https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule">Actions schedules</a> can be delayed or dropped. Choose a runtime that meets your users' timing needs.</p></div>
         </div>
@@ -198,7 +183,7 @@ First: propose a short plan. Then build and verify the first slice.</pre>
       <details class="tk-disclosure tk-sources">
         <summary>Sources &amp; current access <span>Checked 13 October 2026</span></summary>
         <div class="tk-detail-body">
-          <p>The working method above adapts the official guidance below to this four-week challenge. Product capabilities, availability and prices change; follow the live provider pages before paying. Listed monthly prices are in USD; local taxes and checkout prices may differ.</p>
+          <p>The working method above adapts the official guidance below to this four-week challenge. Product capabilities, availability and prices change; follow the live provider pages before paying. Subscription access, API charges and hosting are separate. Check your account and the provider before spending.</p>
           <ul>
             <li>Briefs and verification: <a href="https://learn.chatgpt.com/guides/best-practices">Codex best practices</a> · <a href="https://code.claude.com/docs/en/best-practices">Claude Code best practices</a>.</li>
             <li>Start simple, then evaluate: <a href="https://www.anthropic.com/engineering/building-effective-agents">Building effective agents</a> · <a href="https://developers.openai.com/api/docs/guides/evaluation-best-practices">OpenAI evaluation guidance</a>.</li>
@@ -214,12 +199,7 @@ First: propose a short plan. Then build and verify the first slice.</pre>
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <p>Autonomous Business Lab · Guest lecture by Danielius Stasiulis at SSE Riga, 13 October 2026 · Updated 13 October 2026 · <a href="mailto:danielius.stasiulis@gmail.com">danielius.stasiulis@gmail.com</a></p>
-    <p><a href="../">Home</a> · <a href="../challenge/">Challenge</a> · <a href="../lesson/">Lesson</a> · <a href="../examples/">Examples</a> · <a href="../simulation/">Simulation</a></p>
-  </div>
-</footer>
-<script src="../assets/site.js" defer></script>
+<footer><div class="wrap"><p>Autonomous Business Lab · SSE Riga workshop, 13 October 2026 · <a href="mailto:danielius.stasiulis@gmail.com">danielius.stasiulis@gmail.com</a></p><p><a href="../">Home</a> · <a href="../show/">Slides</a> · <a href="../lesson/">Lesson</a> · <a href="../ideas/">Class ideas</a> · <a href="../examples/">Examples</a> · <a href="../tools/">Tools</a> · <a href="../challenge/">Challenge</a> · <a href="../resources/">Downloads</a> · <a href="../simulation/">Fictional class</a></p></div></footer>
+<script src="../assets/site.js?v=20261013-postworkshop" defer></script>
 </body>
 </html>

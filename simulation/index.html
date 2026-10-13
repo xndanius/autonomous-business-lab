@@ -15,27 +15,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/site.css?v=20261013-postworkshop">
 <link rel="stylesheet" href="../assets/sim.css">
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-<header class="nav">
-  <div class="wrap">
-    <a class="brand" href="../" aria-label="Autonomous Business Lab, home">
-      <svg width="34" height="20" viewBox="0 0 34 20" aria-hidden="true"><circle cx="6" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/><circle cx="17" cy="10" r="6.5" fill="none" stroke="#B9E46B" stroke-width="2.4"/><circle cx="28" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/></svg>
-      <span>Autonomous Business Lab</span>
-    </a>
-    <nav aria-label="Main">
-      <a href="../challenge/">Challenge</a>
-      <a href="../lesson/">Lesson</a>
-      <a href="../tools/">Tools</a>
-      <a href="../examples/">Examples</a>
-      <a href="./" aria-current="page">Simulation</a>
-    </nav>
-    <a class="btn primary" href="../lesson/#exercise">First exercise</a>
-  </div>
-</header>
+<a class="skip" href="#main">Skip to content</a><header class="nav"><div class="wrap"><a class="brand" href="../" aria-label="Autonomous Business Lab, home"><svg width="34" height="20" viewBox="0 0 34 20" aria-hidden="true"><circle cx="6" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/><circle cx="17" cy="10" r="6.5" fill="none" stroke="#B9E46B" stroke-width="2.4"/><circle cx="28" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/></svg><span>Autonomous Business Lab</span></a><nav aria-label="Main"><a href="../show/">Slides</a><a href="../lesson/">Lesson</a><a href="../ideas/">Class ideas</a><a href="../examples/">Examples</a><a href="../tools/">Tools</a><a href="../challenge/">Challenge</a></nav><a class="btn primary" href="../resources/">Resources</a></div></header>
 
 <main id="main">
   <section class="pagehead simhead">
@@ -123,15 +107,15 @@
         <h2>The rules of the chat</h2>
       </div>
       <ol class="sim-rules">
-        <li><b>Every ~4 minutes, 4 students speak.</b> Talkative people speak more often. Anyone mentioned gets a chance to answer. At night, one at a time.</li>
-        <li><b>Each student is a separate AI agent.</b> It sees only its own life story, a summary of the guest lecture, the class list, the board and the last 24 messages.</li>
+        <li><b>Scheduled turns select speakers.</b> Talkative people speak more often. Anyone mentioned gets a chance to answer. At night, one at a time.</li>
+        <li><b>Each student is a fictional AI role.</b> Roles use one configured model in separate turns, with their own profiles and the selected shared conversation context.</li>
         <li><b>One move per message:</b> talk, pitch, refine, back, oppose, go all in, or drop.</li>
         <li><b>Every idea needs six lines:</b> what it is, who pays, the price in euros, the first test this week, and what runs without the founders. Cool and useful beats safe and boring.</li>
         <li><b>Prices must make sense in Riga.</b> When a price is too high for here, classmates say so and fix it.</li>
         <li><b>Back at most 2 ideas at once.</b> Backing a third moves your support from your oldest one. Opposing removes your backing.</li>
         <li><b>Production:</b> 20 of 38 back an idea. Or one student plays the all-in card: once a week, only for an idea at least 2 hours old with 8+ backers and twice as many backers as opponents.</li>
         <li><b>Dropped:</b> 8+ opponents and more opponents than backers, or nobody touches the idea for 12 hours of chat. At most 8 ideas are open at once.</li>
-        <li><b>Production is permanent.</b> The chat never ends: the class moves on to the next idea.</li>
+        <li><b>“Production” is a simulation state.</b> It means the fictional class voted to build; it does not mean a business launched.</li>
       </ol>
       <p class="sim-tech soft">Runs in the cloud on GitHub Actions, without anyone's laptop. Model: <span data-sim-model>–</span>. Budget: up to $10 a day; today <span data-sim-spent>–</span>. The code is open: <a href="https://github.com/xndanius/autonomous-business-lab/tree/main/sim">sim/engine.mjs ↗</a></p>
     </div>
@@ -145,13 +129,8 @@
   </div>
 </dialog>
 
-<footer>
-  <div class="wrap">
-    <p>Autonomous Business Lab · Guest lecture by Danielius Stasiulis at SSE Riga, 13 October 2026 · All students in the simulation are fictional · <a href="mailto:danielius.stasiulis@gmail.com">danielius.stasiulis@gmail.com</a></p>
-    <p><a href="../">Home</a> · <a href="../challenge/">Challenge</a> · <a href="../lesson/">Lesson</a> · <a href="../examples/">Examples</a> · <a href="../tools/">Tools</a></p>
-  </div>
-</footer>
-<script src="../assets/site.js" defer></script>
+<footer><div class="wrap"><p>Autonomous Business Lab · SSE Riga workshop, 13 October 2026 · <a href="mailto:danielius.stasiulis@gmail.com">danielius.stasiulis@gmail.com</a></p><p><a href="../">Home</a> · <a href="../show/">Slides</a> · <a href="../lesson/">Lesson</a> · <a href="../ideas/">Class ideas</a> · <a href="../examples/">Examples</a> · <a href="../tools/">Tools</a> · <a href="../challenge/">Challenge</a> · <a href="../resources/">Downloads</a> · <a href="../simulation/">Fictional class</a></p></div></footer>
+<script src="../assets/site.js?v=20261013-postworkshop" defer></script>
 <script src="../assets/sim.js" defer></script>
 </body>
 </html>

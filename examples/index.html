@@ -4,52 +4,38 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Examples · Autonomous Business Lab</title>
-<meta name="description" content="Loops that ran on their own: the 60-Second Startup, the While You Sleep ideas channel, a comic and a map that grew every five minutes, and two small companies.">
+<meta name="description" content="Five workshop examples: a startup-page service, a publishing loop, a comic, a map and a fictional class conversation. See their triggers, checks, saved state and limits.">
 <meta name="theme-color" content="#0F1318">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Examples: loops that ran on their own">
-<meta property="og:description" content="A startup machine, an ideas channel that runs every hour, a comic and a map that grew every five minutes.">
+<meta property="og:title" content="Five workshop loops, opened up">
+<meta property="og:description" content="Real outputs, operating steps and limits from the SSE Riga workshop, plus starting points for your own project.">
 <meta property="og:image" content="https://xndanius.github.io/autonomous-business-lab/assets/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230F1318'/%3E%3Ccircle cx='15' cy='32' r='8' fill='none' stroke='%23B7C1BA' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='11' fill='none' stroke='%23B9E46B' stroke-width='5'/%3E%3Ccircle cx='49' cy='32' r='8' fill='none' stroke='%23B7C1BA' stroke-width='4'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/site.css?v=20261013-postworkshop">
+<link rel="canonical" href="https://xndanius.github.io/autonomous-business-lab/examples/">
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-<header class="nav">
-  <div class="wrap">
-    <a class="brand" href="../" aria-label="Autonomous Business Lab, home">
-      <svg width="34" height="20" viewBox="0 0 34 20" aria-hidden="true"><circle cx="6" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/><circle cx="17" cy="10" r="6.5" fill="none" stroke="#B9E46B" stroke-width="2.4"/><circle cx="28" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/></svg>
-      <span>Autonomous Business Lab</span>
-    </a>
-    <nav aria-label="Main">
-      <a href="../challenge/">Challenge</a>
-      <a href="../lesson/">Lesson</a>
-      <a href="../tools/">Tools</a>
-      <a href="./" aria-current="page">Examples</a>
-      <a href="../simulation/">Simulation</a>
-    </nav>
-    <a class="btn primary" href="../lesson/#exercise">First exercise</a>
-  </div>
-</header>
+<a class="skip" href="#main">Skip to content</a><header class="nav"><div class="wrap"><a class="brand" href="../" aria-label="Autonomous Business Lab, home"><svg width="34" height="20" viewBox="0 0 34 20" aria-hidden="true"><circle cx="6" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/><circle cx="17" cy="10" r="6.5" fill="none" stroke="#B9E46B" stroke-width="2.4"/><circle cx="28" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/></svg><span>Autonomous Business Lab</span></a><nav aria-label="Main"><a href="../show/">Slides</a><a href="../lesson/">Lesson</a><a href="../ideas/">Class ideas</a><a href="../examples/" aria-current="page">Examples</a><a href="../tools/">Tools</a><a href="../challenge/">Challenge</a></nav><a class="btn primary" href="../resources/">Resources</a></div></header>
 
 <main id="main">
   <section class="pagehead">
     <div class="wrap">
       <p class="eyebrow">Examples</p>
-      <h1>Loops that ran <span class="lime">on their own.</span></h1>
-      <p class="lede">Four loops Danielius built by directing AI agents. Then two small companies, seven ideas from the lecture, and three ways it goes wrong.</p>
+      <h1>See how <span class="lime">the loops run.</span></h1>
+      <p class="lede">Five examples from the workshop, built by directing AI agents. Inspect what runs, what is saved and where people still matter. Then explore historical small-team examples, seven starting points and reported failures.</p>
       <nav class="toc" aria-label="On this page">
         <a href="#startup"><b>1</b>The 60-Second Startup</a>
         <a href="#wys"><b>2</b>While You Sleep</a>
         <a href="#comic"><b>3</b>The Long Run</a>
         <a href="#atlas"><b>4</b>The Unfinished Atlas</a>
-        <a href="#companies"><b>5</b>Small teams, real money</a>
-        <a href="#ideas"><b>6</b>Ideas from the lecture</a>
-        <a href="#wrong"><b>7</b>How it goes wrong</a>
+        <a href="#classroom"><b>5</b>The class simulation</a>
+        <a href="#companies"><b>6</b>Historical small-team examples</a>
+        <a href="#ideas"><b>7</b>Starting points</a>
+        <a href="#wrong"><b>8</b>Reported failures</a>
       </nav>
     </div>
   </section>
@@ -65,13 +51,13 @@
       <div class="facts">
         <p class="eyebrow">Example 1 · Built for the lecture</p>
         <h2>The 60-Second Startup</h2>
-        <p class="soft">Students scan a QR code and type one skill or one problem. Less than a minute later, each one gets a checked startup page with its own link: the offer, who pays, the price, and how the business could run itself.</p>
+        <p class="soft">A request starts a cloud workflow: AI drafts a startup concept, a separate model call reviews it, and a passing page gets its own link. The page is a prototype: its proposed business, price and tool integrations still need to be tested and built.</p>
         <dl class="mapping">
-          <dt>Grow</dt><dd>Every page says “Make your own”.</dd>
-          <dt>Serve</dt><dd>Order → Make → Check → Deliver, with no human step.</dd>
-          <dt>Check</dt><dd>A separate checker stops jokes, unsafe text and false claims.</dd>
-          <dt>Improve</dt><dd>After enough ratings, it tests one change. Old and new run on the same ideas; the new one ships only if a grader scores it higher.</dd>
-          <dt class="ctrl">Control</dt><dd>The board counts human touches per order. The goal is zero.</dd>
+          <dt>Grow</dt><dd>A “Make your own” link invites the next user. Whether people use it must be measured.</dd>
+          <dt>Serve</dt><dd>Request → draft → check → deliver. Code fixes this sequence; a failed check allows one repair and another check, then stops.</dd>
+          <dt>Check</dt><dd>Code checks the format; a separate AI call reviews relevance and safety. Both can miss mistakes.</dd>
+          <dt>Improve</dt><dd>After 15 ratings, it can test new producer instructions on three fixed prompts. Keep them only if the comparison scores higher; this does not retrain the model or prove better customer outcomes.</dd>
+          <dt class="ctrl">Control</dt><dd>People set the scope, budget and stop rules and maintain the service. The old board’s “human touches” field is fixed at zero, so it is not a measurement of manual work.</dd>
         </dl>
         <div class="links">
           <a class="btn" href="https://sse-riga-60-second-startup.xndanius.chatgpt.site/startup/be19d901-2f42-4f15-bc22-1315e215602c">See one delivered page ↗</a>
@@ -86,24 +72,24 @@
         <a class="shot-frame" href="https://xndanius.github.io/while-you-sleep/" style="display:block"><img src="../assets/img/wys.jpg" alt="The While You Sleep website: While you sleep, the ideas keep coming." loading="lazy"></a>
       </div>
       <div class="facts">
-        <p class="eyebrow">Example 2 · Runs every hour, in the cloud</p>
+        <p class="eyebrow">Example 2 · Cloud workflow with hourly opportunities</p>
         <h2>While You Sleep</h2>
-        <p class="soft">An ideas channel. Every hour it reads public sources and drafts small AI business ideas a student could build. A separate check rejects most of them. Only checked ideas are published.</p>
+        <p class="soft">An ideas channel. A scheduled opportunity starts research and drafting from public sources. Review and source gates decide whether a candidate can be published. A slot may finish without a post.</p>
         <div class="livebar" data-wys-live hidden>
           <p class="wys-line" data-wys="line"></p>
-          <div><b data-wys="checked">–</b><span>ideas researched</span></div>
-          <div><b data-wys="published">–</b><span>published</span></div>
-          <div><b data-wys="cost">–</b><span>model cost, from its own log</span></div>
-          <div><b data-wys="rules">–</b><span>rule changes proposed / kept</span></div>
+          <div><b data-wys="checked">–</b><span>research candidates logged</span></div>
+          <div><b data-wys="published">–</b><span>posts published</span></div>
+          <div><b data-wys="cost">–</b><span>estimated model cost · public log</span></div>
+          <div><b data-wys="rules">–</b><span>rule-test records / adopted</span></div>
           <div><b data-wys="pub">–</b><span>last published</span></div>
           <div><b data-wys="last">–</b><span><i class="livedot"></i>last run</span></div>
         </div>
         <dl class="mapping">
-          <dt>Grow</dt><dd>Ideas that score 7 out of 10 or more go to a LinkedIn page, at most two a day.</dd>
-          <dt>Serve</dt><dd>Research → draft → check → publish, on its own clock.</dd>
-          <dt>Check</dt><dd>A separate checker. When it cannot verify an idea, nothing is published.</dd>
-          <dt>Improve</dt><dd>It proposes one rule change at a time. The change is kept only if blind grading scores it higher.</dd>
-          <dt class="ctrl">Control</dt><dd>A daily cap on posts, and every run logged in public.</dd>
+          <dt>Grow</dt><dd>The public feed makes published ideas available to readers. Distribution settings and audience growth are separate things to verify.</dd>
+          <dt>Serve</dt><dd>Due slot → research → draft → check → publish or skip → save the run record.</dd>
+          <dt>Check</dt><dd>A separate review plus source, format and duplicate checks gate publication. A pass is not proof of market demand or profit.</dd>
+          <dt>Improve</dt><dd>Proposed rule changes are compared with the current rules on saved examples. Only a passing comparison can replace them.</dd>
+          <dt class="ctrl">Control</dt><dd>People set the publishing policy and budget. Public records show outputs and attempts; logged cost is an estimate, not a billing statement.</dd>
         </dl>
         <div class="links">
           <a class="btn" href="https://xndanius.github.io/while-you-sleep/">The website ↗</a>
@@ -134,14 +120,15 @@
         </div>
       </div>
       <div class="facts">
-        <p class="eyebrow">Example 3 · A creative loop</p>
+        <p class="eyebrow">Example 3 · Recorded local creative run</p>
         <h2>The Long Run</h2>
-        <p class="soft">An AI agent wrote and drew a comic, one page every five minutes, starting from one ordinary trail run in the Vilnius forests. Each new page saw only the last image and a short recap, so the loop had to keep its own story straight.</p>
+        <p class="soft">An AI agent wrote and drew this comic, starting from one ordinary trail run in the Vilnius forests. A scheduled attempt supplied the last image and a short recap; the agent created and inspected a page, then saved it and the next handoff.</p>
         <dl class="mapping">
           <dt>Pages</dt><dd>74, drawn on 11 October.</dd>
-          <dt>Rhythm</dt><dd>One page every five minutes.</dd>
-          <dt>Memory</dt><dd>The last image and a short recap.</dd>
-          <dt class="ctrl">Lesson</dt><dd>It ran on a laptop, so it stopped when the laptop did. A loop for real users needs to run in the cloud.</dd>
+          <dt>Trigger</dt><dd>A five-minute attempt when the previous job was idle. A failed attempt added no page.</dd>
+          <dt>Memory</dt><dd>The last image, story recap and cast, saved for the next attempt.</dd>
+          <dt>Check</dt><dd>The creating agent inspected continuity and the saved image. There was no independent semantic reviewer.</dd>
+          <dt class="ctrl">Limit</dt><dd>New pages needed the Mac awake and Codex connected. These 74 pages are a dated archive; a dependable service needs a runtime available when its users need it.</dd>
         </dl>
       </div>
     </div>
@@ -150,9 +137,9 @@
   <section class="section alt" id="atlas">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">Example 4 · A map that grows</p>
+        <p class="eyebrow">Example 4 · Recorded local map run</p>
         <h2>The Unfinished Atlas</h2>
-        <p class="lede">Every five minutes, an AI agent drew a new tile to fit its neighbours. The world grew outward from one clearing: 149 tiles on 11 and 12 October. Press Replay to watch it grow, then drag to explore.</p>
+        <p class="lede">A five-minute attempt gave an AI agent the map and neighbouring tiles. It drew and inspected the next tile, checked its file and metadata, then saved and uploaded it. The archive contains 149 tiles from 11–12 October. Press Replay to watch the recorded growth, then drag to explore.</p>
       </div>
       <div class="atlas" data-atlas tabindex="0" aria-label="The Unfinished Atlas. Drag to move. Use the plus and minus buttons to zoom.">
         <div class="plane"></div>
@@ -162,41 +149,66 @@
         <div class="counter">Loading…</div>
         <div class="zoom"><button type="button" data-zoom-out aria-label="Zoom out">−</button><button type="button" data-zoom-in aria-label="Zoom in">+</button></div>
       </div>
-      <p class="lesson-line"><b>Lesson:</b> small, regular steps can build something big, if each new step fits what is already there.</p>
+      <p class="lesson-line"><b>Limit:</b> new generation needed the Mac awake and Codex connected. Failed checks added no tile. File checks do not prove visual continuity; the artist also inspected its work.</p>
       <div class="subhead">
-        <p class="eyebrow">What our four loops have in common</p>
-        <h3>The same four parts</h3>
+        <p class="eyebrow">A way to inspect any of these examples</p>
+        <h3>Four questions to ask</h3>
       </div>
+      <p class="soft">Grow, Serve and Improve name three business jobs, not three required agents. Start with one useful routine; use people, code or AI where each helps.</p>
       <div class="together">
-        <div><b>A trigger</b><p>An order, a schedule or a new item starts it.</p></div>
-        <div><b>A check</b><p>A separate step reads the result before anyone sees it.</p></div>
-        <div><b>A record</b><p>Every run leaves a trace you can inspect.</p></div>
-        <div><b>A human</b><p>Sets the goal and the limits, and can stop it.</p></div>
+        <div><b>What starts it?</b><p>A request, due time or other event.</p></div>
+        <div><b>What is checked?</b><p>Identify the code, creator inspection or independent review—and what it can miss.</p></div>
+        <div><b>What is saved?</b><p>Find the progress, result and handoff used by the next run.</p></div>
+        <div><b>Who stays in control?</b><p>Name the person who sets limits, handles exceptions and can stop it.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="companies">
+  <section class="section" id="classroom">
+    <div class="wrap example">
+      <div class="media card">
+        <p class="eyebrow">38 fictional students · one shared conversation</p>
+        <h3>Different profiles.<br>Different opinions.</h3>
+        <p>Each selected student reads their own background, the board, the latest chat and their own saved memory.</p>
+        <p><a class="btn primary" href="../simulation/">Read the class conversation →</a></p>
+      </div>
+      <div class="facts">
+        <p class="eyebrow">Example 5 · Cloud conversation with bounded AI turns</p>
+        <h2>The class simulation</h2>
+        <p class="soft">The conversation runs for real; the students are fictional personas using one configured model. Each selected persona gets a separate model call, chooses words and an allowed action, and reacts to the shared history.</p>
+        <dl class="mapping">
+          <dt>Trigger</dt><dd>A scheduled tick selects a few speakers.</dd>
+          <dt>Loop</dt><dd>Read profile, board and chat → choose a message and action → enforce the rules → save → let the next students react.</dd>
+          <dt>Check</dt><dd>Code enforces voting rules, action limits and valid targets. These are game-rule checks, not independent fact checks.</dd>
+          <dt>Memory</dt><dd>The shared conversation and idea board, plus each persona’s recent messages.</dd>
+          <dt class="ctrl">Limit</dt><dd>“In production” means voted through inside the simulation. It does not show a real team, paying customer or launched business.</dd>
+        </dl>
+        <p><a class="more" href="../ideas/">See the real students’ workshop submissions →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="companies">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">5 · Small teams, real money</p>
+        <p class="eyebrow">6 · Additional historical examples</p>
         <h2>Small teams. Simple tools. Real customers.</h2>
       </div>
       <div class="cases">
         <div class="card case">
           <span class="k">Photo AI</span>
           <span class="big">$105K</span>
-          <p>a month in revenue. The site, photoai.com, is a single PHP file of 40,870 lines.</p>
-          <small>Reported by the founder, Pieter Levels, 6 March 2026. <a href="https://levels.io/photoai-40870-line-index-php-105k-mo-revenue">Source ↗</a></small>
+          <p>monthly revenue reported in March 2026. The founder described photoai.com as a single PHP file of 40,870 lines.</p>
+          <small>Historical founder report: Pieter Levels, 6 March 2026. <a href="https://levels.io/photoai-40870-line-index-php-105k-mo-revenue">Source ↗</a></small>
         </div>
         <div class="card case">
           <span class="k">Tally</span>
           <span class="big">$100K</span>
-          <p>in monthly recurring revenue for an online form builder, run by a bootstrapped team of 3.</p>
-          <small>Reported by the team, 1 March 2024. <a href="https://blog.tally.so/our-bootstrapped-journey-towards-100k-mrr/">Source ↗</a></small>
+          <p>monthly recurring revenue reported in March 2024, with a bootstrapped team of three at that time.</p>
+          <small>Historical team report: 1 March 2024. These are not current revenue or headcount figures. <a href="https://blog.tally.so/our-bootstrapped-journey-towards-100k-mrr/">Source ↗</a></small>
         </div>
       </div>
-      <p class="lede" style="margin-top:20px">Small teams can serve many paying customers with simple tools. Neither company is an example of full autonomy: they show how far a small team can go.</p>
+      <p class="lede" style="margin-top:20px">These reports illustrate what small teams can achieve. They do not establish that either company runs autonomously, and the figures have not been independently audited here.</p>
 
     </div>
   </section>
@@ -204,9 +216,10 @@
   <section class="section alt" id="ideas">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">6 · Ideas from the lecture</p>
-        <h2>No idea yet? Start from one of these.</h2>
-        <p class="lede">Seven ideas from the lecture. Each one makes something new every day without you, and each is possible for a student team in four weeks. Demand and prices are not proven: test them with real users, and make the idea your own.</p>
+        <p class="eyebrow">7 · Starting points to adapt</p>
+        <h2>No idea yet? Start from a real user.</h2>
+        <p class="lede">Seven proposed directions from the lecture. Each describes a routine you could try to automate. Scope, demand, prices and four-week feasibility need testing with people you can reach.</p>
+        <p><a class="more" href="../ideas/">Browse the real students’ workshop submissions →</a></p>
       </div>
       <div class="ideas">
         <article class="idea">
@@ -258,7 +271,7 @@
   <section class="section" id="wrong">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">7 · How it goes wrong</p>
+        <p class="eyebrow">8 · Additional reported failure cases</p>
         <h2>Three lessons from real makers</h2>
         <p class="lede">Each one breaks one of the six things the challenge asks for.</p>
       </div>
@@ -295,12 +308,7 @@
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <p>Autonomous Business Lab · Guest lecture by Danielius Stasiulis at SSE Riga, 13 October 2026 · Updated 13 October 2026 · <a href="mailto:danielius.stasiulis@gmail.com">danielius.stasiulis@gmail.com</a>. Comic and atlas images are compressed copies.</p>
-    <p><a href="../">Home</a> · <a href="../challenge/">Challenge</a> · <a href="../lesson/">Lesson</a> · <a href="../simulation/">Simulation</a> · <a href="../tools/">Tools</a></p>
-  </div>
-</footer>
-<script src="../assets/site.js" defer></script>
+<footer><div class="wrap"><p>Autonomous Business Lab · SSE Riga workshop, 13 October 2026 · <a href="mailto:danielius.stasiulis@gmail.com">danielius.stasiulis@gmail.com</a></p><p><a href="../">Home</a> · <a href="../show/">Slides</a> · <a href="../lesson/">Lesson</a> · <a href="../ideas/">Class ideas</a> · <a href="../examples/">Examples</a> · <a href="../tools/">Tools</a> · <a href="../challenge/">Challenge</a> · <a href="../resources/">Downloads</a> · <a href="../simulation/">Fictional class</a></p></div></footer>
+<script src="../assets/site.js?v=20261013-postworkshop" defer></script>
 </body>
 </html>

@@ -8,7 +8,7 @@
 
   /* ---------- shared footer: lecture slides ---------- */
   var footerLinks = $('footer .wrap p:last-child');
-  if (footerLinks && !$('[data-slides-link]', footerLinks)) {
+  if (footerLinks && !Array.from(footerLinks.querySelectorAll('a')).some(function(a){ return a.textContent.trim() === 'Slides'; })) {
     var slidesLink = document.createElement('a');
     slidesLink.href = base + 'show/'; slidesLink.textContent = 'Slides';
     slidesLink.setAttribute('data-slides-link', '');
@@ -128,7 +128,7 @@
   }
   function when(iso) {
     try {
-      return new Date(iso).toLocaleString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Vilnius' });
+      return new Date(iso).toLocaleString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Riga' });
     } catch (e) { return ''; }
   }
 
@@ -311,7 +311,7 @@
         function set(k, v) { var el = $('[data-wys="' + k + '"]', live); if (el && v !== null && v !== undefined && v !== '') el.textContent = v; }
         if (typeof st.candidates === 'number') set('checked', st.candidates.toLocaleString('en-GB'));
         if (typeof st.published === 'number') set('published', String(st.published));
-        if (typeof st.totalCostUsd === 'number') set('cost', '$' + st.totalCostUsd.toFixed(2));
+        if (typeof st.totalCostUsd === 'number') set('cost', '~$' + st.totalCostUsd.toFixed(2));
         if (Array.isArray(m.versions)) {
           var kept = m.versions.filter(function (v) { return v && v.adopted; }).length;
           set('rules', m.versions.length + ' / ' + kept);
@@ -321,12 +321,12 @@
           set('pub', hrs < 1 ? 'within 1 h' : hrs < 48 ? hrs + ' h ago' : Math.round(hrs / 24) + ' days ago');
         }
         if (typeof st.published === 'number' && typeof st.candidates === 'number' && st.candidates > 0) {
-          set('line', 'Only ' + st.published + ' of ' + st.candidates.toLocaleString('en-GB') + ' researched ideas passed the check so far. The rest were stopped.');
+          set('line', st.candidates.toLocaleString('en-GB') + ' research candidates logged · ' + st.published + ' posts published. These are separate public-log totals; their difference is not a count of rejected ideas.');
         }
         var lastRun = s2.lastRunAt || s2.lastLoopAt;
         if (lastRun) {
           var mins = Math.round((Date.now() - new Date(lastRun).getTime()) / 60000);
-          if (mins > 180) { set('last', 'paused'); live.classList.add('stale'); }
+          if (mins > 180) { set('last', mins < 1440 ? Math.round(mins / 60) + ' h ago' : Math.round(mins / 1440) + ' days ago'); live.classList.add('stale'); }
           else set('last', mins < 1 ? 'now' : mins < 90 ? mins + ' min ago' : Math.round(mins / 60) + ' h ago');
         }
         live.hidden = false;

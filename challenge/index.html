@@ -15,26 +15,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/site.css?v=20261013-postworkshop">
+<link rel="canonical" href="https://xndanius.github.io/autonomous-business-lab/challenge/">
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-<header class="nav">
-  <div class="wrap">
-    <a class="brand" href="../" aria-label="Autonomous Business Lab, home">
-      <svg width="34" height="20" viewBox="0 0 34 20" aria-hidden="true"><circle cx="6" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/><circle cx="17" cy="10" r="6.5" fill="none" stroke="#B9E46B" stroke-width="2.4"/><circle cx="28" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/></svg>
-      <span>Autonomous Business Lab</span>
-    </a>
-    <nav aria-label="Main">
-      <a href="./" aria-current="page">Challenge</a>
-      <a href="../lesson/">Lesson</a>
-      <a href="../tools/">Tools</a>
-      <a href="../examples/">Examples</a>
-      <a href="../simulation/">Simulation</a>
-    </nav>
-    <a class="btn primary" href="../lesson/#exercise">First exercise</a>
-  </div>
-</header>
+<a class="skip" href="#main">Skip to content</a><header class="nav"><div class="wrap"><a class="brand" href="../" aria-label="Autonomous Business Lab, home"><svg width="34" height="20" viewBox="0 0 34 20" aria-hidden="true"><circle cx="6" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/><circle cx="17" cy="10" r="6.5" fill="none" stroke="#B9E46B" stroke-width="2.4"/><circle cx="28" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/></svg><span>Autonomous Business Lab</span></a><nav aria-label="Main"><a href="../show/">Slides</a><a href="../lesson/">Lesson</a><a href="../ideas/">Class ideas</a><a href="../examples/">Examples</a><a href="../tools/">Tools</a><a href="../challenge/" aria-current="page">Challenge</a></nav><a class="btn primary" href="../resources/">Resources</a></div></header>
 
 <main id="main">
   <section class="pagehead">
@@ -42,7 +27,7 @@
       <p class="eyebrow">The challenge</p>
       <h1>One loop. <span class="lime">Real users.</span></h1>
       <p class="lede">In four weeks, launch something real and useful that people use every week, and let its routine run without you. A newsletter that writes itself every morning. A student radio that never sleeps. An internship scout. A leaderboard that updates itself. The topic is open. The users must be real.</p>
-      <div class="join">
+      <div class="join" id="join">
         <b>How to join</b>
         <ol>
           <li>Do the <a href="../lesson/#exercise">exercise</a> and write your six lines.</li>
@@ -67,7 +52,7 @@
         <div class="rule"><span class="n">3</span><h3>Checks first</h3><p>It checks before it sends.</p><p class="show"><b>Show:</b> one result your check stopped, and why.</p></div>
         <div class="rule"><span class="n">4</span><h3>Handles failure</h3><p>Retry, safe stop, or ask you.</p><p class="show"><b>Show:</b> one real failure, and what the loop did.</p></div>
         <div class="rule"><span class="n">5</span><h3>You stay in control</h3><p>A simple panel shows results, cost and your minutes, and lets you approve and stop.</p><p class="show"><b>Show:</b> your panel. Then press Stop. <a href="../lesson/#control">What to put on it →</a></p></div>
-        <div class="rule"><span class="n">6</span><h3>It learns</h3><p>One change from real feedback, old and new tested on the same examples.</p><p class="show"><b>Show:</b> the old and the new version on the same saved requests.</p></div>
+        <div class="rule"><span class="n">6</span><h3>Improves from feedback</h3><p>One change from real feedback, old and new tested on the same examples.</p><p class="show"><b>Show:</b> the old and the new version on the same saved requests.</p></div>
       </div>
     </div>
   </section>
@@ -153,20 +138,20 @@
         <p class="lede">One plan. Real users from week 1. Something better every week.</p>
       </div>
       <ol class="plan">
-        <li class="now-step"><span class="when">This week</span><div><b>Design and choose</b><p>Write your six lines with the <a href="../lesson/#exercise">exercise prompt</a>. Talk to five real users: how do they solve it today, and would they use your thing every week? On Thu 15 Oct, form your team and choose this challenge.</p><p class="small"><a href="../examples/#ideas">No idea yet? Seven ideas from the lecture →</a></p></div></li>
+        <li class="now-step"><span class="when">This week</span><div><b>Design and choose</b><p>Write your six lines with the <a href="../lesson/#exercise">exercise prompt</a>. Talk to five real users: how do they solve it today, and would they use your thing every week? On Thu 15 Oct, form your team and choose this challenge.</p><p class="small"><a href="../ideas/">Start from your class ideas →</a> · <a href="../examples/#ideas">More starting points</a></p></div></li>
         <li id="days"><span class="when">Week 1</span><div><b>Practise and ship</b><p>Every day, build tiny things with an AI coding agent:</p>
           <ol class="tiny">
             <li>A form that emails you a clean summary of each answer.</li>
             <li>A morning digest: read a sheet, send the three most important rows.</li>
             <li>A question maker with a checker that rejects any question the text cannot answer.</li>
           </ol>
-          <p>By Sunday, a first version in front of five real users. By hand is fine: call it a manual test.</p></div></li>
+          <p>By the end of week 1, a first version in front of five real users. By hand is fine: call it a manual test.</p></div></li>
         <li><span class="when">Week 2</span><div><b>The loop runs</b><p>One request in, one checked result out, no clicks from you. It runs every day. 10 real users. <a href="../lesson/#build">Five steps to a running loop →</a></p></div></li>
         <li><span class="when">Week 3</span><div><b>Grow it</b><p>Failures handled, a control panel, 30 real users. Try for the first euro from a customer, a sponsor or an advertiser.</p></div></li>
         <li><span class="when">Week 4</span><div><b>Learn and prove</b><p>One change from real feedback, old and new tested on the same examples. Your numbers week by week. Rehearse the 10-minute demo.</p></div></li>
         <li><span class="when">End of the course project</span><div><b>Final demo</b><p>Show the six things on a service that really runs. SSE sets the date.</p></div></li>
       </ol>
-      <p class="note" style="margin-top:16px">Every week: five short lines on what works, what users got, what broke, how often you stepped in, and what you test next. Every day: 30 minutes on what is new.</p>
+      <p class="note" style="margin-top:16px">Every week: report what users got, what broke, human minutes and the next test. <a href="../resources/weekly-update.md" download>Use the weekly update template</a>. Keep a <a href="../resources/evidence-log.csv" download>daily evidence log</a>. Spend your learning time on one small experiment that helps your product.</p>
     </div>
   </section>
 
@@ -196,7 +181,7 @@
         <div class="card">
           <span class="k">Contact</span>
           <h3>Danielius Stasiulis</h3>
-          <p>Questions about the challenge, the budget or your idea:</p>
+          <p>For challenge or budget support, email your team name, six-line brief, first-user plan and requested tools. Danielius will confirm the terms:</p>
           <a class="more" href="mailto:danielius.stasiulis@gmail.com">danielius.stasiulis@gmail.com</a>
         </div>
       </div>
@@ -211,30 +196,25 @@
       </div>
       <div class="faq">
         <details><summary>Do I need to know how to code?</summary><p>No. You need to learn to direct AI agents and to check their work. If you don't know something, ask AI, then check what it says. Start with tiny things in week 1.</p></details>
-        <details><summary>We have no idea yet. What now?</summary><p>Start from a real problem that you, or people near you, have every week. Or take one of the <a href="../examples/#ideas">seven ideas from the lecture</a> and change it for a user you can reach.</p></details>
+        <details><summary>We have no idea yet. What now?</summary><p>Start from a real problem that you, or people near you, have every week. Or take one of the <a href="../examples/#ideas">starting ideas</a> and change it for a user you can reach.</p></details>
         <details><summary>Does it have to make money?</summary><p>No. A useful free service or an internal tool with a real user counts. If it is paid, show how orders and payments fit the loop. Do not invent revenue.</p></details>
         <details><summary>Who is a real user?</summary><p>A person outside your team who has the problem and uses your service. For an internal tool, one named user inside an organisation is fine.</p></details>
         <details><summary>Can a human still approve things?</summary><p>Yes. A planned approval for a risky step can be the right limit. Say where it is and count your minutes. The routine work should run without you.</p></details>
-        <details><summary>Which tools must we use?</summary><p>Any. n8n is a good start, and Dmitrijs shows it at 14:00 on 13 October. You can also build with Codex or Claude Code, or use another tool that runs your loop on an event or a schedule.</p></details>
+        <details><summary>Which tools must we use?</summary><p>Any. Dmitrijs introduced n8n during the workshop; the <a href="../resources/">resources page</a> links to the official guide. You can also build with Codex or Claude Code, or use another tool that runs your loop on an event or a schedule.</p></details>
         <details><summary>Where do we get help?</summary><p>Ask AI first, with the prompts on the <a href="../lesson/#exercise">lesson page</a>. For running your loop, start with the <a href="https://docs.n8n.io/try-it-out/">n8n quickstart</a> and the workshop. Questions about the challenge: <a href="mailto:danielius.stasiulis@gmail.com">danielius.stasiulis@gmail.com</a>.</p></details>
-        <details><summary>What about data and safety?</summary><p>Test with made-up or permitted data first. Without a human approval, your system must not spend money, make payments, send mass messages or change real customer data. Tell users that AI makes the result, and what data you keep. Never share one personal account password inside a team.</p></details>
+        <details><summary>What about data and safety?</summary><p>Test with made-up or permitted data first. Agree the allowed actions, recipients and spending limits before launch. Require human approval for sensitive actions and before exceeding those limits. Tell users that AI makes the result, and what data you keep. Never share one personal account password inside a team.</p></details>
         <details><summary>When is the final demo?</summary><p>At the end of the course project. SSE sets the date.</p></details>
         <details><summary>Is this a recruiting event?</summary><p>No. The goal is to learn to build. Working together later is a bonus, not a condition.</p></details>
       </div>
       <div class="btnrow" style="margin-top:36px">
         <a class="btn primary" href="../lesson/#exercise">Do the first exercise →</a>
-        <a class="btn" href="https://sse-riga-60-second-startup.xndanius.chatgpt.site/challenge.pdf">One-page PDF ↗</a>
+        <a class="btn" href="../resources/challenge.pdf" download>One-page PDF ↗</a>
       </div>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <p>Autonomous Business Lab · Guest lecture by Danielius Stasiulis at SSE Riga, 13 October 2026 · Updated 13 October 2026 · <a href="mailto:danielius.stasiulis@gmail.com">danielius.stasiulis@gmail.com</a></p>
-    <p><a href="../">Home</a> · <a href="../lesson/">Lesson</a> · <a href="../examples/">Examples</a> · <a href="../simulation/">Simulation</a> · <a href="../tools/">Tools</a></p>
-  </div>
-</footer>
-<script src="../assets/site.js" defer></script>
+<footer><div class="wrap"><p>Autonomous Business Lab · SSE Riga workshop, 13 October 2026 · <a href="mailto:danielius.stasiulis@gmail.com">danielius.stasiulis@gmail.com</a></p><p><a href="../">Home</a> · <a href="../show/">Slides</a> · <a href="../lesson/">Lesson</a> · <a href="../ideas/">Class ideas</a> · <a href="../examples/">Examples</a> · <a href="../tools/">Tools</a> · <a href="../challenge/">Challenge</a> · <a href="../resources/">Downloads</a> · <a href="../simulation/">Fictional class</a></p></div></footer>
+<script src="../assets/site.js?v=20261013-postworkshop" defer></script>
 </body>
 </html>
