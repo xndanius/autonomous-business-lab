@@ -19,7 +19,9 @@ def para(value,x,y,width,size=10,color=ink,leading=None):
 text(margin,H-40,'AUTONOMOUS BUSINESS LAB  /  SSE RIGA',9,green,'Helvetica-Bold')
 text(margin,H-84,'One loop. Real users.',31,ink,'Helvetica-Bold')
 y=para('In four weeks, launch something real and useful that people use every week, and let its routine run without you. The topic is open. The users must be real.',margin,H-104,W-2*margin,11,soft)
-y-=25;text(margin,y,'YOUR FOUR WEEKS',10,green,'Helvetica-Bold');y-=13
+y-=22;text(margin,y,'THE OPPORTUNITY',10,green,'Helvetica-Bold');y-=12
+y=para('<b>Weekly mentoring from Danielius</b> as you build. Strong work can lead to job or co-founding conversations, depending on fit and progress.',margin,y,W-2*margin,10,ink)
+y-=23;text(margin,y,'YOUR FOUR WEEKS',10,green,'Helvetica-Bold');y-=13
 weeks=[('1','Practise and ship','Use an AI coding agent daily. Put a first version in front of 5 real users.'),('2','Make the loop run','Run every day. Reach 10 real users. Test checks, failures and the stop control.'),('3','Grow','Reach 30 real users and try for the first euro. Record repeat use and manual work.'),('4','Prove it','Learn from feedback. Test a change. Prove your numbers and rehearse the demo.')]
 for n,title,body in weeks:
  c.setStrokeColor(line);c.line(margin,y-2,W-margin,y-2);y-=22
@@ -38,5 +40,5 @@ q=QrCodeWidget('https://xndanius.github.io/autonomous-business-lab/');d=Drawing(
 y=para('Questions: <link href="mailto:danielius.stasiulis@gmail.com" color="#416b26">danielius.stasiulis@gmail.com</link>',margin,y-10,W-2*margin-88,9.5,soft)
 assert y>55, y
 c.setStrokeColor(line);c.line(margin,47,W-margin,47)
-para('<link href="https://xndanius.github.io/autonomous-business-lab/" color="#416b26">xndanius.github.io/autonomous-business-lab</link>  |  Slides, class ideas, build guide and templates',margin,36,W-2*margin,8,soft)
+para('<link href="https://xndanius.github.io/autonomous-business-lab/" color="#416b26">xndanius.github.io/autonomous-business-lab</link>  |  Challenge, class ideas, Learn &amp; build',margin,36,W-2*margin,8,soft)
 c.showPage();c.save();print(out)

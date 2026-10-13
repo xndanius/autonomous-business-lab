@@ -1,10 +1,16 @@
 {
-  "edition": "post-workshop-1",
+  "edition": "challenge-first-2",
   "workshop_date": "2026-10-13",
   "slides": 18,
   "accepted_ideas": 33,
   "submissions_received": 42,
   "idea_snapshot_at": "2026-10-13T12:37:07Z",
   "slide_source_edition": "v33",
-  "entry": "https://xndanius.github.io/autonomous-business-lab/"
+  "entry": "https://xndanius.github.io/autonomous-business-lab/",
+  "navigation": [
+    "Challenge",
+    "Class ideas",
+    "Learn & build"
+  ],
+  "opportunity": "Weekly mentoring by Danielius, with potential job or co-founding conversations depending on fit and progress."
 }
