@@ -6,6 +6,16 @@
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var base = document.documentElement.getAttribute('data-base') || '';
 
+  /* ---------- shared footer: lecture slides ---------- */
+  var footerLinks = $('footer .wrap p:last-child');
+  if (footerLinks && !$('[data-slides-link]', footerLinks)) {
+    var slidesLink = document.createElement('a');
+    slidesLink.href = base + 'show/'; slidesLink.textContent = 'Slides';
+    slidesLink.setAttribute('data-slides-link', '');
+    footerLinks.appendChild(document.createTextNode(' · '));
+    footerLinks.appendChild(slidesLink);
+  }
+
   /* ---------- copy buttons ---------- */
   function copyText(text) {
     if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
