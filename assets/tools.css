@@ -33,6 +33,8 @@
 .toolkit .tk-top .tk-by{font-size:12px;margin-bottom:10px;letter-spacing:.13em}
 .toolkit .tk-top h3{font-size:27px}
 .toolkit .tk-card>p{font-size:17px}
+.toolkit .tk-card>.tk-cost,.toolkit .tk-cost{font-size:14.5px;line-height:1.55;color:var(--soft)}
+.toolkit .tk-cost b{color:var(--text)}
 .toolkit .tk-card .tk-proof{margin-top:auto!important}
 .toolkit .tk-links{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:15px;font-weight:700}
 .toolkit .tk-notes{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:28px}
