@@ -42,6 +42,7 @@ function eligible(s, i, now, ideaHash) {
     if (hash(fields(i)) === held.fieldsHash || ideaHash(i) === held.ideaVersionHash || !newEvidence || currentScore(i, now, ideaHash) < 7 || !i.review?.safe || !i.review.supported || !RUBRIC.every((k) => i.review.scores[k] >= 1)) return false;
     delete s.collaboration.deferred[i.id];
     delete i.implementationHold;
+    i.implementationReentry = { at: iso(now), previousHold: held, versionHash: ideaHash(i), fieldsHash: hash(fields(i)), sourceHashes: (i.sources || []).map((r) => r.sourceHash), review: i.review };
   }
   return i.status === 'open' || (i.status === 'production' && (s.collaboration.shortlist.some((x) => x.ideaId === i.id) || +new Date(i.prodAt) >= +new Date(s.collaboration.startedAt)));
 }
@@ -79,6 +80,13 @@ export function reconcileShortlist(s, people, now, ideaHash) {
     return { ...slot, rank: n + 1, tier: n < 3 ? 'top' : 'runner-up', score, qualification: score >= 7 && idea.sources?.length && idea.review.safe && idea.review.supported && RUBRIC.every((k) => idea.review.scores[k] >= 1) ? 'reviewed' : 'provisional' };
   });
   for (const id of Object.keys(c.jobs)) if (!c.shortlist.some((x) => x.ideaId === id)) delete c.jobs[id];
+  for (const slot of c.shortlist) {
+    const idea = s.ideas.find((i) => i.id === slot.ideaId);
+    if (!idea.implementationReentry) continue;
+    c.archivePending.push({ kind: 'shortlist-reentry', ideaId: idea.id, ...idea.implementationReentry });
+    appendDiscussion(s, now, { by: 'reviewer', ideaId: idea.id, kind: 'selection', say: `Re-entered after changed idea fields, new exact source evidence and a fresh independent ${idea.review.score}/10 review. The old held version stays in the archive. No customer validation occurred.`, evidence: idea.sources, uncertainty: ['Human customer tests remain unperformed.'] });
+    delete idea.implementationReentry;
+  }
   c.updatedAt = iso(now);
 }
 export function compositeHash(idea, plan, ideaHash) { return hash({ idea: ideaHash(idea), plan: plan ? { version: plan.version, contents: plan.contentsHash } : null }); }

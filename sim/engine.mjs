@@ -21,7 +21,7 @@ import crypto from 'node:crypto';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { refreshResearch, validCitations, assessment, revisionWins, settleTrial, reserveCost, STRATEGIES, RUBRIC } from './learning.mjs';
-import { initialiseCollaboration, runCollaborationJob, commonMemoryPrompt } from './collaboration.mjs';
+import { initialiseCollaboration, runCollaborationJob, commonMemoryPrompt, refreshFreshness } from './collaboration.mjs';
 import { cachedResearch } from './targeted-research.mjs';
 const runFile = promisify(execFile);
 
@@ -692,6 +692,7 @@ function researchPrompt(records, offset = 0) {
   return ordered.map((r) => `${r.id} | ${r.publisher} | published ${r.publishedAt || 'unknown'} | fetched ${r.retrievedAt} | role ${r.kind || 'local-context'}\nScope: ${r.scope || 'Public context, not validated customer demand'}\nTitle: ${r.title}\nExact excerpt: ${r.excerpt}`).join('\n\n');
 }
 async function checkpoint(s) {
+  if (s.collaboration) refreshFreshness(s, CLOCK.now, ideaHash);
   // Flush all known messages by their stable sequence IDs before publishing state.
   await appendChat(s, s.recent);
   await appendCollaboration(s);
@@ -782,6 +783,7 @@ async function reviewOneIdea(s, people, now, rnd, add) {
     }
     delete target.pending; lesson(s, next, now, target.id);
   } else lesson(s, current, now, target.id);
+  if (s.collaboration) initialiseCollaboration(s, people, now, ideaHash);
   const promoted = checkIdea(s, target, now, people); if (promoted) add([promoted]);
 }
 function parseDraft(j, records) {
@@ -1091,6 +1093,7 @@ async function runTick(s, people, now, rnd) {
     if (out.length) { spoke++; add(out); }
     console.log(`${p.first}: ${out[0] ? out[0].act + (out[0].idea ? ' ' + out[0].idea : '') + ' · ' + out[0].say : '(skipped)'}  [$${res.cost.toFixed(4)} ${res.usage.in}/${res.usage.out}]`);
   }
+  initialiseCollaboration(s, people, CLOCK.now, ideaHash);
   if (msgs.length) await appendChat(s, msgs);
   await appendCollaboration(s);
   s.tick++;
