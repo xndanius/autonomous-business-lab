@@ -237,6 +237,10 @@
 .sim-review-breakdown{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
 .sim-review-breakdown span{font-size:12px;color:var(--soft);padding:5px 8px;border:1px solid var(--line2);border-radius:6px}
 .sim-plan-disclaimer{padding:12px 14px;border-left:2px solid var(--orange);background:rgba(244,162,89,.05);font-size:13px!important;color:var(--dim)!important}
+.sim-plan-assessment{padding:14px 16px;border:1px solid var(--line2);border-radius:10px;display:flex;flex-direction:column;gap:10px}
+.sim-plan-assessment-held{border-color:rgba(244,162,89,.45);background:rgba(244,162,89,.05)}
+.sim-plan-assessment-held h4{color:var(--orange)}
+.sim-plan-assessment p,.sim-plan-assessment h4{margin:0}
 .sim-shortlist-discussion{margin-top:30px}
 .sim-shortlist-feed{max-height:500px;overflow-y:auto;overscroll-behavior:contain;border:1px solid var(--line);border-radius:16px;padding:14px;background:var(--bg)}
 .sim-shortlist-feed .sim-sys{font-size:13px}

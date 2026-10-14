@@ -178,13 +178,14 @@
     if (slot.nextWeeklyDueAt && +new Date(slot.nextWeeklyDueAt) <= Date.now()) return 'Weekly review due';
     return 'First weekly review pending';
   }
-  function mentorPanel(slot) {
+  function mentorPanel(slot, heldDraft) {
     var box = el('div', 'sim-mentor-panel'), review = slot.lastWeeklyReview, mentor = review && review.mentor || slot.mentor;
     if (mentor) {
       box.appendChild(el('p', null, mentor.name + ' · ' + mentor.lens));
       box.appendChild(el('p', 'sim-model-note', 'Fictional experienced mentor role. Sparring and weekly reviews use the same shared API budget.'));
     }
     box.appendChild(el('p', 'sim-report-status', mentorState(slot)));
+    if (heldDraft) box.appendChild(el('p', 'sim-model-note', 'A weekly mentor receipt is separate from plan approval. This held draft has not passed independent plan review.'));
     if (review) {
       box.appendChild(el('p', null, 'Last review: ' + shortWhen(review.at) + ' · ' + review.recommendation + ' · ' + review.score + '/10'));
       if (slot.archivedView) box.appendChild(el('p', 'sim-model-note', 'This review belongs to an earlier plan that is no longer active.'));
@@ -207,20 +208,37 @@
     } else box.appendChild(el('p', 'sim-model-note', 'On-demand sparring appears when a team has a specific question.'));
     return box;
   }
+  function displayedPlan(slot) {
+    if (slot.archivedView) return slot.plan || null;
+    if (slot.plan && slot.plan.current === true) return slot.plan;
+    if (slot.lastDraft && slot.lastDraft.current === true && slot.lastDraft.review && slot.lastDraft.review.safe === true) return slot.lastDraft;
+    return slot.plan || null; // An older accepted plan keeps its explicit stale label.
+  }
   function implementationPlan(slot, idea) {
     var detail = el('details', 'sim-plan'); detail.id = 'plan-' + slot.ideaId;
     var summary = el('summary'); summary.appendChild(el('span', 'sim-iid', slot.ideaId)); summary.appendChild(el('span', null, idea.title + ' · plan, team & sources')); detail.appendChild(summary);
-    var body = el('div', 'sim-plan-body'), plan = slot.plan;
+    var body = el('div', 'sim-plan-body'), plan = displayedPlan(slot), heldDraft = plan && plan === slot.lastDraft;
     body.appendChild(teamLine(slot.team));
     body.appendChild(el('p', 'sim-plan-disclaimer', 'An implementation proposal in a fictional accelerator. Public source facts are cited below. Prices, forecasts and tests are hypotheses; no product launch or customer result is claimed.'));
     if (!plan) {
       body.appendChild(el('p', 'soft', 'The team is preparing a detailed plan. The accepted idea is shown below.'));
       body.appendChild(fieldList(idea)); body.appendChild(planDetail('Mentor & weekly review', mentorPanel(slot))); detail.appendChild(body); return detail;
     }
-    body.appendChild(el('p', 'sim-report-status', (slot.archivedView ? 'Archived plan: ' : 'Plan: ') + String(plan.status || 'draft').replace(/-/g, ' ') + ' · version ' + plan.version + (plan.at ? ' · ' + shortWhen(plan.at) : '') + (!slot.archivedView && plan.current === false ? ' · idea changed; refresh needed' : '')));
+    body.appendChild(el('p', 'sim-report-status', (heldDraft ? 'Draft — needs evidence' : (slot.archivedView ? 'Archived plan: ' : 'Plan: ') + String(plan.status || 'draft').replace(/-/g, ' ')) + (Number.isInteger(plan.version) && plan.version > 0 ? ' · version ' + plan.version : '') + (plan.at ? ' · ' + shortWhen(plan.at) : '') + (!slot.archivedView && plan.current === false ? ' · idea changed; refresh needed' : '')));
+    if (plan.review) {
+      var assessment = el('div', heldDraft ? 'sim-plan-assessment sim-plan-assessment-held' : 'sim-plan-assessment');
+      if (heldDraft) assessment.appendChild(el('h4', null, 'This draft was not accepted'));
+      assessment.appendChild(el('p', 'sim-model-note', (plan.current === false ? 'Previous plan review ' : 'Independent plan review ') + plan.review.score + '/10 · model judgement, not approval or customer validation.'));
+      if (heldDraft || plan.review.supported === false) assessment.appendChild(el('p', null, plan.review.supported === false ? 'Source support: not established (supported: false). This draft is not ready for testing.' : 'The draft is held for stronger evidence; it is not ready for testing.'));
+      if (heldDraft && plan.reason) assessment.appendChild(el('p', null, 'Review decision: ' + plan.reason));
+      assessment.appendChild(scoreBreakdown(plan.review.scores));
+      assessment.appendChild(el('p', null, plan.review.critique));
+      if (plan.current === false) assessment.appendChild(el('p', 'sim-model-note', 'The current idea needs a refreshed plan.'));
+      if (heldDraft && plan.review.nextTest) { assessment.appendChild(el('h4', null, 'What to check next')); assessment.appendChild(el('p', null, plan.review.nextTest)); }
+      body.appendChild(assessment);
+    }
     var intro = el('dl', 'sim-fields');
     labelled(intro, 'Who uses it', plan.audience); labelled(intro, 'Why they return', plan.valueProposition); labelled(intro, 'Proposed payer & price', plan.payerAndPrice); labelled(intro, 'First test', plan.firstTest); body.appendChild(intro);
-    if (plan.review) { body.appendChild(scoreBreakdown(plan.review.scores)); body.appendChild(el('p', 'sim-model-note', (plan.current === false ? 'Previous plan review ' : 'Plan review ') + plan.review.score + '/10 · model judgement. ' + (plan.current === false ? 'The current idea needs a refreshed plan. ' : '') + plan.review.critique)); }
     var build = el('div', 'sim-plan-section');
     if (plan.mvp) { build.appendChild(el('h4', null, 'Smallest useful first version')); build.appendChild(el('p', null, plan.mvp)); }
     (plan.weeks || []).forEach(function (week) { build.appendChild(el('h4', null, 'Week ' + week.week + ' · ' + week.goal)); build.appendChild(bullets(week.tasks)); });
@@ -236,7 +254,7 @@
     var evidence = el('div', 'sim-plan-section'); evidence.appendChild(receiptList(plan.evidence || idea.sources || []));
     if (plan.risks && plan.risks.length) { evidence.appendChild(el('h4', null, 'Risks')); evidence.appendChild(bullets(plan.risks)); }
     if (plan.unknowns && plan.unknowns.length) { evidence.appendChild(el('h4', null, 'Still unknown')); evidence.appendChild(bullets(plan.unknowns)); } body.appendChild(planDetail('Public evidence & open risks', evidence));
-    body.appendChild(planDetail('Mentor & weekly review', mentorPanel(slot))); detail.appendChild(body); return detail;
+    body.appendChild(planDetail('Mentor & weekly review', mentorPanel(slot, heldDraft))); detail.appendChild(body); return detail;
   }
   function renderCollaboration() {
     var leaders = $('[data-sim-leaders]'), runners = $('[data-sim-runners]'), plans = $('[data-sim-plans]');
@@ -251,7 +269,7 @@
       var top = el('div', 'sim-rankline'); top.appendChild(el('span', 'sim-rank', String(rank).padStart(2, '0') + ' · ' + (isLeader ? 'Leader' : 'Runner-up')));
       var score = el('span', 'sim-score', Number.isFinite(slot.score) ? slot.score : '—'); score.appendChild(el('small', null, '/10')); top.appendChild(score); content.appendChild(top);
       content.appendChild(el('h3', null, idea.title)); content.appendChild(el('p', 'sim-line', idea.line));
-      content.appendChild(el('p', 'sim-model-note', slot.qualification === 'reviewed' ? 'Idea review · model judgement' : 'Provisional selection · review pending'));
+      content.appendChild(el('p', 'sim-model-note', slot.qualification === 'reviewed' ? 'Idea review · model judgement' : 'Provisional selection · needs stronger evidence'));
       if (isLeader) { var audience = el('div', 'sim-card-audience'), currentPlan = slot.plan && slot.plan.current !== false ? slot.plan : null; if (currentPlan && currentPlan.audience) audience.appendChild(el('p', null, 'For: ' + currentPlan.audience)); audience.appendChild(el('p', null, 'Proposed payer: ' + (currentPlan && currentPlan.payerAndPrice || idea.payer))); content.appendChild(audience); content.appendChild(teamLine(slot.team)); }
       if (slot.disposition === 'revise' || slot.disposition === 'rework' || slot.status === 'rework' || slot.weeklyReviewCurrent && slot.lastWeeklyReview && slot.lastWeeklyReview.recommendation === 'revise') content.appendChild(el('p', 'sim-rework-note', 'Mentor: revise before proceeding'));
       var mentor = slot.lastWeeklyReview && slot.lastWeeklyReview.mentor || slot.mentor;
