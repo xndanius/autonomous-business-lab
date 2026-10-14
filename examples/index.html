@@ -210,23 +210,24 @@
  <div class="example "><div class="media"><a class="shot-frame" href="../simulation/"><img src="../show/assets/loops/classroom-preview.png" alt="Saved view of the fictional class conversation and its shared idea board" loading="lazy"></a></div>
 <div class="facts"><p class="eyebrow">05 · Scheduled multi-agent simulation</p>
 <h2>The class simulation</h2>
-<p class="build-result">38 fictional students research real Riga and LIAA sources, propose businesses, and challenge each other. A separate reviewer checks proposed revisions; research methods compete in matched tests.</p>
-<p class="build-takeaway"><b>Pattern to borrow:</b> research supplies evidence; independent comparison decides which changes to keep.</p>
-<div class="links"><a class="btn" href="../simulation/">Read the class conversation →</a></div>
+<p class="build-result">38 fictional students research in small teams, share what they learn, and refine three leading startup ideas plus two runners-up. Each selected idea develops a proposed implementation plan and receives independent reviews from fictional accelerator mentors.</p>
+<p class="build-takeaway"><b>Pattern to borrow:</b> give teams different research questions, keep a shared memory, and let evidence change the shortlist.</p>
+<div class="links"><a class="btn" href="../simulation/#shortlist">Explore the startup shortlist →</a></div>
 </div>
 </div>
  <dl class="build-flow"><div><dt>Trigger</dt><dd>A scheduled cloud tick selects a few speakers.</dd></div>
-<div><dt>Make</dt><dd>Read fresh public source receipts, then propose a source-linked idea or revision.</dd></div>
+<div><dt>Make</dt><dd>Research a specific question, compare findings, and draft a plan with a falsifiable first test.</dd></div>
 <div><dt>Check</dt><dd>Verify exact quotes; a separate reviewer compares proposals under a fixed rubric.</dd></div>
-<div><dt>Deliver</dt><dd>Keep stronger revisions and publish the conversation, ideas and review receipts.</dd></div>
-<div><dt>Remember</dt><dd>Keep source hashes, critiques, matched trials, each persona’s research notes and usage records.</dd></div>
+<div><dt>Deliver</dt><dd>Publish at most five active plans, their separate discussion, team reports and mentor reviews.</dd></div>
+<div><dt>Remember</dt><dd>Keep shared working principles, evidence, objections, retired versions and usage records.</dd></div>
 </dl>
 <details class="build-how"><summary>How I built it <span>Research, critique and tested improvements</span></summary><div class="build-how-body"><div class="build-notes"><p><b>Tools:</b> GitHub Actions runs a Node.js engine. Each selected persona makes a separate OpenAI call; the GitHub Pages reader loads saved data from the sim-data branch. The personas use one configured model, not 38 different models.</p>
-<p><b>Research and memory:</b> official Riga and LIAA feeds supply dated public receipts. Each persona sees its profile, the board, recent chat, source excerpts and its own assessed research notes. A rotating research turn brings new source-led proposals into the class.</p>
+<p><b>Research and memory:</b> Riga, LIAA and official European statistics supply dated context. Teams also inspect approved supplier costs and tool documentation. Researchers, builders and challengers investigate different questions, then bring their reports into a shared class notebook. Context, supplier capabilities and actual customer validation stay distinct.</p>
+<p><b>Focus and mentors:</b> the implementation leaderboard holds at most three leaders and two runners-up. Teams propose the audience, economics, operational loop, risks, four-week milestones and first real test. Fictional mentor roles offer occasional sparring and independent weekly reviews of the selected ideas; objections and reasons for removing a version are preserved.</p>
 <p><b>Checks:</b> new proposals must quote an actual source. Revisions stay only after a separate reviewer finds at least a one-point improvement with evidence, usefulness, payer, autonomy and test checks. New production votes also need a current review of at least 7/10. These are model judgements about hypotheses, not customer validation.</p>
 <p><b>Improvement loop:</b> two research methods use the same author and sources; a separate reviewer sees anonymous alternatives. Three pairs must improve the average by at least one point without weakening checks. On 14 October, a weekly-return method scored 5.67 against the source-first method’s 7.00, so the existing method stayed.</p>
-<p><b>Budget and recovery:</b> student, reviewer and trial calls share the existing $10/day limit. Reservations and chat history are saved before paid calls so an interrupted runner can resume safely.</p>
-<p><b>Human role:</b> set the profiles, rubric, permitted methods and budget; inspect the evidence and pause the engine. Historical production decisions remain class votes. No people are contacted or real user tests performed by this simulation.</p>
+<p><b>Budget and recovery:</b> student, team, mentor, reviewer and trial calls share the existing $10/day limit. Reservations, discussions and version records are saved before paid calls so an interrupted runner can resume safely.</p>
+<p><b>Human role:</b> set the profiles, rubric, permitted methods and budget; inspect the evidence and pause the engine. Historical production decisions remain class votes. The class currently researches and plans: actual customer tests and permission to implement are future steps.</p>
 </div>
 <div class="recreate"><h3>Recreate the pattern</h3>
 <p class="small">A practical starting sequence, adapted from this build.</p>
@@ -234,6 +235,7 @@
 <li>Define a few actions: propose, refine, back and oppose.</li>
 <li>Fetch a few trusted public sources and require exact quotations.</li>
 <li>Hold revisions for independent comparison; keep only supported improvements.</li>
+<li>Assign distinct team research questions, preserve shared lessons and review a focused shortlist.</li>
 <li>Compare research methods on matched cases and save the keep-or-reject decision.</li>
 <li>Schedule the routine within one shared budget and preserve recovery records.</li></ol>
 </div>
