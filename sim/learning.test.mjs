@@ -188,6 +188,23 @@ test('research notebooks use actual own reviewed drafts and current exact source
   assert.equal(engine.researchNotebook(s, people[0].id).length, 0);
   s.research.records = []; assert.equal(engine.researchNotebook(s, sid).length, 0);
 });
+test('a named held research note is remembered instead of repeated endlessly', () => {
+  const s = state(), sid = people[5].id;
+  const draft = { ...good, sources: validCitations(citations, receipts) };
+  s.learning.history = [{ receipts: [{ author: sid, baseline: judged(7), candidate: judged(4), proposals: { baseline: draft, candidate: draft } }] }];
+  s.researchLead = sid;
+  engine.applyReply(s, people, people[5], { say: 'Courtyard next step needs repeated-use evidence; one public workshop is not enough.', do: 'talk' }, now);
+  assert.equal(s.learning.heldNotes.length, 1); assert.equal(engine.researchNotebook(s, sid).length, 0);
+});
+test('stale research API errors clear only after a genuine later saved review, with history retained', () => {
+  const s = state(); s.err = { at: '2026-10-14T07:59:00Z', msg: 'Research review failed: rejected request' };
+  engine.initialiseLearning(s, now); assert.ok(s.err);
+  s.ideas.push({ ...good, review: { at: now.toISOString() } });
+  engine.initialiseLearning(s, now); assert.ok(s.err, 'an arbitrary timestamp is not a valid role receipt');
+  s.ideas[0].review = { ...judged(5), at: now.toISOString(), model: 'local-stub', reviewer: 'separate model role' };
+  engine.initialiseLearning(s, now); assert.equal(s.err, null); assert.equal(s.errorHistory.length, 1);
+  assert.match(s.errorHistory[0].proof, /saved valid independent-role/);
+});
 test('research turns rotate inside existing speaker slots and stop for full board or absent sources', () => {
   const s = state(); s.tick = 3;
   const first = engine.selectResearchLead(s, people); assert.ok(people.byId[first]);

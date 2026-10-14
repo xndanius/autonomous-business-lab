@@ -639,13 +639,26 @@ function reviewReady(i, now) {
 }
 function initialiseLearning(s, now) {
   if (!s.learning) s.learning = { v: 2, startedAt: iso(now), active: 'source-first', nextStrategy: 1, trial: null, history: [], lessons: [], stats: { reviews: 0, revisionsAccepted: 0, revisionsRejected: 0, trialPairs: 0 } };
+  // Old engine versions kept a transient API error for 30 minutes. Later,
+  // already saved valid role receipts are evidence of actual recovery.
+  if (s.err && s.err.msg.startsWith('Research review failed:')) {
+    const valid = (r) => r && Number.isInteger(r.score) && RUBRIC.every((k) => Number.isInteger(r.scores?.[k]) && r.scores[k] >= 0 && r.scores[k] <= 2) && r.score === RUBRIC.reduce((n, k) => n + r.scores[k], 0) && typeof r.safe === 'boolean' && typeof r.supported === 'boolean';
+    const pairs = [...(s.learning.trial?.pairs || []), ...s.learning.history.flatMap((h) => h.receipts || [])];
+    const successes = [...s.ideas.filter((i) => valid(i.review) && i.review.model && i.review.reviewer === 'separate model role').map((i) => i.review.at), ...pairs.filter((p) => valid(p.baseline) && valid(p.candidate) && p.packetHash).map((p) => p.at)].filter(Boolean);
+    if (successes.some((at) => +new Date(at) > +new Date(s.err.at))) {
+      s.errorHistory = [...(s.errorHistory || []), { ...s.err, recoveredAt: iso(now), proof: 'later saved valid independent-role receipt' }].slice(-12);
+      s.err = null;
+    }
+  }
 }
+const notebookKey = (draft) => crypto.createHash('sha256').update(draft.title + '\n' + draft.sources.map((r) => r.sourceHash).join('\n')).digest('hex');
 function researchNotebook(s, sid) {
   const pairs = [...(s.learning?.history || []).slice(-2).flatMap((h) => h.receipts || []), ...(s.learning?.trial?.pairs || [])];
   const current = new Set((s.research?.records || []).map((r) => r.sourceHash)), out = [];
   for (const pair of pairs) for (const key of ['baseline', 'candidate']) {
     const review = pair[key], draft = pair.proposals?.[key];
     if (pair.author !== sid || !draft || review.score < 7 || !review.safe || !review.supported || !RUBRIC.every((k) => review.scores[k] >= 1)) continue;
+    if ((s.learning.heldNotes || []).some((h) => h.key === notebookKey(draft))) continue;
     if (!draft.sources.every((r) => current.has(r.sourceHash)) || s.ideas.some((i) => i.status !== 'dropped' && similar(i.title, draft.title))) continue;
     if (!out.some((x) => similar(x.draft.title, draft.title))) out.push({ draft, review });
   }
@@ -920,6 +933,10 @@ function applyReply(s, people, p, j, now) {
     m.idea = idea.id;
   }
   if (notes.length) m.note = notes.join('. ');
+  if (s.researchLead === p.id && m.act === 'talk') {
+    const held = researchNotebook(s, p.id).find((x) => fold(say).includes(fold(x.draft.title)));
+    if (held) s.learning.heldNotes = [...(s.learning.heldNotes || []), { key: notebookKey(held.draft), by: p.id, title: held.draft.title, at: iso(now), reason: say }].slice(-24);
+  }
   m.n = ++s.n;
   const out = [m];
   for (const fn of after) out.push(fn());
@@ -1005,7 +1022,11 @@ async function runTick(s, people, now, rnd) {
   const sys = systemPrompt(people);
   const speakers = n ? pickSpeakers(s, people, n, rnd) : [];
   s.researchLead = n ? selectResearchLead(s, people) : null;
-  if (s.researchLead && speakers.length && !speakers.some((p) => p.id === s.researchLead)) speakers[0] = people.byId[s.researchLead];
+  if (s.researchLead && speakers.length) {
+    const index = speakers.findIndex((p) => p.id === s.researchLead);
+    if (index > 0) [speakers[0], speakers[index]] = [speakers[index], speakers[0]];
+    else if (index < 0) speakers[0] = people.byId[s.researchLead];
+  }
   let spoke = 0;
   for (const p of speakers) {
     const t = START ? new Date(now.getTime() + spoke * 20000) : new Date();

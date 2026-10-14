@@ -49,6 +49,8 @@ Public announcements are context for hypotheses, never proof somebody will pay.
   and ideas not already on the board. They can pitch a source-led hypothesis or
   explain why it fails; nothing is seeded, auto-voted or auto-approved. A full
   board or unavailable sources disables that dedicated pitch turn.
+  A named notebook note held by its author is remembered, so the same rejected
+  hypothesis does not consume every later research turn.
 - New production decisions need a current reviewed version scoring at least
   7/10, every criterion at least 1, plus the existing class voting
   rules. A changed version invalidates its previous review; reviews expire
