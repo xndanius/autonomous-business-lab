@@ -1,7 +1,9 @@
 name: Class simulation
 
 # 38 fictional SSE Riga students discuss business ideas.
-# Every ~5 minutes a few of them speak. Data goes to the sim-data branch,
+# Every ~5 minutes they research public sources, propose and review ideas.
+# Student, reviewer and bounded method-trial calls share the $10/day cap.
+# Data goes to the sim-data branch,
 # which the Simulation page reads. To stop: set the repository variable
 # SIM_PAUSED to 1, or disable this workflow in the Actions tab.
 #
@@ -50,6 +52,9 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: "22"
+
+      - name: Check research and learning guards
+        run: node --test sim/learning.test.mjs
 
       - name: Get the chat data
         env:

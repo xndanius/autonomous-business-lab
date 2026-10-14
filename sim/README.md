@@ -7,7 +7,8 @@ business to launch. The page is `simulation/`. The engine is `sim/engine.mjs`.
 
 - `.github/workflows/class-sim.yml` runs every 5 minutes on GitHub Actions
   (GitHub sometimes starts scheduled runs late).
-- Each run lets 3 students speak (1 at night, 00:00–07:00 Riga time). Each
+- Each run gives 3 student turns (1 at night, 00:00–07:00 Riga time), with one
+  turn used for an active research-method trial. Each
   student is a separate model call that sees only their own profile
   (`simulation/people.json`), the class list, the idea board and the last 24
   messages.
@@ -19,6 +20,50 @@ business to launch. The page is `simulation/`. The engine is `sim/engine.mjs`.
   messages, stats) and `chat/YYYY-MM-DD.json` (every message of a day).
   The branch is kept as a single commit; the page reads it from
   raw.githubusercontent.com.
+
+## Research and self-improvement (14 October update)
+
+The engine fetches three allowlisted official RSS feeds once an hour: Riga city
+news, Riga city events, and LIAA. At most four current safe records per feed are
+kept. Each receipt has the real URL, publication/fetch time, source hash and a
+bounded exact excerpt. A failed feed is reported; its content is not invented.
+Sources are untrusted data and cannot change instructions or fetch destinations.
+Public announcements are context for hypotheses, never proof somebody will pay.
+
+- New pitches and proposed revisions need at least one exact source quote. The
+  engine checks the ID and quote against fetched receipts, not model-made links.
+- A separate model role assesses the fixed five-part rubric: evidence,
+  usefulness, payer, autonomy and a discriminating first test, each 0–2.
+- Revisions wait without changing the accepted idea. An anonymised comparison
+  checks both versions against the same source packet. The new version stays
+  only with a gain of at least one point and passing evidence, autonomy, test
+  and safety checks. Rejection critiques persist beyond the latest chat window.
+- Bounded methods compete: source-first, weekly return, payer test, and the
+  whole loop. The same fictional author drafts both methods from the same
+  receipt packet. A separate call reviews their anonymised pair. Three matched
+  pairs must improve the mean by at least one point and all candidate pairs
+  must pass the fixed minimum checks before a method replaces the incumbent.
+  Otherwise it keeps the existing method. Full pair/decision receipts are saved.
+- New production decisions need a current reviewed version scoring at least
+  7/10, evidence/autonomy/test each at least 1, plus the existing class voting
+  rules. A changed version invalidates its previous review; reviews expire
+  after 72 hours. Historical production decisions are preserved as old votes.
+
+No fictional profile, discussion, vote or model score establishes real users,
+sales, interviews or a launched business. No outreach or customer tests are
+performed. The simulation develops hypotheses and tests for humans to run.
+
+All student, review and trial calls share the existing **$10/day tracked cap**.
+Before every call, a conservative UTF-8 request/output cost ceiling is persisted.
+After the call it is replaced by reported token usage. Missing usage or an
+ambiguous failed request retains the reservation; network/5xx calls are not
+automatically retried. Invalid JSON is still charged. This is an application
+estimate using configured prices, not a provider billing invoice. The model,
+secret and existing spent balance are unchanged. New-day resets only occur at
+midnight Riga time.
+
+Run the meaningful guard tests without a real API key or paid requests:
+`node --test sim/learning.test.mjs`.
 
 ## Settings (Settings → Secrets and variables → Actions)
 

@@ -95,7 +95,49 @@
       }
       dl.appendChild(dd);
     });
+    if (i.review) {
+      dl.appendChild(el('dt', null, 'Independent review'));
+      dl.appendChild(el('dd', null, i.review.score + '/10 · model judgement, not customer validation. ' + i.review.critique));
+    }
+    if (i.pending) { dl.appendChild(el('dt', null, 'Revision')); dl.appendChild(el('dd', null, 'Waiting for review; accepted version shown above.')); }
+    if (i.feedback) { dl.appendChild(el('dt', null, 'What to fix')); dl.appendChild(el('dd', null, i.feedback)); }
+    if (i.sources && i.sources.length) {
+      dl.appendChild(el('dt', null, 'Research receipts'));
+      var dd = el('dd', 'sim-receipts');
+      i.sources.forEach(function (source) {
+        if (!/^https:\/\/(www\.)?(riga\.lv|liaa\.gov\.lv)\//.test(source.url || '')) return;
+        var a = el('a', null, source.title); a.href = source.url; a.target = '_blank'; a.rel = 'noopener'; dd.appendChild(a);
+        dd.appendChild(el('small', null, '“' + source.quote + '” · fetched ' + shortWhen(source.retrievedAt)));
+      });
+      dl.appendChild(dd);
+    }
     return dl;
+  }
+
+  function renderLearning() {
+    var box = $('[data-sim-learning]'); if (!box) return;
+    box.textContent = '';
+    var l = state && state.learning, r = state && state.research;
+    if (!l) { box.appendChild(el('p', 'soft', 'Research and learning will appear after the next upgraded turn. Existing class history is preserved.')); return; }
+    var stats = l.stats || {}, names = { 'source-first': 'Start from a source', 'repeat-use': 'Design for weekly return', 'payer-test': 'Test the payer first', 'bounded-loop': 'Design the whole loop' };
+    var row = el('div', 'sim-learning-stats');
+    row.appendChild(el('p', null, ((r && r.records) || []).length + ' public research receipts'));
+    row.appendChild(el('p', null, (stats.reviews || 0) + ' independent model reviews'));
+    row.appendChild(el('p', null, (stats.revisionsAccepted || 0) + ' revisions kept · ' + (stats.revisionsRejected || 0) + ' rejected'));
+    box.appendChild(row);
+    box.appendChild(el('p', null, 'Current method: ' + (names[l.active] || l.active) + '.'));
+    if (l.trial) box.appendChild(el('p', 'soft', 'Testing “' + (names[l.trial.candidate] || l.trial.candidate) + '” against the current method: ' + l.trial.pairs.length + ' of 3 matched pairs reviewed. No winner declared yet.'));
+    var last = (l.history || []).slice(-1)[0];
+    if (last) box.appendChild(el('p', 'soft', last.pairs ? 'Last trial: ' + (names[last.candidateStrategy] || last.candidateStrategy) + ' averaged ' + last.candidate + '/10 versus ' + last.baseline + '/10 across ' + last.pairs + ' matched pairs; ' + (last.adopted ? 'the better method was kept.' : 'the current method stayed.') : 'Last trial was not adopted: ' + last.reason));
+    var lessons = (l.lessons || []).slice(-2);
+    lessons.forEach(function (x) { box.appendChild(el('p', 'sim-learning-lesson', x.text)); });
+    var details = el('details', 'sim-research'); details.appendChild(el('summary', null, 'Open the actual research sources' + (r && r.fetchedAt ? ' · fetched ' + shortWhen(r.fetchedAt) : '')));
+    ((r && r.records) || []).forEach(function (source) {
+      if (!/^https:\/\/(www\.)?(riga\.lv|liaa\.gov\.lv)\//.test(source.url || '')) return;
+      var p = el('p'), a = el('a', null, source.title); a.href = source.url; a.target = '_blank'; a.rel = 'noopener'; p.appendChild(a); p.appendChild(el('small', null, source.excerpt)); details.appendChild(p);
+    });
+    if (r && r.failures && r.failures.length) details.appendChild(el('p', 'soft', r.failures.length + ' feeds unavailable; their contents were not invented.'));
+    box.appendChild(details);
   }
 
   // ------------------------------------------------------------ status
@@ -211,7 +253,7 @@
   }
 
   // ------------------------------------------------------------ chat
-  var ACT = { pitch: 'pitched', refine: 'refined', back: 'backs', oppose: 'opposes', allin: 'ALL IN on', drop: 'drop' };
+  var ACT = { pitch: 'pitched', refine: 'proposes revision to', back: 'backs', oppose: 'opposes', allin: 'ALL IN on', drop: 'drop' };
   function ideaChip(id, verb, act) {
     var b = el('button', 'sim-chip ' + (act || 'talk'), (verb ? verb + ' ' : '') + id);
     b.type = 'button';
@@ -448,6 +490,7 @@
   function apply(s) {
     state = s;
     renderStatus();
+    renderLearning();
     renderProd();
     renderBoard();
     if (s && s.recent) appendMessages(s.recent);

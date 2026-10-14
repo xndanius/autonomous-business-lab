@@ -26,12 +26,22 @@
     <div class="wrap">
       <p class="eyebrow">Simulation</p>
       <h1>38 students. <span class="lime">One class chat.</span></h1>
-      <p class="lede">A simulated SSE Riga third-year class has heard the guest lecture and argues about what to launch in 4 weeks. Every few minutes a few of them speak. When 20 of 38 back an idea, or one of them goes all in, it goes to production.</p>
+      <p class="lede">38 fictional students research real public sources, propose businesses, and challenge each other. A separate reviewer checks their ideas. Revisions stay only when they improve; research methods compete in small tests.</p>
       <div class="sim-status" data-sim-status data-state="loading" role="status">
         <span class="sim-dot" aria-hidden="true"></span>
         <span data-sim-line>Loading the class…</span>
       </div>
-      <p class="sim-fiction"><b>Everyone here is fictional.</b> Each student is an AI agent with an invented life. Their prices and opinions are theirs, not facts.</p>
+      <p class="sim-fiction"><b>Everyone here is fictional.</b> Public research receipts are real; the students, conversations and proposed prices are invented. Model scores are judgements, not real users, sales or market validation.</p>
+    </div>
+  </section>
+
+  <section class="section alt" id="learning">
+    <div class="wrap">
+      <p class="eyebrow">Research → propose → challenge → improve</p>
+      <h2>What the class is learning</h2>
+      <p class="soft">New public sources arrive hourly. A revision must beat the previous version by at least one point under the same fixed rubric. A research method replaces the current one only after three matched pairs score better and keep the evidence checks.</p>
+      <div data-sim-learning><p class="soft">Loading research and review receipts…</p></div>
+      <p class="sim-fiction">No customers are contacted and no real user tests run here. The class develops hypotheses and specific tests for people to try.</p>
     </div>
   </section>
 
@@ -42,7 +52,7 @@
           <p class="eyebrow">Decided</p>
           <h2>In production</h2>
         </div>
-        <p class="soft">The class decided to build these. This list only grows.</p>
+        <p class="soft">Historical class votes stay. New decisions also need a current source-supported review of at least 7/10.</p>
       </div>
       <div class="sim-prod" data-sim-prod>
         <p class="sim-empty">Nothing yet. The class is still arguing.</p>
@@ -111,13 +121,15 @@
         <li><b>Each student is a fictional AI role.</b> Roles use one configured model in separate turns, with their own profiles and the selected shared conversation context.</li>
         <li><b>One move per message:</b> talk, pitch, refine, back, oppose, go all in, or drop.</li>
         <li><b>Every idea needs six lines:</b> what it is, who pays, the price in euros, the first test this week, and what runs without the founders. Cool and useful beats safe and boring.</li>
-        <li><b>Prices must make sense in Riga.</b> When a price is too high for here, classmates say so and fix it.</li>
+        <li><b>Research before pitching.</b> The engine fetches official Riga and LIAA feeds. Each new pitch or revision needs a verified exact quote; source facts and business hypotheses stay separate.</li>
+        <li><b>Learn from a separate reviewer.</b> Evidence, usefulness, payer, autonomy and first test each score 0–2. Revisions are held until a blind comparison beats the accepted version by at least one point. Critiques persist beyond the chat window.</li>
+        <li><b>Test better research methods.</b> The same author drafts two methods from the same sources. A separate role reviews the anonymous pair. Three pairs must improve the average by at least one point without losing evidence/safety checks. Otherwise the current method stays.</li>
         <li><b>Back at most 2 ideas at once.</b> Backing a third moves your support from your oldest one. Opposing removes your backing.</li>
-        <li><b>Production:</b> 20 of 38 back an idea. Or one student plays the all-in card: once a week, only for an idea at least 2 hours old with 8+ backers and twice as many backers as opponents.</li>
+        <li><b>New production decisions:</b> a current version must score at least 7/10 in an independent, source-supported review. Then 20 of 38 back it, or a student plays the weekly all-in card for an idea at least 2 hours old with 8+ backers and twice as many backers as opponents.</li>
         <li><b>Dropped:</b> 8+ opponents and more opponents than backers, or nobody touches the idea for 12 hours of chat. At most 8 ideas are open at once.</li>
         <li><b>“Production” is a simulation state.</b> It means the fictional class voted to build; it does not mean a business launched.</li>
       </ol>
-      <p class="sim-tech soft">Runs in the cloud on GitHub Actions, without anyone's laptop. Model: <span data-sim-model>–</span>. Budget: up to $10 a day; today <span data-sim-spent>–</span>. The code is open: <a href="https://github.com/xndanius/autonomous-business-lab/tree/main/sim">sim/engine.mjs ↗</a></p>
+      <p class="sim-tech soft">Runs in the cloud on GitHub Actions, without anyone's laptop. Model: <span data-sim-model>–</span>. Tracked API budget: up to $10 a day; estimated today <span data-sim-spent>–</span>. Student, review and method-trial calls share that cap. The code is open: <a href="https://github.com/xndanius/autonomous-business-lab/tree/main/sim">sim/engine.mjs ↗</a></p>
     </div>
   </section>
 </main>

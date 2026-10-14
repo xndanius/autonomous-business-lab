@@ -165,3 +165,12 @@
   .sim-dlg-in{padding:20px 18px 18px}
   .sim-people{grid-template-columns:1fr}
 }
+/* The research record is intentionally compact and distinct from fictional chat. */
+.sim-learning-stats { display:flex; flex-wrap:wrap; gap:.5rem 1.5rem; margin:1.4rem 0; }
+.sim-learning-stats p { padding:.65rem 1rem; border:1px solid var(--line,#303b36); border-radius:8px; margin:0; }
+.sim-learning-lesson { border-left:3px solid #B9E46B; padding:.7rem 1rem; background:rgba(185,228,107,.04); }
+.sim-receipts a,.sim-receipts small,.sim-research small { display:block; }
+.sim-receipts small,.sim-research small { color:#B7C1BA; margin:.35rem 0 .75rem; font-size:.85em; }
+.sim-research { margin:1.5rem 0; }
+.sim-research summary { cursor:pointer; color:#B9E46B; }
+.sim-research p { max-width:850px; }
