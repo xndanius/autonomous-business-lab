@@ -1,7 +1,7 @@
 // Research/planning only. There are no outreach, payment or deployment tools.
 import crypto from 'node:crypto';
-import { RUBRIC, assessment, validCitations } from './learning.mjs';
-import { fetchTargeted, researchTopics } from './targeted-research.mjs';
+import { RUBRIC, assessment, validCitations, FEEDS } from './learning.mjs';
+import { fetchTargeted, researchTopics, CATALOG } from './targeted-research.mjs';
 const iso = (d) => new Date(d).toISOString().replace(/\.\d{3}Z$/, 'Z');
 const hash = (v) => crypto.createHash('sha256').update(JSON.stringify(v)).digest('hex');
 const clean = (v, max = 450) => String(v || '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim().slice(0, max);
@@ -94,8 +94,9 @@ export function refreshFreshness(s, now, ideaHash) {
   for (const slot of s.collaboration.shortlist) {
     const idea = s.ideas.find((i) => i.id === slot.ideaId); if (!idea) continue;
     if (slot.plan) slot.plan.current = slot.plan.ideaVersionHash === ideaHash(idea);
+    if (slot.lastDraft) slot.lastDraft.current = slot.lastDraft.ideaVersionHash === ideaHash(idea);
     if (slot.plan) slot.plan.status = slot.plan.current && slot.plan.evidence?.length > 0 && slot.plan.review?.score >= 7 && slot.plan.review.safe && slot.plan.review.supported && RUBRIC.every((k) => slot.plan.review.scores[k] >= 1) ? 'reviewed' : 'needs-evidence';
-    if (slot.handoff) slot.handoff = handoff(slot, idea);
+    slot.handoff = handoff(slot, idea);
     slot.weeklyReviewCurrent = !!(slot.lastWeeklyReview && slot.lastWeeklyReview.versionHash === compositeHash(idea, slot.plan, ideaHash) && +now - +new Date(slot.lastWeeklyReview.at) < 7 * 86400000);
     slot.queueStatus = slot.weeklyReviewCurrent ? 'current' : +now >= +new Date(slot.nextWeeklyDueAt) ? 'queued' : 'scheduled';
   }
@@ -196,7 +197,35 @@ export function parsePlan(j, records) {
 }
 function handoff(slot, idea) {
   const ready = slot.plan?.current && slot.plan.evidence?.length > 0 && slot.plan.review?.score >= 7 && slot.plan.review.safe && slot.plan.review.supported && RUBRIC.every((k) => slot.plan.review.scores[k] >= 1);
-  return { phase: 'research-only', launchAllowed: false, realValidation: 'not-run', readiness: ready ? 'test-ready' : 'needs-evidence', scopedMvp: slot.plan?.mvp || '', validationGates: ['A human recruits actual people outside the simulated class.', 'A human runs the stated falsifiable test and records consent, observations and payments accurately.', 'A human reviews demand, unit economics, privacy, safety, failure handling and scope before authorizing a future pilot.'], virtualRoles: slot.team, unknowns: slot.plan?.unknowns || [], permissionsStatus: 'No implementation tools, outreach, deployment, payments or secrets are granted.', idea: idea.id };
+  return { phase: 'research-only', launchAllowed: false, realValidation: 'not-run', readiness: ready ? 'test-ready' : 'needs-evidence', scopedMvp: slot.plan?.mvp || (slot.lastDraft?.current ? slot.lastDraft.mvp : '') || '', validationGates: ['A human recruits actual people outside the simulated class.', 'A human runs the stated falsifiable test and records consent, observations and payments accurately.', 'A human reviews demand, unit economics, privacy, safety, failure handling and scope before authorizing a future pilot.'], virtualRoles: slot.team, unknowns: slot.plan?.unknowns || (slot.lastDraft?.current ? slot.lastDraft.unknowns : []) || [], permissionsStatus: 'No implementation tools, outreach, deployment, payments or secrets are granted.', idea: idea.id };
+}
+function heldDraft(candidate, review, at, ideaVersionHash, origin = 'independent-review') {
+  if (!review.safe || !safeText(candidate) || !safeText(review)) return null;
+  return { ...candidate, at, ideaVersionHash, contentsHash: hash(candidate), current: true, status: 'needs-evidence', review, origin, reason: !review.supported ? 'Independent reviewer did not confirm factual source support. ' + review.critique : !candidate.evidence.length ? 'The author supplied no verified exact source quotes. ' + review.critique : 'This proposal did not improve the accepted version. ' + review.critique };
+}
+// One-time replay of genuine archived assessments, never a seeded plan. Check
+// current idea binding, schema/safety, computed rubric and receipt integrity.
+export function restoreHeldDrafts(s, archive, now, ideaHash) {
+  let restored = 0;
+  for (const slot of s.collaboration.shortlist) {
+    if (slot.lastDraft) continue;
+    const idea = s.ideas.find((i) => i.id === slot.ideaId), expected = ideaHash(idea);
+    const entry = [...archive].reverse().find((x) => x.kind === 'plan-assessment' && x.ideaId === idea.id && x.ideaVersionHash === expected && !x.kept && x.candidate && x.candidateReview?.safe && Number.isFinite(+new Date(x.at)) && +new Date(x.at) <= +now);
+    if (!entry) continue;
+    const review = assessment({ reviews: [{ ...entry.candidateReview, id: 'A' }] }, ['A'])?.[0];
+    if (!review || review.score !== entry.candidateReview.score || !safeText(review)) continue;
+    const records = (entry.candidate.evidence || []).filter((r) => {
+      let u; try { u = new URL(r.url); } catch { return false; }
+      const sourceHash = crypto.createHash('sha256').update(r.url + '\n' + r.title + '\n' + r.excerpt).digest('hex');
+      return u.protocol === 'https:' && !u.username && !u.password && !u.port && [...FEEDS.map((x) => x.host), ...Object.values(CATALOG).map((x) => x.host)].includes(u.hostname) && sourceHash === r.sourceHash && r.id === 'R' + sourceHash.slice(0, 12) && entry.packetHashes?.includes(sourceHash);
+    });
+    if (records.length !== (entry.candidate.evidence || []).length) continue;
+    const candidate = parsePlan({ ...entry.candidate, research: records.map((r) => ({ source: r.id, quote: r.quote })) }, records);
+    if (!candidate) continue;
+    slot.lastDraft = heldDraft(candidate, review, entry.at, expected, 'verified-archive');
+    if (slot.lastDraft) restored++;
+  }
+  return restored;
 }
 async function teamJob(s, slot, now, hooks) {
   const c = s.collaboration, idea = s.ideas.find((i) => i.id === slot.ideaId), baseHash = hooks.ideaHash(idea);
@@ -211,7 +240,7 @@ async function teamJob(s, slot, now, hooks) {
   const extra = await fetchTargeted(c.cache, researchTopics(idea, role), now, hooks.fetcher), records = recordSet(s, slot, extra.records);
   const teamPeople = slot.team.map((x) => ({ ...x, profile: hooks.people.byId[x.id]?.character, experience: hooks.people.byId[x.id]?.experience }));
   const question = role === 'research' ? 'Who experiences this recurring problem, who could pay, and which precise source signal supports that hypothesis? Separate EU aggregate context from Riga evidence.' : role === 'build' ? 'What is the smallest four-week MVP? Map the daily loop, a separate checker, data permissions, retries, duplicate prevention and an exception owner. Compare an existing tool rather than reflexively build everything.' : 'Challenge the alternatives, acquisition, unit margin after fees/refunds/human minutes, recurring use and weakest false assumption. What test could kill it?';
-  const context = { idea: fields(idea), question, team: teamPeople, receipts: records, previousTeamReports: job.reports, previousPlan: slot.plan, proposedPlan: job.candidate, latestIndependentMentor: slot.lastWeeklyReview, sharedWorkingMemory: commonMemoryPrompt(s), actualMarketValidation: 'none; not run' };
+  const context = { idea: fields(idea), question, team: teamPeople, receipts: records, previousTeamReports: job.reports, previousPlan: slot.plan, previousHeldDraft: slot.lastDraft?.current ? slot.lastDraft : null, proposedPlan: job.candidate, latestIndependentMentor: slot.lastWeeklyReview, sharedWorkingMemory: commonMemoryPrompt(s), actualMarketValidation: 'none; not run' };
   if (job.stage === 'research' || job.stage === 'challenge') {
     const response = await hooks.paidCall(s, `${ROLE_RULES} You are the ${role} member of a small fictional student team. Answer the assigned question, compare actual source receipts and name gaps. Other teammates agreeing is not additional evidence. Propose tests; never claim you ran them. Return {"say":"specific finding and consequence","research":[{"source":"R…","quote":"exactquote"}],"hypotheses":["unproven assumption"],"unknowns":["missing evidence"],"dissent":["counterargument"],"mentorQuestion":null|"one unresolved question needing sparring"}.`, JSON.stringify(context), 'team-' + role);
     if (!response) return true;
@@ -236,7 +265,8 @@ async function teamJob(s, slot, now, hooks) {
     const response = await hooks.paidCall(s, sys, JSON.stringify({ idea: fields(idea), receipts: records, plans: candidates.map(([id, proposedPlan]) => ({ id, proposedPlan })), teamDissent: job.reports.flatMap((r) => r.dissent) }), 'plan-review'); if (!response) return true;
     const reviews = assessment(parseObject(response.text), candidates.map(([id]) => id)); if (!reviews) return true;
     const next = reviews[order.indexOf(job.candidate)], prior = slot.plan ? reviews[order.indexOf(slot.plan)] : null, first = !slot.plan, wins = first ? next.safe && next.supported : next.safe && next.supported && RUBRIC.every((k) => next.scores[k] >= 1) && next.score >= prior.score + 1;
-    c.archivePending.push({ kind: 'plan-assessment', ideaId: idea.id, at: iso(now), ideaVersionHash: baseHash, candidate: job.candidate, candidateReview: next, previousReview: prior, kept: wins, teamReports: job.reports, packetHashes: records.map((r) => r.sourceHash), model: response.model });
+    c.archivePending.push({ kind: 'plan-assessment', ideaId: idea.id, at: iso(now), ideaVersionHash: baseHash, candidate: next.safe ? job.candidate : null, candidateReview: safeText(next) ? next : { ...next, critique: 'Unsafe review text withheld.', nextTest: 'A human must resolve the safety issue.' }, previousReview: prior, kept: wins, teamReports: next.safe ? job.reports : [], packetHashes: records.map((r) => r.sourceHash), model: response.model });
+    if (!wins && next.safe) slot.lastDraft = heldDraft(job.candidate, next, iso(now), baseHash);
     if (wins) {
       if (slot.plan) { c.archivePending.push({ kind: 'plan-version', ideaId: idea.id, at: iso(now), plan: slot.plan }); slot.planHistory = [...slot.planHistory, slot.plan].slice(-4); }
       const plan = { ...job.candidate, version: (slot.plan?.version || 0) + 1, at: iso(now), ideaVersionHash: baseHash, current: true, status: job.candidate.evidence.length && RUBRIC.every((k) => next.scores[k] >= 1) && next.score >= 7 ? 'reviewed' : 'needs-evidence', review: next };

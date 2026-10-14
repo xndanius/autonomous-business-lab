@@ -21,7 +21,7 @@ import crypto from 'node:crypto';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { refreshResearch, validCitations, assessment, revisionWins, settleTrial, reserveCost, STRATEGIES, RUBRIC } from './learning.mjs';
-import { initialiseCollaboration, runCollaborationJob, commonMemoryPrompt, refreshFreshness } from './collaboration.mjs';
+import { initialiseCollaboration, runCollaborationJob, commonMemoryPrompt, refreshFreshness, restoreHeldDrafts } from './collaboration.mjs';
 import { cachedResearch } from './targeted-research.mjs';
 const runFile = promisify(execFile);
 
@@ -1053,6 +1053,10 @@ async function runTick(s, people, now, rnd) {
   if (upgraded) add([sysMsg(s, now, 'Research and learning are now on: public source receipts, separate reviews and matched method trials. Old production decisions are preserved as historical class votes, not validated businesses.', 'learn')]);
   if (!MOCK && n) s.research = await refreshResearch(s.research, now);
   initialiseCollaboration(s, people, now, ideaHash);
+  if (s.collaboration.draftArchiveVersion !== 1) {
+    restoreHeldDrafts(s, await readJSON(path.join(DATA, 'implementation-archive.json'), []), now, ideaHash);
+    s.collaboration.draftArchiveVersion = 1;
+  }
   try {
     let used = false;
     if (!MOCK && n) used = await runCollaborationJob(s, people, now, { ideaHash, paidCall, rnd, focus: COLLABORATION_ONLY });

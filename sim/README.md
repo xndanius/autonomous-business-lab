@@ -116,6 +116,15 @@ at most once per idea per day and five calls for the whole class per Riga week.
 That global ledger is reserved durably before a call, surviving retirement or
 interruption. Budget pauses leave unfinished weekly work queued, not completed.
 
+A safe rejected draft remains visible as **Draft — needs evidence**, with its
+actual independent score, unsupported verdict and critique. It never overrides
+a current accepted plan or earns readiness. Changed idea fields mark it stale;
+future teams receive its gaps rather than repeat the same mistakes. One migration
+replays genuine safe archived assessments bound to the current idea hash,
+validating the plan schema, fixed score and receipt integrity. Unsafe drafts are
+withheld. Citation diagnostics retain only counts, lengths and known-source /
+exact-match flags, never rejected quotes or invented links.
+
 The common notebook keeps five fixed principles, bounded source-linked working
 heuristics, persistent review lessons, dissent and unanswered questions. It is
 shared with the whole class and team prompts. Agreement between fictional
