@@ -507,6 +507,8 @@ const CLOCK = { now: new Date() };
 class Fatal extends Error {}
 
 function buildRequest(api, system, user) {
+  // JSON mode requires the word in the actual input, not only instructions.
+  user += '\nReturn one JSON object only.';
   const drop = new Set(api.drop || []);
   if (api.mode === 'chat') {
     const body = {

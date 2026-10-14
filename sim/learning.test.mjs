@@ -82,9 +82,10 @@ globalThis.fetch = async (url, opts) => {
   if (mode === 'network') throw new Error('ambiguous network failure');
   if (mode === 'server') return new Response(JSON.stringify({ error: { message: 'server failed' } }), { status: 500 });
   const req = JSON.parse(opts.body), sys = req.instructions || '', user = req.input[0].content;
+  assert.match(user, /json/i, 'every JSON-mode request explicitly asks for JSON in input');
   let result;
   if (sys.includes('independent research reviewer')) {
-    const input = JSON.parse(user);
+    const input = JSON.parse(user.slice(0, user.lastIndexOf('\nReturn one JSON object only.')));
     result = { reviews: input.proposals.map((x) => ({ id: x.id, scores: x.fields.title.includes('weak') ? { ...scores(1), payer: 0, test: 0 } : scores(2), supported: true, safe: true, critique: 'Keep the price a hypothesis. Test one paid pilot.', nextTest: 'Ask five boards to buy a pilot.' })) };
   } else if (sys.includes('hypothetical autonomous business')) result = { fields: good, research: citations };
   else result = { say: 'The public workshop is a route to boards, not proof they will pay.', do: 'talk' };
