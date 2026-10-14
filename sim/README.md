@@ -131,7 +131,7 @@ discussion and archive so interruption cannot lose the corresponding history.
 
 Future executable teams are **not enabled**. The plan handoff contains scoped
 MVP, virtual roles, unknowns and owner-run real validation gates. `test-ready`
-requires a current safe supported plan scoring at least 7 with every criterion
+requires verified exact plan quotes and a current safe supported plan scoring at least 7 with every criterion
 at least 1. It means ready for a human to test, never permission to launch.
 Every handoff says `research-only`, `realValidation: not-run` and
 `launchAllowed: false`; no outreach, deployments, payments or new secrets/tools
