@@ -369,7 +369,7 @@
     if (!state) { setStatus('waiting', 'Starting soon. The first students speak a few minutes after launch.'); return; }
     var s = state, n = (s.stats && s.stats.messages) || 0;
     var mins = s.lastTickAt ? (Date.now() - new Date(s.lastTickAt).getTime()) / 60000 : Infinity;
-    var tail = ' · ' + n + ' class chat messages · ' + activeSlots().length + ' active plans';
+    var tail = ' · ' + n + ' class chat messages · ' + activeSlots().length + ' shortlisted ideas';
     if (s.status === 'paused') setStatus('paused', 'Paused by the organiser' + tail);
     else if (s.status === 'budget') setStatus('paused', 'Resting until midnight, Riga time: today’s budget is used' + tail);
     else if (s.status === 'waiting-key' || !n) setStatus('waiting', 'Starting soon. The first students speak a few minutes after launch.');
