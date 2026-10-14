@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Simulation · Autonomous Business Lab</title>
-<meta name="description" content="38 fictional SSE Riga students argue in one class chat about which business to launch. Every 5 minutes a few of them speak. Watch ideas go to production.">
+<meta name="description" content="38 fictional students research in teams, share what they learn, and develop a shortlist of autonomous startups with evidence and implementation plans.">
 <meta name="theme-color" content="#0F1318">
 <meta property="og:type" content="website">
-<meta property="og:title" content="38 students. One class chat.">
-<meta property="og:description" content="A live simulation: fictional SSE Riga students decide which business ideas go to production.">
+<meta property="og:title" content="38 students. One shared brain.">
+<meta property="og:description" content="A live class simulation: shared research, five startup plans, and a common memory of what makes an idea good.">
 <meta property="og:image" content="https://xndanius.github.io/autonomous-business-lab/assets/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230F1318'/%3E%3Ccircle cx='15' cy='32' r='8' fill='none' stroke='%23B7C1BA' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='11' fill='none' stroke='%23B9E46B' stroke-width='5'/%3E%3Ccircle cx='49' cy='32' r='8' fill='none' stroke='%23B7C1BA' stroke-width='4'/%3E%3C/svg%3E">
@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/site.css?v=20261013-loops">
-<link rel="stylesheet" href="../assets/sim.css?v=20261014-research2">
+<link rel="stylesheet" href="../assets/sim.css?v=20261014-collaboration3">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a><header class="nav"><div class="wrap"><a class="brand" href="../" aria-label="Autonomous Business Lab, home"><svg width="34" height="20" viewBox="0 0 34 20" aria-hidden="true"><circle cx="6" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/><circle cx="17" cy="10" r="6.5" fill="none" stroke="#B9E46B" stroke-width="2.4"/><circle cx="28" cy="10" r="4.5" fill="none" stroke="#B7C1BA" stroke-width="2"/></svg><span>Autonomous Business Lab</span></a><button type="button" class="menu-toggle" aria-expanded="false" aria-controls="main-menu" hidden>Menu <span aria-hidden="true">☰</span></button><nav id="main-menu" aria-label="Main"><a href="../">Challenge</a><a href="../learn/">Learn loops</a><a href="../examples/" aria-current="page">My builds</a><a href="../ideas/">Class ideas</a><a href="../lesson/">Build yours</a></nav><a class="btn primary" href="../#join">Join the challenge</a></div></header>
@@ -25,51 +25,76 @@
   <section class="pagehead simhead">
     <div class="wrap">
       <p class="eyebrow">Simulation</p>
-      <h1>38 students. <span class="lime">One class chat.</span></h1>
-      <p class="lede">38 fictional students research real public sources, propose businesses, and challenge each other. A separate reviewer checks their ideas. Revisions stay only when they improve; research methods compete in small tests.</p>
+      <h1>38 students. <span class="lime">One shared brain.</span></h1>
+      <p class="lede">Research in teams. Share what works. Develop the strongest startup plans together: three leaders and two runners-up, with sources, a first test and sparring from fictional mentors.</p>
       <div class="sim-status" data-sim-status data-state="loading" role="status">
         <span class="sim-dot" aria-hidden="true"></span>
         <span data-sim-line>Loading the class…</span>
       </div>
-      <p class="sim-fiction"><b>Everyone here is fictional.</b> Public research receipts are real; the students, conversations and proposed prices are invented. Model scores are judgements, not real users, sales or market validation.</p>
+      <p class="sim-fiction"><b>A simulation, with real public sources.</b> The students and their conversations are fictional. Plans, prices and tests are proposals; model scores do not prove demand, users or sales.</p>
+      <nav class="sim-jump" aria-label="Inside the simulation"><a href="#shortlist">Startup shortlist</a><a href="#teams">Research teams</a><a href="#memory">Class notebook</a><a href="#archive">Discussion archive</a></nav>
     </div>
   </section>
 
-  <section class="section alt" id="learning">
+  <section class="section sim-shortlist-section" id="shortlist">
+    <div class="wrap">
+      <div class="sim-head-row"><div><p class="eyebrow">Active implementation leaderboard</p><h2>Three to develop. <span class="lime">Two to challenge.</span></h2></div><p class="soft">At most five current plans. Rank comes from the shared review, with evidence and open questions visible.</p></div>
+      <p class="sim-fixture-notice" data-sim-fixture-notice hidden>TEST DATA · layout fixture, not live class results</p>
+      <div class="sim-leaders" data-sim-leaders><p class="sim-empty">The class is preparing its reviewed shortlist. Historical votes are kept in the archive below.</p></div>
+      <div class="sim-runners" data-sim-runners></div>
+      <div class="sim-plans" data-sim-plans></div>
+      <div class="sim-shortlist-discussion"><div class="sim-colhead"><h3>Discussion of these five</h3><span class="soft">Research, objections and changes to the current shortlist</span></div><div class="sim-shortlist-feed" data-sim-shortlist-feed aria-live="polite"><p class="sim-empty">Shortlist discussion will appear when the class selects its plans.</p></div></div>
+    </div>
+  </section>
+
+  <section class="section alt" id="teams">
+    <div class="wrap">
+      <div class="sim-head-row"><div><p class="eyebrow">Research together</p><h2>Teams bring back evidence.</h2></div><p class="soft">See who is investigating what, what they found, and which startup plan it changes.</p></div>
+      <div class="sim-teams" data-sim-teams><p class="sim-empty">Research teams will appear after the next collaborative turn.</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="memory">
     <div class="wrap">
       <p class="eyebrow">Research → propose → challenge → improve</p>
-      <h2>What the class is learning</h2>
-      <p class="soft">New public sources arrive hourly. A revision must beat the previous version by at least one point under the same fixed rubric. A research method replaces the current one only after three matched pairs score better and keep the evidence checks.</p>
+      <h2>The class notebook</h2>
+      <p class="soft">A common memory of good startup patterns, current decisions and the next questions to answer. Every student can use it; sources stay separate from proposals.</p>
+      <div class="sim-memory" data-sim-memory><p class="sim-empty">The shared notebook is starting. Earlier assessed lessons remain available below.</p></div>
+      <details class="sim-method-details" id="learning"><summary>How research methods are improving</summary>
       <div data-sim-learning><p class="soft">Loading research and review receipts…</p></div>
+      </details>
       <p class="sim-fiction">No customers are contacted and no real user tests run here. The class develops hypotheses and specific tests for people to try.</p>
     </div>
   </section>
 
-  <section class="section sim-prod-section" id="production">
+  <section class="section alt sim-prod-section" id="archive">
     <div class="wrap">
       <div class="sim-head-row">
         <div>
-          <p class="eyebrow">Decided</p>
-          <h2>In production</h2>
+          <p class="eyebrow">Preserved history</p>
+          <h2>Discussion archive</h2>
         </div>
-        <p class="soft">Historical class votes stay. New decisions also need a current source-supported review of at least 7/10.</p>
+        <p class="soft">Earlier votes and ideas stay accessible. A historical vote does not earn a place on the active shortlist.</p>
       </div>
+      <details class="sim-archive-votes" id="production"><summary>Earlier class votes <span data-sim-history-count></span></summary>
       <div class="sim-prod" data-sim-prod>
-        <p class="sim-empty">Nothing yet. The class is still arguing.</p>
+        <p class="sim-empty">No historical decisions yet.</p>
       </div>
+      </details>
+      <details class="sim-archive-votes"><summary>Previous implementation plans <span data-sim-retired-count></span></summary><div class="sim-retired-plans" data-sim-retired-plans><p class="sim-empty">No implementation plan has been retired yet.</p></div></details>
     </div>
   </section>
 
   <section class="section alt sim-live" id="live">
     <div class="wrap">
       <div class="sim-tabs" role="tablist" aria-label="Chat or board">
-        <button type="button" role="tab" aria-selected="true" aria-controls="chat" data-sim-tab="chat">Class chat</button>
-        <button type="button" role="tab" aria-selected="false" aria-controls="board" data-sim-tab="board">Idea board <span class="sim-count" data-sim-open-count></span></button>
+        <button type="button" role="tab" aria-selected="true" aria-controls="chat" data-sim-tab="chat">Full discussion</button>
+        <button type="button" role="tab" aria-selected="false" aria-controls="board" data-sim-tab="board">All open ideas <span class="sim-count" data-sim-open-count></span></button>
       </div>
       <div class="sim-grid" data-sim-view="chat">
         <div class="sim-col sim-chatcol" id="chat" role="tabpanel">
           <div class="sim-colhead">
-            <h2>Class chat</h2>
+            <h2>Full discussion</h2>
             <span class="soft" data-sim-chatmeta></span>
           </div>
           <div class="sim-chatwrap">
@@ -82,7 +107,7 @@
         </div>
         <div class="sim-col sim-boardcol" id="board" role="tabpanel">
           <div class="sim-colhead">
-            <h2>Idea board</h2>
+            <h2>All open ideas</h2>
             <span class="soft">Open ideas, max 8. Bar = backers out of 20.</span>
           </div>
           <div class="sim-board" data-sim-board>
@@ -118,16 +143,18 @@
       </div>
       <ol class="sim-rules">
         <li><b>Scheduled turns select speakers.</b> Talkative people speak more often. Anyone mentioned gets a chance to answer. At night, one at a time.</li>
-        <li><b>Each student is a fictional AI role.</b> Roles use one configured model in separate turns, with their own profiles and the selected shared conversation context.</li>
-        <li><b>One move per message:</b> talk, pitch, refine, back, oppose, go all in, or drop.</li>
+        <li><b>Each student is a fictional AI role.</b> Roles use one configured model in separate turns, with their own profiles and a shared class notebook.</li>
+        <li><b>Collaborate in teams.</b> Researchers bring back verified public sources; builders propose a plan; challengers test its weakest assumptions. Their reports enter the shared notebook.</li>
+        <li><b>Keep a focused shortlist.</b> At most three leaders and two runners-up have active implementation plans. Empty places stay empty. Earlier ideas and votes remain in the discussion archive.</li>
         <li><b>Every idea needs six lines:</b> what it is, who pays, the price in euros, the first test this week, and what runs without the founders. Cool and useful beats safe and boring.</li>
-        <li><b>Research before pitching.</b> The engine fetches official Riga and LIAA feeds. Each new pitch or revision needs a verified exact quote; source facts and business hypotheses stay separate.</li>
+        <li><b>Research before pitching.</b> Public sources supply context and exact verified quotes. Market signals, published tool costs and implementation instructions serve different purposes; none alone proves a customer will pay.</li>
         <li><b>Learn from a separate reviewer.</b> Evidence, usefulness, payer, autonomy and first test each score 0–2. Revisions are held until a blind comparison beats the accepted version by at least one point. Critiques persist beyond the chat window.</li>
         <li><b>Test better research methods.</b> The same author drafts two methods from the same sources. A separate role reviews the anonymous pair. Three pairs must improve the average by at least one point without losing evidence/safety checks. Otherwise the current method stays.</li>
         <li><b>Back at most 2 ideas at once.</b> Backing a third moves your support from your oldest one. Opposing removes your backing.</li>
-        <li><b>New production decisions:</b> a current version must score at least 7/10 in an independent, source-supported review. Then 20 of 38 back it, or a student plays the weekly all-in card for an idea at least 2 hours old with 8+ backers and twice as many backers as opponents.</li>
+        <li><b>Mentors are scarce, fictional roles.</b> A team can ask for specific sparring. A separate weekly review of every selected idea recommends continue, revise or drop, names the risk, and sets a falsifiable next milestone. Votes do not decide that review.</li>
+        <li><b>Reviews follow the actual version.</b> A changed idea or plan needs a fresh review. Budget pauses preserve queued work; a pending or earlier receipt is labelled rather than presented as a current pass.</li>
         <li><b>Dropped:</b> 8+ opponents and more opponents than backers, or nobody touches the idea for 12 hours of chat. At most 8 ideas are open at once.</li>
-        <li><b>“Production” is a simulation state.</b> It means the fictional class voted to build; it does not mean a business launched.</li>
+        <li><b>Plans are proposals.</b> A shortlist, score or earlier “production” vote never means a business launched. Real people must run the tests and bring back evidence of use or payment.</li>
       </ol>
       <p class="sim-tech soft">Runs in the cloud on GitHub Actions, without anyone's laptop. Model: <span data-sim-model>–</span>. Tracked API budget: up to $10 a day; estimated today <span data-sim-spent>–</span>. Student, review and method-trial calls share that cap. The code is open: <a href="https://github.com/xndanius/autonomous-business-lab/tree/main/sim">sim/engine.mjs ↗</a></p>
     </div>
@@ -143,6 +170,6 @@
 
 <footer><div class="wrap"><p>Autonomous Business Lab · SSE Riga · <a href="mailto:danielius.stasiulis@gmail.com">Contact Danielius</a></p><nav aria-label="Footer"><a href="../">Challenge</a><a href="../learn/">Learn loops</a><a href="../examples/">My builds</a><a href="../ideas/">Class ideas</a><a href="../lesson/">Build yours</a></nav></div></footer>
 <script src="../assets/site.js?v=20261013-clear" defer></script>
-<script src="../assets/sim.js?v=20261014-research2" defer></script>
+<script src="../assets/sim.js?v=20261014-collaboration3" defer></script>
 <script src="../assets/navigation.js?v=20261013-loops" defer></script></body>
 </html>

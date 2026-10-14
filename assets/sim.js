@@ -104,14 +104,225 @@
     if (i.sources && i.sources.length) {
       dl.appendChild(el('dt', null, 'Research receipts'));
       var dd = el('dd', 'sim-receipts');
-      i.sources.forEach(function (source) {
-        if (!/^https:\/\/(www\.)?(riga\.lv|liaa\.gov\.lv)\//.test(source.url || '')) return;
-        var a = el('a', null, source.title); a.href = source.url; a.target = '_blank'; a.rel = 'noopener'; dd.appendChild(a);
-        dd.appendChild(el('small', null, '“' + source.quote + '” · fetched ' + shortWhen(source.retrievedAt)));
-      });
+      dd.appendChild(receiptList(i.sources));
       dl.appendChild(dd);
     }
     return dl;
+  }
+
+  // The implementation view uses only the engine's bounded shortlist.
+  // Historical popularity and fictional anecdotes never create a leader here.
+  function activeSlots() {
+    var seen = {};
+    return ((((state || {}).collaboration || {}).shortlist) || []).filter(function (slot) { return slot && typeof slot === 'object'; }).sort(function (a, b) { return a.rank - b.rank; }).filter(function (slot) {
+      var idea = findIdea(slot.ideaId);
+      if (!slot || !/^I\d+$/.test(slot.ideaId || '') || !Number.isInteger(slot.rank) || slot.rank < 1 || slot.rank > 5 || seen[slot.ideaId] || !idea || typeof idea.title !== 'string' || !idea.title.trim() || typeof idea.line !== 'string' || !idea.line.trim() || idea.review && idea.review.safe === false || slot.contentHeld || slot.unsafe === true || slot.disposition === 'held') return false;
+      seen[slot.ideaId] = true; return true;
+    }).slice(0, 5);
+  }
+  function findIdea(id) { return ((state && state.ideas) || []).find(function (i) { return i.id === id; }); }
+  function listText(value) { return Array.isArray(value) ? value.join('; ') : String(value || ''); }
+  function sourceURL(source) {
+    try { var u = new URL(source.url); return u.protocol === 'https:' && /^(?:www\.)?(?:riga\.lv|liaa\.gov\.lv|stripe\.com|supabase\.com)$|^(?:ec\.europa\.eu|docs\.github\.com|developers\.cloudflare\.com|docs\.n8n\.io)$/.test(u.hostname) && !u.username && !u.password ? u.href : null; }
+    catch (e) { return null; }
+  }
+  function receiptList(records) {
+    var box = el('div', 'sim-receipts');
+    (records || []).slice(0, 8).forEach(function (source) {
+      if (!source) return;
+      var href = sourceURL(source); if (!href) return;
+      var a = el('a', null, source.title || source.publisher || source.id); a.href = href; a.target = '_blank'; a.rel = 'noopener'; box.appendChild(a);
+      if (source.quote) box.appendChild(el('p', null, '“' + source.quote + '”'));
+      var when = source.retrievedAt && Number.isFinite(+new Date(source.retrievedAt)) ? ' · fetched ' + shortWhen(source.retrievedAt) : '';
+      var kind = ({ 'market-context': 'EU aggregate context', 'supplier-cost': 'Published supplier cost', 'alternative-tool': 'Existing alternative', 'implementation-only': 'Implementation reference' })[source.kind] || 'Public source evidence';
+      box.appendChild(el('small', null, kind + when));
+      if (source.scope) box.appendChild(el('p', 'sim-model-note', source.scope));
+    });
+    if (!box.childNodes.length) box.appendChild(el('p', 'soft', 'No verified source receipts have been attached yet.'));
+    return box;
+  }
+  function teamLine(team) {
+    var box = el('div', 'sim-teamline');
+    (team || []).forEach(function (member) {
+      var button = el('button', 'sim-chip', first(member.id) + ' · ' + member.role); button.type = 'button'; button.setAttribute('data-person', member.id); box.appendChild(button);
+    });
+    if (!box.childNodes.length) box.appendChild(el('span', null, 'Team assignment pending'));
+    return box;
+  }
+  function scoreBreakdown(scores) {
+    var box = el('div', 'sim-review-breakdown');
+    var names = { evidence: 'Evidence', usefulness: 'Useful', payer: 'Payer', autonomy: 'Autonomy', test: 'First test' };
+    Object.keys(names).forEach(function (key) { if (scores && Number.isFinite(scores[key])) box.appendChild(el('span', null, names[key] + ' ' + scores[key] + '/2')); });
+    return box;
+  }
+  function planDetail(title, content) {
+    var detail = el('details', 'sim-plan-subsection'); detail.appendChild(el('summary', null, title));
+    if (content) detail.appendChild(content); return detail;
+  }
+  function labelled(dl, title, value) {
+    if (!value) return;
+    dl.appendChild(el('dt', null, title)); dl.appendChild(el('dd', null, listText(value)));
+  }
+  function bullets(items) {
+    var ul = el('ul'); (items || []).forEach(function (item) { if (item) ul.appendChild(el('li', null, listText(item))); }); return ul;
+  }
+  function mentorState(slot) {
+    if (slot.archivedView) return 'Archived mentor receipt';
+    var c = (state && state.collaboration) || {}, q = c.mentorQueue || {};
+    if ((q.items || []).some(function (item) { return item.ideaId === slot.ideaId; })) return 'Weekly review queued';
+    if (slot.lastWeeklyReview && slot.weeklyReviewCurrent === true) return 'Weekly review current';
+    if (slot.lastWeeklyReview) return 'Fresh weekly review needed';
+    if (slot.nextWeeklyDueAt && +new Date(slot.nextWeeklyDueAt) <= Date.now()) return 'Weekly review due';
+    return 'First weekly review pending';
+  }
+  function mentorPanel(slot) {
+    var box = el('div', 'sim-mentor-panel'), review = slot.lastWeeklyReview, mentor = review && review.mentor || slot.mentor;
+    if (mentor) {
+      box.appendChild(el('p', null, mentor.name + ' · ' + mentor.lens));
+      box.appendChild(el('p', 'sim-model-note', 'Fictional experienced mentor role. Sparring and weekly reviews use the same shared API budget.'));
+    }
+    box.appendChild(el('p', 'sim-report-status', mentorState(slot)));
+    if (review) {
+      box.appendChild(el('p', null, 'Last review: ' + shortWhen(review.at) + ' · ' + review.recommendation + ' · ' + review.score + '/10'));
+      if (slot.archivedView) box.appendChild(el('p', 'sim-model-note', 'This review belongs to an earlier plan that is no longer active.'));
+      else if (slot.weeklyReviewCurrent !== true) box.appendChild(el('p', 'sim-model-note', 'This is an earlier review receipt; the current plan needs a fresh check.'));
+      box.appendChild(scoreBreakdown(review.scores));
+      if (review.risk) box.appendChild(el('p', null, 'Main risk: ' + review.risk));
+      if (review.milestone) box.appendChild(el('p', null, (slot.archivedView ? 'Earlier proposed milestone: ' : 'Next falsifiable milestone: ') + review.milestone));
+      if (review.evidenceGaps && review.evidenceGaps.length) { box.appendChild(el('h4', null, 'Evidence still needed')); box.appendChild(bullets(review.evidenceGaps)); }
+    }
+    if (!slot.archivedView && slot.nextWeeklyDueAt && Number.isFinite(+new Date(slot.nextWeeklyDueAt))) box.appendChild(el('p', 'sim-model-note', 'Next weekly review due ' + shortWhen(slot.nextWeeklyDueAt) + ' Riga time. A budget pause preserves the queue.'));
+    var sparring = (slot.sparring || []).slice(-2);
+    if (sparring.length) {
+      box.appendChild(el('h4', null, 'Recent team sparring'));
+      sparring.forEach(function (x) {
+        var detail = el('details'); detail.appendChild(el('summary', null, (x.mentor ? x.mentor.name + ': ' : '') + x.question)); detail.appendChild(el('p', null, x.answer));
+        if (x.mentor) detail.appendChild(el('p', 'sim-model-note', x.mentor.name + ' · fictional ' + x.mentor.lens));
+        detail.appendChild(el('small', 'sim-model-note', shortWhen(x.at) + ' · proposed advice, not a completed customer test'));
+        if (x.evidence && x.evidence.length) detail.appendChild(receiptList(x.evidence)); box.appendChild(detail);
+      });
+    } else box.appendChild(el('p', 'sim-model-note', 'On-demand sparring appears when a team has a specific question.'));
+    return box;
+  }
+  function implementationPlan(slot, idea) {
+    var detail = el('details', 'sim-plan'); detail.id = 'plan-' + slot.ideaId;
+    var summary = el('summary'); summary.appendChild(el('span', 'sim-iid', slot.ideaId)); summary.appendChild(el('span', null, idea.title + ' · plan, team & sources')); detail.appendChild(summary);
+    var body = el('div', 'sim-plan-body'), plan = slot.plan;
+    body.appendChild(teamLine(slot.team));
+    body.appendChild(el('p', 'sim-plan-disclaimer', 'An implementation proposal in a fictional accelerator. Public source facts are cited below. Prices, forecasts and tests are hypotheses; no product launch or customer result is claimed.'));
+    if (!plan) {
+      body.appendChild(el('p', 'soft', 'The team is preparing a detailed plan. The accepted idea is shown below.'));
+      body.appendChild(fieldList(idea)); body.appendChild(planDetail('Mentor & weekly review', mentorPanel(slot))); detail.appendChild(body); return detail;
+    }
+    body.appendChild(el('p', 'sim-report-status', (slot.archivedView ? 'Archived plan: ' : 'Plan: ') + String(plan.status || 'draft').replace(/-/g, ' ') + ' · version ' + plan.version + (plan.at ? ' · ' + shortWhen(plan.at) : '') + (!slot.archivedView && plan.current === false ? ' · idea changed; refresh needed' : '')));
+    var intro = el('dl', 'sim-fields');
+    labelled(intro, 'Who uses it', plan.audience); labelled(intro, 'Why they return', plan.valueProposition); labelled(intro, 'Proposed payer & price', plan.payerAndPrice); labelled(intro, 'First test', plan.firstTest); body.appendChild(intro);
+    if (plan.review) { body.appendChild(scoreBreakdown(plan.review.scores)); body.appendChild(el('p', 'sim-model-note', (plan.current === false ? 'Previous plan review ' : 'Plan review ') + plan.review.score + '/10 · model judgement. ' + (plan.current === false ? 'The current idea needs a refreshed plan. ' : '') + plan.review.critique)); }
+    var build = el('div', 'sim-plan-section');
+    if (plan.mvp) { build.appendChild(el('h4', null, 'Smallest useful first version')); build.appendChild(el('p', null, plan.mvp)); }
+    (plan.weeks || []).forEach(function (week) { build.appendChild(el('h4', null, 'Week ' + week.week + ' · ' + week.goal)); build.appendChild(bullets(week.tasks)); });
+    body.appendChild(planDetail('Four-week build plan', build));
+    var system = el('div', 'sim-plan-section'), loop = el('dl', 'sim-fields');
+    [['Trigger', 'trigger'], ['Make', 'make'], ['Independent check', 'check'], ['Deliver', 'deliver'], ['Exception owner', 'exceptionOwner']].forEach(function (f) { labelled(loop, f[0], plan.loop && plan.loop[f[1]]); }); system.appendChild(loop);
+    if (plan.architecture && plan.architecture.length) { system.appendChild(el('h4', null, 'Components & tools')); var table = el('table', 'sim-architecture'); var thead = el('thead'), tr = el('tr'); ['Component', 'Suggested tool', 'Why'].forEach(function (label) { var th = el('th', null, label); th.scope = 'col'; tr.appendChild(th); }); thead.appendChild(tr); table.appendChild(thead); var tb = el('tbody'); plan.architecture.forEach(function (x) { var row = el('tr'); [x.component, x.tool, x.why].forEach(function (v) { row.appendChild(el('td', null, v)); }); tb.appendChild(row); }); table.appendChild(tb); system.appendChild(table); }
+    if (plan.dataAndPrivacy) { system.appendChild(el('h4', null, 'Data & privacy')); system.appendChild(el('p', null, plan.dataAndPrivacy)); } body.appendChild(planDetail('System & operating loop', system));
+    var tests = el('div', 'sim-plan-section'), economics = plan.economics || {};
+    [['Revenue hypothesis', economics.hypothesis], ['Cost assumptions', economics.costAssumptions], ['Unit economics hypothesis', economics.unitEconomics]].forEach(function (f) { if (f[1]) { tests.appendChild(el('h4', null, f[0])); tests.appendChild(el('p', null, listText(f[1]))); } });
+    (plan.tests || []).forEach(function (test) { tests.appendChild(el('h4', null, test.hypothesis)); var dl = el('dl', 'sim-fields'); labelled(dl, 'Test', test.test); labelled(dl, 'Pass', test.pass); labelled(dl, 'Fail', test.fail); if (Number.isFinite(test.maxCostEuro)) labelled(dl, 'Maximum test cost', '€' + test.maxCostEuro); tests.appendChild(dl); });
+    if (economics.unknowns && economics.unknowns.length) { tests.appendChild(el('h4', null, 'Unproven assumptions')); tests.appendChild(bullets(economics.unknowns)); } body.appendChild(planDetail('Economics & tests that could disprove it', tests));
+    var evidence = el('div', 'sim-plan-section'); evidence.appendChild(receiptList(plan.evidence || idea.sources || []));
+    if (plan.risks && plan.risks.length) { evidence.appendChild(el('h4', null, 'Risks')); evidence.appendChild(bullets(plan.risks)); }
+    if (plan.unknowns && plan.unknowns.length) { evidence.appendChild(el('h4', null, 'Still unknown')); evidence.appendChild(bullets(plan.unknowns)); } body.appendChild(planDetail('Public evidence & open risks', evidence));
+    body.appendChild(planDetail('Mentor & weekly review', mentorPanel(slot))); detail.appendChild(body); return detail;
+  }
+  function renderCollaboration() {
+    var leaders = $('[data-sim-leaders]'), runners = $('[data-sim-runners]'), plans = $('[data-sim-plans]');
+    if (!leaders || !runners || !plans) return;
+    var testNotice = $('[data-sim-fixture-notice]'); if (testNotice) testNotice.hidden = !(state && state.mock);
+    var slots = activeSlots(); leaders.textContent = ''; runners.textContent = ''; plans.textContent = '';
+    if (!slots.length) leaders.appendChild(el('p', 'sim-empty', 'The class is preparing its reviewed shortlist. Historical votes are kept in the archive below.'));
+    slots.forEach(function (slot, idx) {
+      var rank = Number.isInteger(slot.rank) && slot.rank >= 1 && slot.rank <= 5 ? slot.rank : idx + 1, isLeader = rank <= 3;
+      var idea = findIdea(slot.ideaId), card = el('article', isLeader ? 'sim-leader' : 'sim-runner'), content = card;
+      if (!isLeader) { content = el('div', 'sim-runner-main'); card.appendChild(content); }
+      var top = el('div', 'sim-rankline'); top.appendChild(el('span', 'sim-rank', String(rank).padStart(2, '0') + ' · ' + (isLeader ? 'Leader' : 'Runner-up')));
+      var score = el('span', 'sim-score', Number.isFinite(slot.score) ? slot.score : '—'); score.appendChild(el('small', null, '/10')); top.appendChild(score); content.appendChild(top);
+      content.appendChild(el('h3', null, idea.title)); content.appendChild(el('p', 'sim-line', idea.line));
+      content.appendChild(el('p', 'sim-model-note', slot.qualification === 'reviewed' ? 'Idea review · model judgement' : 'Provisional selection · review pending'));
+      if (isLeader) { var audience = el('div', 'sim-card-audience'), currentPlan = slot.plan && slot.plan.current !== false ? slot.plan : null; if (currentPlan && currentPlan.audience) audience.appendChild(el('p', null, 'For: ' + currentPlan.audience)); audience.appendChild(el('p', null, 'Proposed payer: ' + (currentPlan && currentPlan.payerAndPrice || idea.payer))); content.appendChild(audience); content.appendChild(teamLine(slot.team)); }
+      if (slot.disposition === 'revise' || slot.disposition === 'rework' || slot.status === 'rework' || slot.weeklyReviewCurrent && slot.lastWeeklyReview && slot.lastWeeklyReview.recommendation === 'revise') content.appendChild(el('p', 'sim-rework-note', 'Mentor: revise before proceeding'));
+      var mentor = slot.lastWeeklyReview && slot.lastWeeklyReview.mentor || slot.mentor;
+      if (mentor) content.appendChild(el('p', 'sim-model-note', mentor.name + ' · fictional mentor · ' + mentorState(slot)));
+      var link = el('a', isLeader ? 'btn' : null, 'Open plan, team & evidence →'); link.href = '#plan-' + slot.ideaId; link.setAttribute('data-open-plan', slot.ideaId); content.appendChild(link);
+      (isLeader ? leaders : runners).appendChild(card); plans.appendChild(implementationPlan(slot, idea));
+    });
+    renderShortlistFeed(slots); renderTeams(slots); renderCommonMemory(); renderRetiredPlans();
+  }
+  function renderRetiredPlans() {
+    var box = $('[data-sim-retired-plans]'), count = $('[data-sim-retired-count]'); if (!box) return;
+    var archive = (((state || {}).collaboration || {}).archive || []).slice().reverse(); box.textContent = ''; if (count) count.textContent = '(' + archive.length + ')';
+    if (!archive.length) { box.appendChild(el('p', 'sim-empty', 'No implementation plan has been retired yet.')); return; }
+    archive.slice(0, 15).forEach(function (slot) {
+      var idea = slot.ideaSnapshot || findIdea(slot.ideaId), card = el('article', 'sim-retired-card');
+      var currentIdea = findIdea(slot.ideaId), contentHeld = slot.contentHeld || slot.unsafe === true || currentIdea && currentIdea.review && currentIdea.review.safe === false || idea && idea.review && idea.review.safe === false || slot.lastWeeklyReview && slot.lastWeeklyReview.safe === false;
+      card.appendChild(el('span', 'sim-iid', slot.ideaId)); card.appendChild(el('h3', null, contentHeld ? 'Content held for a safety review' : idea && idea.title || 'Earlier hypothesis'));
+      card.appendChild(el('p', 'soft', 'Held or archived: ' + (slot.reason || 'No longer on the active shortlist.')));
+      if (slot.archivedAt) card.appendChild(el('small', 'sim-model-note', shortWhen(slot.archivedAt)));
+      if (slot.lastWeeklyReview) card.appendChild(el('p', 'sim-model-note', 'Earlier mentor recommendation: ' + slot.lastWeeklyReview.recommendation + '. ' + slot.lastWeeklyReview.risk));
+      if (!contentHeld && slot.plan && idea) { var details = implementationPlan(Object.assign({}, slot, { archivedView: true }), idea); details.id = 'archived-plan-' + slot.ideaId + '-' + Math.round(+new Date(slot.archivedAt || slot.selectedAt)); card.appendChild(details); }
+      box.appendChild(card);
+    });
+  }
+  function collaborativeMessage(m) {
+    var mentor = activeSlots().reduce(function (all, s) { return all.concat(s.mentor || [], s.lastWeeklyReview && s.lastWeeklyReview.mentor || [], (s.sparring || []).map(function (x) { return x.mentor; }).filter(Boolean)); }, []).find(function (p) { return p && p.id === m.by; });
+    var row = el('article', 'sim-report-message'), who = m.by === 'sys' ? 'Class notebook' : mentor ? mentor.name + ' · fictional mentor' : first(m.by);
+    row.setAttribute('data-detail-scope', 'report-' + (m.n || m.t + '-' + m.ideaId));
+    var top = el('div', 'sim-mh'); top.appendChild(el('span', 'sim-rank', ({ research: 'Research report', plan: 'Build plan', challenge: 'Challenge', mentor: 'Weekly review', sparring: 'Mentor sparring', selection: 'Shortlist' })[m.kind] || 'Discussion'));
+    if (m.by && m.by !== 'sys' && byId[m.by]) { var button = el('button', 'sim-who', who); button.type = 'button'; button.setAttribute('data-person', m.by); top.appendChild(button); } else top.appendChild(el('span', 'sim-who', who));
+    if (m.ideaId) top.appendChild(ideaChip(m.ideaId, 'on', 'talk'));
+    if (m.t && Number.isFinite(+new Date(m.t))) { var t = el('time', null, hm(m.t)); t.dateTime = m.t; t.title = shortWhen(m.t); top.appendChild(t); } row.appendChild(top); row.appendChild(el('p', 'sim-say', m.say));
+    if ((m.evidence || []).length || (m.uncertainty || []).length || (m.dissent || []).length) {
+      var detail = el('details'); detail.appendChild(el('summary', null, 'Sources, unknowns & dissent'));
+      if (m.evidence && m.evidence.length) detail.appendChild(receiptList(m.evidence));
+      if (m.uncertainty && m.uncertainty.length) { detail.appendChild(el('h4', null, 'Unknowns')); detail.appendChild(bullets(m.uncertainty)); }
+      if (m.dissent && m.dissent.length) { detail.appendChild(el('h4', null, 'Dissent kept on record')); detail.appendChild(bullets(m.dissent)); } row.appendChild(detail);
+    }
+    return row;
+  }
+  function collaborationMessages() { return (((state || {}).collaboration || {}).discussion || {}).recent || []; }
+  function renderShortlistFeed(slots) {
+    var box = $('[data-sim-shortlist-feed]'); if (!box) return;
+    var ids = slots.map(function (s) { return s.ideaId; }), messages = collaborationMessages().filter(function (m) { return ids.indexOf(m.ideaId) >= 0; }).slice(-16);
+    box.textContent = ''; if (!messages.length) box.appendChild(el('p', 'sim-empty', 'No team report for the current shortlist yet. Earlier class chat stays in the discussion archive.'));
+    messages.forEach(function (m) { box.appendChild(collaborativeMessage(m)); });
+  }
+  function renderTeams(slots) {
+    var box = $('[data-sim-teams]'); if (!box) return; box.textContent = '';
+    if (!slots.length) { box.appendChild(el('p', 'sim-empty', 'Research teams form around the selected startup plans. No shortlist has been declared yet.')); return; }
+    slots.forEach(function (slot) {
+      var idea = findIdea(slot.ideaId), card = el('article', 'sim-report'); card.setAttribute('data-detail-scope', 'team-' + slot.ideaId); card.appendChild(el('p', 'sim-rank', slot.ideaId + ' · Research / Build / Challenge')); card.appendChild(el('h3', null, idea.title)); card.appendChild(teamLine(slot.team));
+      var reports = collaborationMessages().filter(function (m) { return m.ideaId === slot.ideaId && ['research', 'challenge', 'plan'].indexOf(m.kind) >= 0; }).slice(-3);
+      if (!reports.length) card.appendChild(el('p', 'soft', 'The team has not returned a public research report yet.'));
+      else { var last = reports[reports.length - 1]; card.appendChild(el('p', 'sim-report-status', 'Latest report · ' + shortWhen(last.t))); card.appendChild(el('p', null, last.say)); var more = el('details'); more.appendChild(el('summary', null, 'Open team reports & receipts')); reports.forEach(function (m) { more.appendChild(collaborativeMessage(m)); }); card.appendChild(more); }
+      var link = el('a', null, 'See the implementation plan →'); link.href = '#plan-' + slot.ideaId; link.setAttribute('data-open-plan', slot.ideaId); card.appendChild(link); box.appendChild(card);
+    });
+  }
+  function renderCommonMemory() {
+    var box = $('[data-sim-memory]'); if (!box) return; box.textContent = '';
+    var memory = ((state && state.collaboration) || {}).memory;
+    if (!memory) { box.appendChild(el('p', 'sim-empty', 'The shared notebook is starting. Earlier assessed lessons remain available below.')); return; }
+    var patterns = el('article', 'sim-memory-card'); patterns.appendChild(el('h3', null, 'What makes a good startup here'));
+    var principles = (memory.principles || []).slice(0, 8);
+    principles.forEach(function (p) { var detail = el('details'); detail.appendChild(el('summary', null, p.title + (p.status === 'contested' ? ' · contested' : ''))); detail.appendChild(el('p', null, p.text)); detail.appendChild(el('small', null, (p.kind === 'fixed' ? 'Fixed criterion' : 'Learned model judgement') + (p.at ? ' · ' + shortWhen(p.at) : ''))); if (p.evidence && p.evidence.length) detail.appendChild(receiptList(p.evidence)); if (p.dissent && p.dissent.length) detail.appendChild(bullets(p.dissent)); patterns.appendChild(detail); });
+    if (!principles.length) patterns.appendChild(el('p', 'soft', 'Common criteria are waiting for the next collaborative turn.')); box.appendChild(patterns);
+    var changes = el('article', 'sim-memory-card'); changes.appendChild(el('h3', null, 'What changed, and what is still unknown'));
+    var lessons = (memory.lessons || []).slice(-3).reverse(); lessons.forEach(function (x) {
+      var p = el('p', null, (x.ideaId ? x.ideaId + ': ' : '') + x.text); if (x.at) p.appendChild(el('small', null, shortWhen(x.at))); changes.appendChild(p);
+      if (x.evidence && x.evidence.length) { var sources = el('details'); sources.setAttribute('data-detail-scope', 'lesson-' + x.at + '-' + x.ideaId); sources.appendChild(el('summary', null, 'Sources behind this change')); sources.appendChild(receiptList(x.evidence)); changes.appendChild(sources); }
+      if (x.dissent && x.dissent.length) changes.appendChild(bullets(x.dissent));
+    });
+    if (!lessons.length) changes.appendChild(el('p', 'soft', 'No shared change has been recorded yet.'));
+    if (memory.openQuestions && memory.openQuestions.length) { changes.appendChild(el('h3', null, 'Next questions to answer')); changes.appendChild(bullets(memory.openQuestions.slice(0, 4))); } box.appendChild(changes);
   }
 
   function renderLearning() {
@@ -155,7 +366,7 @@
     if (!state) { setStatus('waiting', 'Starting soon. The first students speak a few minutes after launch.'); return; }
     var s = state, n = (s.stats && s.stats.messages) || 0;
     var mins = s.lastTickAt ? (Date.now() - new Date(s.lastTickAt).getTime()) / 60000 : Infinity;
-    var tail = ' · ' + n + ' messages · ' + ((s.stats && s.stats.production) || 0) + ' in production';
+    var tail = ' · ' + n + ' class chat messages · ' + activeSlots().length + ' active plans';
     if (s.status === 'paused') setStatus('paused', 'Paused by the organiser' + tail);
     else if (s.status === 'budget') setStatus('paused', 'Resting until midnight, Riga time: today’s budget is used' + tail);
     else if (s.status === 'waiting-key' || !n) setStatus('waiting', 'Starting soon. The first students speak a few minutes after launch.');
@@ -180,13 +391,14 @@
     var list = (state ? state.ideas : []).filter(function (i) { return i.status === 'production'; });
     list.sort(function (a, b) { return String(b.prodAt).localeCompare(String(a.prodAt)); });
     box.textContent = '';
-    if (!list.length) { box.appendChild(el('p', 'sim-empty', 'Nothing yet. The class is still arguing.')); return; }
+    var count = $('[data-sim-history-count]'); if (count) count.textContent = '(' + list.length + ')';
+    if (!list.length) { box.appendChild(el('p', 'sim-empty', 'No historical decisions yet.')); return; }
     list.forEach(function (i) {
       var c = el('article', 'sim-pcard');
       c.id = 'prod-' + i.id;
       var top = el('div', 'sim-pc-top');
       top.appendChild(el('span', 'sim-iid', i.id));
-      top.appendChild(el('span', 'sim-pc-how' + (i.prodHow === 'allin' ? ' allin' : ''), ideaHow(i)));
+      top.appendChild(el('span', 'sim-pc-how' + (i.prodHow === 'allin' ? ' allin' : ''), 'Historical vote · ' + ideaHow(i)));
       c.appendChild(top);
       c.appendChild(el('h3', null, i.title));
       c.appendChild(el('p', 'sim-line', i.line));
@@ -471,9 +683,11 @@
     if (name === 'chat' && !newBtn.hidden) { /* keep */ }
   }
   function focusIdea(id) {
-    var target = document.getElementById('idea-' + id) || document.getElementById('prod-' + id) || document.getElementById('drop-' + id);
+    var target = document.getElementById('plan-' + id) || document.getElementById('idea-' + id) || document.getElementById('prod-' + id) || document.getElementById('drop-' + id);
     if (!target) return;
+    if (target.classList.contains('sim-plan')) target.open = true;
     if (target.id.indexOf('idea-') === 0) setTab('board');
+    if (target.id.indexOf('prod-') === 0) { var history = $('.sim-archive-votes'); if (history) history.open = true; }
     if (target.id.indexOf('drop-') === 0) { var d = $('.sim-dropped'); if (d) d.open = true; setTab('board'); }
     target.scrollIntoView({ behavior: 'smooth', block: 'center' });
     target.classList.remove('sim-flash');
@@ -481,9 +695,10 @@
     target.classList.add('sim-flash');
   }
   document.addEventListener('click', function (e) {
-    var t = e.target.closest ? e.target.closest('[data-person],[data-idea],[data-sim-tab],[data-sim-close]') : null;
+    var t = e.target.closest ? e.target.closest('[data-person],[data-idea],[data-open-plan],[data-sim-tab],[data-sim-close]') : null;
     if (!t) { if (e.target === dlg) closePerson(); return; }
     if (t.hasAttribute('data-sim-close')) closePerson();
+    else if (t.hasAttribute('data-open-plan')) { e.preventDefault(); var id = t.getAttribute('data-open-plan'); focusIdea(id); history.replaceState(null, '', '#plan-' + id); }
     else if (t.hasAttribute('data-person')) openPerson(t.getAttribute('data-person'));
     else if (t.hasAttribute('data-idea')) focusIdea(t.getAttribute('data-idea'));
     else if (t.hasAttribute('data-sim-tab')) setTab(t.getAttribute('data-sim-tab'));
@@ -494,13 +709,17 @@
 
   // ------------------------------------------------------------ load + poll
   function apply(s) {
+    var opened = Array.from(document.querySelectorAll('#shortlist details[open],#teams details[open],#memory details[open]')).map(detailKey);
     state = s;
     renderStatus();
+    renderCollaboration();
     renderLearning();
     renderProd();
     renderBoard();
     if (s && s.recent) appendMessages(s.recent);
     renderPeople();
+    document.querySelectorAll('#shortlist details,#teams details,#memory details').forEach(function (d) { if (opened.indexOf(detailKey(d)) >= 0) d.open = true; });
+    var planHash = location.hash.match(/^#plan-(I\d+)$/); if (planHash) { var linked = document.getElementById('plan-' + planHash[1]); if (linked) linked.open = true; }
     if (s) updateOlder();
     if (!s || !(s.recent || []).length) {
       if (!msgsBox.childNodes.length) msgsBox.appendChild(el('p', 'sim-empty sim-chat-empty', 'The chat is empty. The first students speak a few minutes after launch.'));
@@ -508,6 +727,7 @@
       var e = msgsBox.querySelector('.sim-chat-empty'); if (e) e.remove();
     }
   }
+  function detailKey(detail) { var scope = detail.closest('.sim-plan,[data-detail-scope]'), summary = detail.querySelector('summary'); return (scope ? scope.id || scope.getAttribute('data-detail-scope') : '') + '\n' + (summary ? summary.textContent : ''); }
   function load() {
     return getJSON('state.json').then(apply).catch(function () {
       if (!state) setStatus('waiting', 'Could not reach the class data. It will retry in a minute.');

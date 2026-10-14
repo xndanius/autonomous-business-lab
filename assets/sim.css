@@ -174,3 +174,94 @@
 .sim-research { margin:1.5rem 0; }
 .sim-research summary { cursor:pointer; color:#B9E46B; }
 .sim-research p { max-width:850px; }
+/* Collaborative classroom: a bounded shortlist, followed by its evidence. */
+.sim-jump{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:24px;font-size:15px}
+.sim-jump a{color:var(--lime);text-underline-offset:5px}
+.sim-shortlist-section{padding-top:36px}
+.sim-fixture-notice{display:table;color:var(--orange);font:700 13px var(--mono);padding:9px 12px;border:1px solid var(--orange);border-radius:8px;margin:0 0 18px}
+.sim-leaders{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.sim-leaders>.sim-empty{grid-column:1/-1;max-width:760px;padding:26px;border:1px dashed var(--line2);border-radius:16px}
+.sim-leader{display:flex;flex-direction:column;gap:14px;min-width:0;padding:24px;border:1px solid rgba(185,228,107,.45);border-radius:20px;background:linear-gradient(150deg,rgba(185,228,107,.09),var(--card) 66%)}
+.sim-leader h3{font-size:clamp(23px,2.2vw,30px);line-height:1.16;overflow-wrap:anywhere}
+.sim-rankline{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sim-rank{font:700 13px var(--mono);color:var(--lime);letter-spacing:.05em;text-transform:uppercase}
+.sim-score{flex:none;font:700 25px var(--display);color:var(--text)}
+.sim-score small{font:400 13px var(--body);color:var(--dim);margin-left:3px}
+.sim-leader .sim-line{font-size:17px;color:var(--soft)}
+.sim-leader .btn{margin-top:auto;align-self:flex-start;font-size:14px;padding:9px 14px}
+.sim-card-audience{font-size:14px;line-height:1.5;color:var(--soft);display:grid;gap:6px}
+.sim-card-audience b{font-weight:500;color:var(--dim)}
+.sim-teamline{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:13px;color:var(--dim);line-height:1.4}
+.sim-teamline .sim-av{margin-right:0}
+.sim-runners{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px}
+.sim-runner{display:flex;gap:16px;align-items:flex-start;min-width:0;padding:20px;border:1px solid var(--line2);border-radius:16px;background:var(--card)}
+.sim-runner-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:7px}
+.sim-runner h3{font-size:21px;line-height:1.2}
+.sim-runner .sim-line{font-size:15px;color:var(--soft)}
+.sim-runner a{font-size:14px;color:var(--lime)}
+.sim-model-note{font-size:12px;color:var(--dim);line-height:1.4}
+.sim-rework-note{font-size:13px;color:var(--orange);padding:7px 10px;border:1px solid rgba(244,162,89,.4);border-radius:7px;align-self:flex-start}
+.sim-plans{display:flex;flex-direction:column;gap:12px;margin:28px 0 36px}
+.sim-plan{border:1px solid var(--line2);border-radius:16px;background:var(--bg2);overflow:hidden;scroll-margin-top:100px}
+.sim-plan>summary{display:flex;align-items:center;gap:12px;padding:18px 20px;cursor:pointer;list-style:none;font-size:18px;font-weight:700;line-height:1.3}
+.sim-plan>summary::-webkit-details-marker{display:none}
+.sim-plan>summary::after{content:'+';margin-left:auto;color:var(--lime);font:400 26px var(--display)}
+.sim-plan[open]>summary::after{content:'−'}
+.sim-plan-body{padding:2px 22px 24px;display:flex;flex-direction:column;gap:22px}
+.sim-plan-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.sim-plan-grid>section{min-width:0}
+.sim-plan-body h4,.sim-report h4,.sim-memory-card h3{font:700 13px var(--body);color:var(--lime);letter-spacing:.08em;text-transform:uppercase;margin:0 0 10px}
+.sim-plan-body p,.sim-plan-body li{font-size:15px;line-height:1.55;color:var(--soft);overflow-wrap:anywhere}
+.sim-plan-body ul,.sim-plan-body ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.sim-plan-body .sim-fields{grid-template-columns:1fr;gap:2px}
+.sim-plan-body .sim-fields dt{margin-top:8px;font-size:13px}
+.sim-plan-subsection{border-top:1px solid var(--line);padding-top:12px}
+.sim-plan-subsection>summary{cursor:pointer;color:var(--lime);font-size:15px;font-weight:700}
+.sim-plan-section,.sim-mentor-panel{display:flex;flex-direction:column;gap:14px;padding-top:16px;min-width:0}
+.sim-architecture{width:100%;border-collapse:collapse;font-size:14px;table-layout:fixed}
+.sim-architecture th,.sim-architecture td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;overflow-wrap:anywhere}
+.sim-architecture th{color:var(--dim);font-weight:500}
+.sim-architecture td{color:var(--soft)}
+.sim-mentor-panel>details{padding-top:12px;border-top:1px solid var(--line)}
+.sim-mentor-panel summary{cursor:pointer;color:var(--lime);font-size:14px}
+.sim-report-message{display:flex;flex-direction:column;gap:9px;padding:14px 6px;border-bottom:1px solid var(--line);min-width:0}
+.sim-report-message:last-child{border-bottom:0}
+.sim-report-message details summary{font-size:13px;color:var(--lime);cursor:pointer}
+.sim-report-message details p,.sim-report-message details ul{margin-top:10px;font-size:14px;color:var(--soft)}
+.sim-report-message details h4{margin-top:12px}
+.sim-memory-card>details{padding:10px 0;border-bottom:1px solid var(--line)}
+.sim-memory-card>details:last-child{border-bottom:0}
+.sim-memory-card>details>summary{cursor:pointer;font-size:15px;line-height:1.5;color:var(--text)}
+.sim-memory-card>details p{margin-top:10px}
+.sim-memory-card>h3:not(:first-child){margin-top:22px}
+.sim-review-breakdown{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.sim-review-breakdown span{font-size:12px;color:var(--soft);padding:5px 8px;border:1px solid var(--line2);border-radius:6px}
+.sim-plan-disclaimer{padding:12px 14px;border-left:2px solid var(--orange);background:rgba(244,162,89,.05);font-size:13px!important;color:var(--dim)!important}
+.sim-shortlist-discussion{margin-top:30px}
+.sim-shortlist-feed{max-height:500px;overflow-y:auto;overscroll-behavior:contain;border:1px solid var(--line);border-radius:16px;padding:14px;background:var(--bg)}
+.sim-shortlist-feed .sim-sys{font-size:13px}
+.sim-teams{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.sim-report{min-width:0;display:flex;flex-direction:column;gap:12px;padding:22px;border:1px solid var(--line2);border-radius:16px;background:var(--card)}
+.sim-report h3{font-size:23px;line-height:1.2}
+.sim-report p{font-size:15px;color:var(--soft);line-height:1.5}
+.sim-report-status{font:400 12px var(--mono);color:var(--dim)}
+.sim-report details{border-top:1px solid var(--line);padding-top:12px}
+.sim-report summary{cursor:pointer;font-size:14px;color:var(--lime)}
+.sim-report details p{margin-top:10px}
+.sim-memory{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:24px 0}
+.sim-memory-card{min-width:0;padding:22px;border:1px solid var(--line2);border-radius:16px;background:var(--card)}
+.sim-memory-card ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:12px;color:var(--soft);font-size:15px;line-height:1.5}
+.sim-memory-card p{font-size:15px;color:var(--soft);line-height:1.5;overflow-wrap:anywhere}
+.sim-memory-card small{display:block;color:var(--dim);font-size:12px;margin-top:5px}
+.sim-method-details>summary,.sim-archive-votes>summary{font-size:17px;color:var(--soft);font-weight:700;cursor:pointer;padding:15px 0}
+.sim-method-details{border-top:1px solid var(--line);margin-top:28px}
+.sim-method-details [data-sim-learning]{padding:10px 0 0}
+.sim-archive-votes .sim-prod{margin-top:14px}
+.sim-archive-votes .sim-pcard{background:var(--card);border-color:var(--line)}
+.sim-archive-votes .sim-pc-how{color:var(--soft)}
+.sim-retired-plans{display:flex;flex-direction:column;gap:14px;margin:14px 0 22px}
+.sim-retired-card{border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.sim-retired-card h3{font-size:22px}
+.sim-retired-card .sim-plan{margin-top:4px}
+@media (max-width:1040px){.sim-leaders{gap:12px}.sim-leader{padding:18px}.sim-leader h3{font-size:23px}}
+@media (max-width:760px){.sim-leaders,.sim-runners,.sim-teams,.sim-memory,.sim-plan-grid{grid-template-columns:1fr}.sim-leader{padding:22px}.sim-leader h3{font-size:26px}.sim-leader .btn{margin-top:4px}.sim-plan>summary{padding:16px;font-size:17px}.sim-plan-body{padding:0 16px 20px}.sim-runner{padding:18px}.sim-jump{gap:10px 20px}.sim-shortlist-feed{max-height:66vh}.sim-memory-card,.sim-report{padding:20px}}
