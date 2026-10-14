@@ -116,7 +116,7 @@
     var seen = {};
     return ((((state || {}).collaboration || {}).shortlist) || []).filter(function (slot) { return slot && typeof slot === 'object'; }).sort(function (a, b) { return a.rank - b.rank; }).filter(function (slot) {
       var idea = findIdea(slot.ideaId);
-      if (!slot || !/^I\d+$/.test(slot.ideaId || '') || !Number.isInteger(slot.rank) || slot.rank < 1 || slot.rank > 5 || seen[slot.ideaId] || !idea || typeof idea.title !== 'string' || !idea.title.trim() || typeof idea.line !== 'string' || !idea.line.trim() || idea.review && idea.review.safe === false || slot.contentHeld || slot.unsafe === true || slot.disposition === 'held') return false;
+      if (!slot || !/^I\d+$/.test(slot.ideaId || '') || !Number.isInteger(slot.rank) || slot.rank < 1 || slot.rank > 5 || seen[slot.ideaId] || !idea || !['title', 'line', 'payer', 'price', 'test', 'loop'].every(function (field) { return typeof idea[field] === 'string' && idea[field].trim(); }) || idea.review && idea.review.safe === false || slot.contentHeld || slot.unsafe === true || slot.disposition === 'held') return false;
       seen[slot.ideaId] = true; return true;
     }).slice(0, 5);
   }
