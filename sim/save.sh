@@ -8,7 +8,7 @@ if [ -z "$(git status --porcelain)" ]; then
   exit 0
 fi
 TICK=$(node -p "require('./state.json').tick" 2>/dev/null || echo "x")
-git checkout --quiet --orphan "snap-${TICK}-${RANDOM}"
+git checkout --quiet --orphan "snap-${TICK}-${RANDOM}-$(node -p 'Date.now()')"
 git add -A
 git -c user.name="class-sim" -c user.email="class-sim@users.noreply.github.com" commit --quiet -m "Class chat, tick ${TICK}"
 REMOTE="${SIM_REMOTE:-https://x-access-token:${GH_TOKEN:-}@github.com/${GITHUB_REPOSITORY:-}.git}"

@@ -79,14 +79,14 @@ export function assessment(j, expectedIds) {
 }
 
 export function revisionWins(oldReview, newReview) {
-  return newReview.safe && newReview.supported && newReview.scores.evidence >= 1 && newReview.scores.autonomy >= 1 && newReview.scores.test >= 1 && newReview.score >= oldReview.score + 1;
+  return newReview.safe && newReview.supported && RUBRIC.every((k) => newReview.scores[k] >= 1) && newReview.score >= oldReview.score + 1;
 }
 
 export function settleTrial(trial) {
   if (trial.pairs.length < 3) return null;
   const baseline = trial.pairs.reduce((s, p) => s + p.baseline.score, 0) / trial.pairs.length;
   const candidate = trial.pairs.reduce((s, p) => s + p.candidate.score, 0) / trial.pairs.length;
-  const passes = (key) => trial.pairs.filter((p) => p[key].safe && p[key].supported && p[key].scores.evidence >= 1 && p[key].scores.autonomy >= 1 && p[key].scores.test >= 1).length;
+  const passes = (key) => trial.pairs.filter((p) => p[key].safe && p[key].supported && RUBRIC.every((k) => p[key].scores[k] >= 1)).length;
   // A prompt never wins by raising its own score or lowering the fixed rubric.
   return { adopted: candidate >= baseline + 1 && passes('candidate') >= passes('baseline') && passes('candidate') === trial.pairs.length, baseline: +baseline.toFixed(2), candidate: +candidate.toFixed(2), pairs: trial.pairs.length };
 }

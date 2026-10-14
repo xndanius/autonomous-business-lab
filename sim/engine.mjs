@@ -18,7 +18,10 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import crypto from 'node:crypto';
-import { refreshResearch, validCitations, assessment, revisionWins, settleTrial, reserveCost, STRATEGIES } from './learning.mjs';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+import { refreshResearch, validCitations, assessment, revisionWins, settleTrial, reserveCost, STRATEGIES, RUBRIC } from './learning.mjs';
+const runFile = promisify(execFile);
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, '..');
@@ -621,7 +624,7 @@ function parseReply(text) {
 // ---------------------------------------------------------------- research, review and learning
 const ideaHash = (i) => crypto.createHash('sha256').update(JSON.stringify(FIELDS.map((k) => i[k] || '')) + JSON.stringify((i.sources || []).map((r) => [r.sourceHash, r.quote]))).digest('hex');
 function reviewReady(i, now) {
-  return i.review?.versionHash === ideaHash(i) && i.review.score >= 7 && i.review.scores?.evidence >= 1 && i.review.scores?.autonomy >= 1 && i.review.scores?.test >= 1 && i.review.safe && i.review.supported && i.sources?.length > 0 && +now - +new Date(i.review.at) < 72 * 3600000;
+  return i.review?.versionHash === ideaHash(i) && i.review.score >= 7 && RUBRIC.every((k) => i.review.scores?.[k] >= 1) && i.review.safe && i.review.supported && i.sources?.length > 0 && +now - +new Date(i.review.at) < 72 * 3600000;
 }
 function initialiseLearning(s, now) {
   if (!s.learning) s.learning = { v: 2, startedAt: iso(now), active: 'source-first', nextStrategy: 1, trial: null, history: [], lessons: [], stats: { reviews: 0, revisionsAccepted: 0, revisionsRejected: 0, trialPairs: 0 } };
@@ -631,7 +634,16 @@ function researchPrompt(records, offset = 0) {
   const ordered = [...records.slice(offset % records.length), ...records.slice(0, offset % records.length)].slice(0, 6);
   return ordered.map((r) => `${r.id} | ${r.publisher} | published ${r.publishedAt} | fetched ${r.retrievedAt}\nTitle: ${r.title}\nExact excerpt: ${r.excerpt}`).join('\n\n');
 }
-async function paidCall(s, system, user, kind) {
+async function checkpoint(s) {
+  // Flush all known messages by their stable sequence IDs before publishing state.
+  await appendChat(s, s.recent);
+  await writeJSON(path.join(DATA, 'state.json'), s);
+  if (process.env.GITHUB_ACTIONS === 'true') {
+    try { await runFile('bash', [path.join(HERE, 'save.sh')], { cwd: ROOT, timeout: 60000, maxBuffer: 100000 }); }
+    catch { throw new Error('Durable simulation checkpoint failed; no new paid request is allowed'); }
+  }
+}
+async function paidCall(s, system, user, kind, persist = checkpoint) {
   const prices = [priceFor(CFG.model), priceFor(CFG.fallback || CFG.model)];
   const maxPrices = { pin: Math.max(...prices.map((p) => p.pin)), pout: Math.max(...prices.map((p) => p.pout)) };
   const reservation = reserveCost(system, user, CFG.maxOut, maxPrices);
@@ -639,22 +651,30 @@ async function paidCall(s, system, user, kind) {
     s.status = 'budget'; s.note = 'Remaining budget is too small for a safely reserved call. Continues after midnight, Riga time.';
     return null;
   }
-  // Persist the reservation before sending: interruption cannot erase billed work.
+  // Publish the reservation to sim-data before sending, including pending chat.
   s.budget.usd = +(s.budget.usd + reservation).toFixed(5);
   s.budget.totalUsd = +(s.budget.totalUsd + reservation).toFixed(5);
   s.budget.calls++; s.budget.totalCalls++;
   const entry = { at: iso(new Date()), kind, reserved: reservation, charged: reservation, unknown: true };
   s.budget.receipts = [...(s.budget.receipts || []), entry].slice(-30);
-  await writeJSON(path.join(DATA, 'state.json'), s);
+  try { await persist(s); }
+  catch (e) {
+    // This request was never sent. A possibly published reservation stays safe
+    // until a later successful checkpoint publishes this explicit refund.
+    s.budget.usd = +(s.budget.usd - reservation).toFixed(5);
+    s.budget.totalUsd = +(s.budget.totalUsd - reservation).toFixed(5);
+    entry.charged = 0; entry.unknown = false; entry.error = 'aborted before API: checkpoint failed';
+    throw e;
+  }
   let res;
   try { res = await callModel(s, system, user); }
-  catch (e) { entry.error = String(e.message).slice(0, 160); await writeJSON(path.join(DATA, 'state.json'), s); throw e; }
+  catch (e) { entry.error = String(e.message).slice(0, 160); await persist(s); throw e; }
   const charged = res.missingUsage ? reservation : res.cost;
   s.budget.usd = +(s.budget.usd - reservation + charged).toFixed(5);
   s.budget.totalUsd = +(s.budget.totalUsd - reservation + charged).toFixed(5);
   entry.charged = +charged.toFixed(5); entry.unknown = !!res.missingUsage; entry.model = res.model; entry.usage = res.usage;
   s.model = res.model;
-  await writeJSON(path.join(DATA, 'state.json'), s);
+  await persist(s);
   return res;
 }
 
@@ -895,7 +915,8 @@ async function appendChat(s, msgs) {
   for (const [day, arr] of Object.entries(byDay)) {
     const file = path.join(DATA, 'chat', day + '.json');
     const cur = await readJSON(file, []);
-    cur.push(...arr);
+    const ids = new Set(cur.map((m) => m.n));
+    cur.push(...arr.filter((m) => !ids.has(m.n)));
     await writeJSON(file, cur);
     s.days[day] = cur.length;
   }
@@ -1027,7 +1048,7 @@ async function main() {
   await fs.writeFile(path.join(DATA, 'README.md'), '# Class simulation data\n\nWritten by the class-sim workflow every ~5 minutes. `state.json` holds the board and the latest messages; `chat/YYYY-MM-DD.json` holds every message of a day (Riga time). All students are fictional.\n');
 }
 
-export { ideaHash, reviewReady, freshState, runTick, applyReply, paidCall, parseDraft, reviewOneIdea, runLearningJob, checkIdea, allinBlock, initialiseLearning, loadPeople };
+export { ideaHash, reviewReady, freshState, runTick, applyReply, paidCall, checkpoint, parseDraft, reviewOneIdea, runLearningJob, checkIdea, allinBlock, initialiseLearning, loadPeople };
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main().catch((e) => {
   console.error(e);
   process.exitCode = 1;

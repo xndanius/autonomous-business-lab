@@ -71,6 +71,7 @@ process.env.SIM_MODEL = 'gpt-6-luna';
 process.env.SIM_FALLBACK_MODEL = 'gpt-6-luna';
 process.env.SIM_MAX_OUTPUT_TOKENS = '400';
 process.env.SIM_SPEAKERS = '1';
+process.env.GITHUB_ACTIONS = 'false';
 const engine = await import('./engine.mjs');
 const people = await engine.loadPeople();
 let apiCalls = 0, mode = 'normal';
@@ -105,6 +106,9 @@ test('new majority/all-in cannot bypass evidence or reviewed-version freshness',
   i.review = { ...judged(8), scores: { ...scores(2), evidence: 0 }, at: now.toISOString(), versionHash: engine.ideaHash(i) };
   assert.equal(engine.reviewReady(i, now), false);
   i.review.scores.evidence = 1; assert.equal(engine.reviewReady(i, now), true);
+  i.review.scores.usefulness = 0; assert.equal(engine.reviewReady(i, now), false);
+  i.review.scores.usefulness = 1; i.review.scores.payer = 0; assert.equal(engine.reviewReady(i, now), false);
+  i.review.scores.payer = 1;
   i.line += ' changed'; assert.equal(engine.reviewReady(i, now), false);
   i.review.versionHash = engine.ideaHash(i); assert.equal(engine.reviewReady(i, new Date(+now + 73 * 3600000)), false);
 });
@@ -134,6 +138,26 @@ test('each call is reserved before request and cannot exceed remaining daily cap
   const s = state(); s.budget.usd = 9.99999; const before = apiCalls;
   assert.equal(await engine.paidCall(s, 's', 'u', 'test'), null);
   assert.equal(apiCalls, before); assert.equal(s.budget.usd, 9.99999);
+});
+test('a failed durable reservation checkpoint prevents any API request', async () => {
+  const s = state(), before = apiCalls;
+  await assert.rejects(engine.paidCall(s, 's', 'u', 'test', async () => { throw new Error('durable push failed'); }), /durable push failed/);
+  assert.equal(apiCalls, before); assert.equal(s.budget.usd, 0);
+  assert.equal(s.budget.receipts.at(-1).charged, 0);
+});
+test('interrupted/reloaded state retains its reservation and matching day-chat history', async () => {
+  const s = state(); s.recent.push(...engine.applyReply(s, people, people[0], { say: 'Research is context, not a paying user.', do: 'talk' }, now));
+  let snapshot;
+  await assert.rejects(engine.paidCall(s, 's', 'u', 'test', async (v) => {
+    await engine.checkpoint(v); snapshot = JSON.parse(await fs.readFile(path.join(tmp, 'state.json')));
+    throw new Error('simulated interruption after successful durable snapshot');
+  }), /simulated interruption/);
+  assert.ok(snapshot.budget.usd > 0); assert.equal(snapshot.budget.receipts.at(-1).unknown, true);
+  const log = JSON.parse(await fs.readFile(path.join(tmp, 'chat', '2026-10-14.json')));
+  assert.ok(log.some((m) => m.n === s.recent.at(-1)?.n) || log.some((m) => m.say === 'Research is context, not a paying user.'));
+  const before = log.length; await engine.checkpoint(snapshot);
+  const after = JSON.parse(await fs.readFile(path.join(tmp, 'chat', '2026-10-14.json')));
+  assert.equal(after.length, before);
 });
 test('missing usage and malformed JSON are charged, ambiguous failure is not retried', async () => {
   const s = state(); mode = 'no-usage'; await engine.paidCall(s, 's', 'u', 'test');

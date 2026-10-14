@@ -36,7 +36,7 @@ Public announcements are context for hypotheses, never proof somebody will pay.
   usefulness, payer, autonomy and a discriminating first test, each 0–2.
 - Revisions wait without changing the accepted idea. An anonymised comparison
   checks both versions against the same source packet. The new version stays
-  only with a gain of at least one point and passing evidence, autonomy, test
+  only with a gain of at least one point, at least 1 on every rubric criterion,
   and safety checks. Rejection critiques persist beyond the latest chat window.
 - Bounded methods compete: source-first, weekly return, payer test, and the
   whole loop. The same fictional author drafts both methods from the same
@@ -45,7 +45,7 @@ Public announcements are context for hypotheses, never proof somebody will pay.
   must pass the fixed minimum checks before a method replaces the incumbent.
   Otherwise it keeps the existing method. Full pair/decision receipts are saved.
 - New production decisions need a current reviewed version scoring at least
-  7/10, evidence/autonomy/test each at least 1, plus the existing class voting
+  7/10, every criterion at least 1, plus the existing class voting
   rules. A changed version invalidates its previous review; reviews expire
   after 72 hours. Historical production decisions are preserved as old votes.
 
@@ -54,7 +54,10 @@ sales, interviews or a launched business. No outreach or customer tests are
 performed. The simulation develops hypotheses and tests for humans to run.
 
 All student, review and trial calls share the existing **$10/day tracked cap**.
-Before every call, a conservative UTF-8 request/output cost ceiling is persisted.
+Before every call, a conservative UTF-8 request/output cost ceiling is published
+to the durable `sim-data` branch using the existing fixed save helper. Pending
+chat is flushed by sequence ID in that same snapshot. Failure to publish blocks
+the paid call. An interrupted runner retains its reservation when reloaded.
 After the call it is replaced by reported token usage. Missing usage or an
 ambiguous failed request retains the reservation; network/5xx calls are not
 automatically retried. Invalid JSON is still charged. This is an application
