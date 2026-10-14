@@ -135,6 +135,8 @@
       var a = el('a', null, source.title || source.publisher || source.id); a.href = href; a.target = '_blank'; a.rel = 'noopener'; box.appendChild(a);
       if (source.quote) box.appendChild(el('p', null, '“' + source.quote + '”'));
       var when = source.retrievedAt && Number.isFinite(+new Date(source.retrievedAt)) ? ' · fetched ' + shortWhen(source.retrievedAt) : '';
+      if (source.publishedAt && Number.isFinite(+new Date(source.publishedAt))) when = ' · published ' + fmt(new Date(source.publishedAt), { day: 'numeric', month: 'short', year: 'numeric' }) + when;
+      else if (source.modifiedAt && Number.isFinite(+new Date(source.modifiedAt))) when = ' · source updated ' + fmt(new Date(source.modifiedAt), { day: 'numeric', month: 'short', year: 'numeric' }) + when;
       var kind = ({ 'market-context': 'EU aggregate context', 'supplier-cost': 'Published supplier cost', 'alternative-tool': 'Existing alternative', 'implementation-only': 'Implementation reference' })[source.kind] || 'Public source evidence';
       box.appendChild(el('small', null, kind + when));
       if (source.scope) box.appendChild(el('p', 'sim-model-note', source.scope));
