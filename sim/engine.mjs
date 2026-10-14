@@ -530,7 +530,7 @@ Write as yourself (${p.style}). Short. Reply with the JSON object only.`;
 const CLOCK = { now: new Date() };
 class Fatal extends Error {}
 
-function buildRequest(api, system, user) {
+function buildRequest(api, system, user, maxOut = CFG.maxOut) {
   // JSON mode requires the word in the actual input, not only instructions.
   user += '\nReturn one JSON object only.';
   const drop = new Set(api.drop || []);
@@ -538,7 +538,7 @@ function buildRequest(api, system, user) {
     const body = {
       model: api.model,
       messages: [{ role: 'system', content: system }, { role: 'user', content: user }],
-      max_completion_tokens: CFG.maxOut,
+      max_completion_tokens: maxOut,
       reasoning_effort: CFG.effort,
       response_format: { type: 'json_object' },
     };
@@ -549,7 +549,7 @@ function buildRequest(api, system, user) {
     model: api.model,
     instructions: system,
     input: [{ role: 'user', content: user }],
-    max_output_tokens: CFG.maxOut,
+    max_output_tokens: maxOut,
     reasoning: { effort: CFG.effort },
     text: { format: { type: 'json_object' } },
     store: false,
@@ -559,7 +559,7 @@ function buildRequest(api, system, user) {
   return { url: CFG.base + '/responses', body };
 }
 
-async function callModel(s, system, user) {
+async function callModel(s, system, user, maxOut = CFG.maxOut) {
   const today = riga(new Date()).date;
   if (!s.api || s.api.want !== CFG.model || (s.api.model !== s.api.want && s.api.day !== today)) {
     s.api = { want: CFG.model, model: CFG.model, mode: 'responses', drop: [], day: today };
@@ -567,7 +567,7 @@ async function callModel(s, system, user) {
   const api = s.api;
   let lastErr = '';
   for (let attempt = 0; attempt < 7; attempt++) {
-    const { url, body } = buildRequest(api, system, user);
+    const { url, body } = buildRequest(api, system, user, maxOut);
     let res, text, data;
     const ctl = new AbortController();
     const timer = setTimeout(() => ctl.abort(), 120000);
@@ -703,9 +703,12 @@ async function checkpoint(s) {
   }
 }
 async function paidCall(s, system, user, kind, persist = checkpoint) {
+  // A complete structured four-week plan needs more room than a short chat
+  // turn. Reserve exactly the ceiling actually sent; keep other turns small.
+  const maxOut = kind === 'team-plan' ? Math.max(CFG.maxOut, 6000) : CFG.maxOut;
   const prices = [priceFor(CFG.model), priceFor(CFG.fallback || CFG.model)];
   const maxPrices = { pin: Math.max(...prices.map((p) => p.pin)), pout: Math.max(...prices.map((p) => p.pout)) };
-  const reservation = reserveCost(system, user, CFG.maxOut, maxPrices);
+  const reservation = reserveCost(system, user, maxOut, maxPrices);
   if (s.budget.usd + reservation > CFG.cap) {
     s.status = 'budget'; s.note = 'Remaining budget is too small for a safely reserved call. Continues after midnight, Riga time.';
     return null;
@@ -726,7 +729,7 @@ async function paidCall(s, system, user, kind, persist = checkpoint) {
     throw e;
   }
   let res;
-  try { res = await callModel(s, system, user); }
+  try { res = await callModel(s, system, user, maxOut); }
   catch (e) { entry.error = String(e.message).slice(0, 160); await persist(s); throw e; }
   const charged = res.missingUsage ? reservation : res.cost;
   s.budget.usd = +(s.budget.usd - reservation + charged).toFixed(5);
