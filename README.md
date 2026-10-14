@@ -6,7 +6,7 @@ Public follow-up to the SSE Riga workshop, 13 October 2026. GitHub Pages publish
 The main menu has five distinct destinations:
 - **Challenge** (`/`): the opportunity, weekly mentoring from Danielius, conditional job or co-founding opportunities, joining, four-week plan and evidence targets.
 - **Learn loops** (`learn/`): Danielius’s delivery and improvement loop model, Grow/Serve/Improve, workflow versus agent, state and controls. Two interactive activities contain five illustrative decisions; no answers are submitted.
-- **My builds** (`examples/`): six real projects, with their trigger, work, checks, delivery and memory, plus how each was built. These are implemented examples, not proposed student businesses.
+- **My builds** (`examples/`): six real projects, with their trigger, work, checks, delivery and memory, plus how each was built. The completed comic (187 pages) and map (264 tiles) have browsable final archives, stopped by Danielius on 14 October 2026. A compact Night Shift case records the failed experiment and its closure by Danielius. These are implemented examples, not proposed student businesses.
 - **Class ideas** (`ideas/`): 33 accepted workshop submissions from 42 entries. Original wording and AI suggestions stay separate; submission order is the default. Each idea can be carried into a local brief.
 - **Build yours** (`lesson/`): the six-line brief, five implementation steps, templates and links to the optional technical guide and workshop archive.
 
@@ -29,3 +29,8 @@ Run `python3 scripts/build-student-show.py --source-public /path/to/reviewed/pre
 Review changes, commit and push to `main`. Verify the GitHub Pages deployment and the public routes before sharing. Keep simulation engine/workflow changes out of content-only releases.
 
 The site uses plain HTML/CSS/JavaScript. Three.js is vendored under its MIT license. User-entered lesson drafts stay in that browser; no analytics or new server-side collection was added. A `?idea=<seq>` link loads a public suggestion panel. Only an explicit click fills empty brief fields; existing writing is kept, and human-control/feedback decisions stay with the student. Legacy theory fragments go to their matching section in Learn loops. Other deep links reveal collapsed details where needed.
+
+## Final creative archives
+The comic and Atlas readers use `assets/loops-data.json` and the reviewed exports under `assets/final-archives/`. All 187 committed comic pages and 264 committed map tiles are preserved as full-resolution WebP images with separate lightweight thumbnails. The Atlas overview loads thumbnails; the selected full-size link opens one artwork on demand. These are final archives, not generation controls. Historical workshop slide recordings remain dated snapshots.
+
+To rebuild only from a completed, reviewed public export, run `python3 scripts/import-final-loop-archives.py --source /path/to/final-loop-archives-2026-10-14`. The importer checks final counts and hashes and copies only referenced artwork and sanitized manifests. Original PNGs remain outside this public repository. It does not copy runtime state, prompts, local paths or credentials.

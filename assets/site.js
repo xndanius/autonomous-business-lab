@@ -106,7 +106,7 @@
   /* ---------- data for the comic and the atlas ---------- */
   var dataPromise = null;
   function getData() {
-    if (!dataPromise) dataPromise = fetch(base + 'assets/loops-data.json').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
+    if (!dataPromise) dataPromise = fetch(base + 'assets/loops-data.json?v=20261014-final-archives').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
     return dataPromise;
   }
   function whenNear(el, fn) {
@@ -144,6 +144,8 @@
         });
         range.value = String(i + 1);
         count.textContent = (i + 1) + ' / ' + pages.length;
+        var full = $('[data-comic-full]', comic);
+        if (full) { full.href = base + p.img; full.setAttribute('aria-label', 'Open comic page ' + p.n + ' full size'); }
         var pre = new Image(); pre.src = base + pages[(i + 1) % pages.length].img;
       }
       function stop() { if (timer) { clearInterval(timer); timer = null; play.textContent = 'Play'; play.setAttribute('aria-pressed', 'false'); } }
@@ -174,15 +176,32 @@
       tiles.forEach(function (t) { minX = Math.min(minX, t.x); maxX = Math.max(maxX, t.x); minY = Math.min(minY, t.y); maxY = Math.max(maxY, t.y); });
       var els = tiles.map(function (t) {
         var im = document.createElement('img');
-        im.src = base + t.img.replace('/atlas/', '/atlas-s/'); im.setAttribute('data-full', base + t.img); im.alt = ''; im.draggable = false; im.decoding = 'async';
+        im.src = base + (t.thumbnail || t.img.replace('/atlas/', '/atlas-s/')); im.setAttribute('data-full', base + t.img); im.alt = ''; im.draggable = false; im.decoding = 'async';
         im.style.left = ((t.x - minX) * T) + 'px'; im.style.top = ((t.y - minY) * T) + 'px';
         im.setAttribute('data-title', t.id + '. ' + t.title); im.setAttribute('data-at', t.at);
+        im.setAttribute('data-tile-id', String(t.id));
         plane.appendChild(im); return im;
       });
       var W = (maxX - minX + 1) * T, H = (maxY - minY + 1) * T;
       plane.style.width = W + 'px'; plane.style.height = H + 'px';
       var s = 1, tx = 0, ty = 0;
-      var sharp = false;
+      var sharp = tiles.every(function (t) { return !!t.thumbnail; }); // Full-resolution artwork is opened on demand; keep the complete map lightweight.
+      var tileSelect = $('[data-atlas-select]'), tileFull = $('[data-atlas-full]'), tileDescription = $('[data-atlas-description]');
+      function selectTile(id) {
+        var tile = tiles.find(function (t) { return String(t.id) === String(id); });
+        if (!tile) return;
+        if (tileSelect) tileSelect.value = String(tile.id);
+        if (tileFull) { tileFull.href = base + tile.img; tileFull.setAttribute('aria-label', 'Open tile ' + tile.id + ': ' + tile.title + ', full size'); }
+        if (tileDescription) tileDescription.textContent = tile.description || tile.title;
+        name.textContent = tile.id + '. ' + tile.title;
+      }
+      if (tileSelect) {
+        tileSelect.textContent = '';
+        tiles.forEach(function (tile) { var option = document.createElement('option'); option.value = String(tile.id); option.textContent = tile.id + '. ' + tile.title; tileSelect.appendChild(option); });
+        tileSelect.disabled = false;
+        tileSelect.addEventListener('change', function () { selectTile(tileSelect.value); });
+        selectTile(tiles[0].id);
+      }
       function apply() {
         plane.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + s + ')'; plane.style.transformOrigin = '0 0';
         if (!sharp && s > 0.6) { sharp = true; els.forEach(function (im) { im.src = im.getAttribute('data-full'); }); } // full tiles only when zoomed in
@@ -270,7 +289,7 @@
         if (!Object.keys(pts).length) last = null;
         if (!moved && e.type === 'pointerup') {
           var hit = document.elementFromPoint(e.clientX, e.clientY);
-          if (hit && hit.parentNode === plane && hit.classList.contains('in')) name.textContent = hit.getAttribute('data-title');
+          if (hit && hit.parentNode === plane && hit.classList.contains('in')) selectTile(hit.getAttribute('data-tile-id'));
         }
       }
       atlas.addEventListener('pointerup', up); atlas.addEventListener('pointercancel', up);

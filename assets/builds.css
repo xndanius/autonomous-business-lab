@@ -61,3 +61,26 @@
 .legacy-build-links{margin-top:15px;font-size:16px;color:var(--soft)}
 @media(max-width:1000px){.build-index{grid-template-columns:repeat(2,1fr)}.build-flow{grid-template-columns:1fr}.build-flow>div{display:grid;grid-template-columns:100px 1fr;gap:18px;padding:17px 20px;border-right:0;border-bottom:1px solid var(--line2)}.build-flow dt{margin:0}.build-flow dt::after{display:none}.build-flow dd{font-size:16px}.build-how-body{grid-template-columns:1fr}.recreate{border-left:0;border-top:1px solid var(--line2);padding:25px 0 0}.build-source{grid-column:auto}.build-case .example{gap:30px}.build-case .media{max-width:670px;width:100%;margin:auto}}
 @media(max-width:620px){.build-index{grid-template-columns:1fr;gap:9px}.build-index a{padding:17px}.build-index small{margin-top:5px}.build-result{font-size:18px}.build-how>summary{padding:18px;gap:12px;font-size:19px;flex-wrap:wrap}.build-how>summary>span{width:100%;text-align:left;margin-left:32px;font-size:14px}.build-how-body{padding:22px 18px;gap:24px}.build-flow{margin-top:28px}.build-flow>div{grid-template-columns:80px 1fr;gap:12px;padding:16px}.build-flow dt{font-size:16px}.build-flow dd{font-size:15px}.build-board-sample{padding:25px}.build-case .phones{padding:0 10px}.build-index span{font-size:17px}.build-context{line-height:1.8}.build-takeaway{font-size:16px}}
+
+/* Final experiment results: operational status stays distinct from proof of value. */
+.build-status{align-self:flex-start;padding:7px 11px;border:1px solid #526447;border-radius:6px;color:var(--lime);font:13px/1.4 var(--mono)}
+.build-limit{font-size:16px;line-height:1.6;color:var(--soft)}
+.build-limit b{color:var(--text)}
+.build-orientation a{color:var(--lime)}
+.retired-head{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:25px}
+.retired-head h2{font-size:clamp(32px,4vw,48px);line-height:1.1}
+.retired-status{border:1px solid #775943;color:#E4BC97;border-radius:6px;padding:9px 12px;font:13px/1.4 var(--mono);white-space:nowrap}
+.build-retired .lede{max-width:900px;font-size:21px}
+.retired-lessons{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin:28px 0}
+.retired-lessons p{display:flex;flex-direction:column;gap:10px;color:var(--soft);font-size:17px;line-height:1.6}
+.retired-lessons b{color:var(--text);font:700 20px/1.3 var(--display)}
+@media(max-width:620px){.retired-head{align-items:flex-start;flex-direction:column;gap:18px}.retired-lessons{grid-template-columns:1fr;gap:24px}.build-retired .lede{font-size:18px}}
+
+.full-art{font-size:13px;white-space:nowrap;color:var(--lime);text-underline-offset:3px}
+.atlas-detail{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;margin-top:18px}
+.atlas-detail label{font-size:15px;color:var(--soft)}
+.atlas-detail select{min-width:0;width:100%;border:1px solid var(--line2);border-radius:8px;padding:12px;background:var(--card);color:var(--text);font:15px var(--body)}
+.atlas-detail select:focus-visible{outline:3px solid var(--lime);outline-offset:2px}
+.atlas-detail>p{grid-column:1/-1;font-size:16px;line-height:1.6;color:var(--soft)}
+.atlas-detail .btn{font-size:14px}
+@media(max-width:620px){.atlas-detail{grid-template-columns:1fr;gap:10px}.atlas-detail .btn{justify-self:start}.atlas-detail>p{grid-column:auto}.full-art{font-size:12px}}

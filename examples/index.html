@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/site.css?v=20261013-loops">
 
-<link rel="stylesheet" href="../assets/builds.css?v=20261013-loops">
+<link rel="stylesheet" href="../assets/builds.css?v=20261014-results">
 <link rel="canonical" href="https://xndanius.github.io/autonomous-business-lab/examples/">
 </head>
 <body>
@@ -26,13 +26,13 @@
 <main id="main">
 <section class="pagehead"><div class="wrap"><p class="eyebrow">My builds · Danielius Stasiulis</p>
 <h1>Six real projects.<br><span class="lime">See the loops inside.</span></h1>
-<p class="lede">These are projects Danielius built by directing AI agents. Explore the results, then open “How I built it” to see the tools, memory and checks that make the next run possible.</p>
-<p class="build-orientation">A working loop proves the routine can run. Real users and payments are a separate test.</p>
+<p class="lede">These are projects Danielius built by directing AI agents. Explore the results, then open “How I built it” to see the tools, memory and checks. The comic and map are now complete archives; the class simulation continues.</p>
+<p class="build-orientation">A working loop proves the routine can run. Real users and payments are a separate test. <a href="#night-shift">See what a failed experiment taught us ↓</a></p>
 <nav class="build-index" aria-label="Choose a build">
 <a href="#startup"><b>01</b><span>The 60-Second Startup<small>Deliver a checked result on request</small></span></a>
 <a href="#wys"><b>02</b><span>While You Sleep<small>Research and publish on a schedule</small></span></a>
-<a href="#comic"><b>03</b><span>The Long Run<small>Continue a story through saved memory</small></span></a>
-<a href="#atlas"><b>04</b><span>The Unfinished Atlas<small>Grow one shared artifact safely</small></span></a>
+<a href="#comic"><b>03</b><span>The Long Run<small>Completed archive · story + saved memory</small></span></a>
+<a href="#atlas"><b>04</b><span>The Unfinished Atlas<small>Completed archive · one shared map</small></span></a>
 <a href="#classroom"><b>05</b><span>The class simulation<small>Let several agents react to shared state</small></span></a>
 <a href="#idea-board"><b>06</b><span>The live idea board<small>Turn submissions into checked proposals</small></span></a>
 </nav>
@@ -110,8 +110,8 @@
  </div>
 </section>
 <section class="section build-case " id="comic"><div class="wrap">
- <div class="example "><div class="media"><div class="comic" data-comic tabindex="0" aria-label="Comic viewer. Use the left and right arrow keys to turn pages.">
-          <img src="../assets/img/comic/001.jpg" alt="Comic page 1" width="760" height="505">
+ <div class="example "><div class="media"><div class="comic" id="comic-reader" data-comic tabindex="0" aria-label="Comic viewer. Use the left and right arrow keys to turn pages.">
+          <img src="../assets/final-archives/comic/images/0001.webp" alt="Comic page 1" width="760" height="505">
           <div class="cap">
             <b>1. The Familiar Trail</b>
             <div class="dia"></div>
@@ -119,17 +119,21 @@
           </div>
           <div class="ctrl">
             <button type="button" data-prev aria-label="Previous page">←</button>
-            <input type="range" min="1" max="74" value="1" aria-label="Page" disabled>
+            <input type="range" min="1" max="187" value="1" aria-label="Page" disabled>
             <button type="button" data-next aria-label="Next page">→</button>
             <button type="button" class="wide" data-play aria-pressed="false">Play</button>
-            <span class="count">1 / 74</span>
+            <span class="count">1 / 187</span>
+            <a class="full-art" data-comic-full href="../assets/final-archives/comic/images/0001.webp" target="_blank" rel="noopener">Full-size page ↗</a>
           </div>
         </div>
 </div>
-<div class="facts"><p class="eyebrow">03 · Recorded local creative loop</p>
+<div class="facts"><p class="eyebrow">03 · Completed creative experiment</p>
 <h2>The Long Run</h2>
-<p class="build-result">A story continues one illustrated scene at a time. This archive contains 74 published pages from 11 October 2026.</p>
-<p class="build-takeaway"><b>Pattern to borrow:</b> the next worker can continue without inheriting the whole conversation.</p>
+<p class="build-result">A story continued one illustrated scene at a time. The final archive contains all 187 committed pages, made 11–14 October 2026.</p>
+<p class="build-status">Stopped by Danielius · 14 October 2026</p>
+<p class="build-takeaway"><b>What worked:</b> a fresh worker continued the story from a compact handoff, without inheriting the whole conversation.</p>
+<p class="build-limit"><b>Limit:</b> continuity was checked by the creating artist, not an independent reviewer. Generation depended on an awake, connected Mac.</p>
+<div class="links"><a class="btn" href="#comic-reader">Read the complete archive ↓</a></div>
 </div>
 </div>
  <dl class="build-flow"><div><dt>Trigger</dt><dd>A five-minute tick, when no previous job is active.</dd></div>
@@ -151,18 +155,20 @@
 <li>Schedule one fresh worker at a time and skip overlapping ticks.</li>
 <li>Commit the image and handoff together; test restart recovery.</li></ol>
 </div>
-<p class="build-source">The reader shows the published archive. Use the <a href="../learn/">memory and control principles</a> to apply this pattern to another product.</p>
+<p class="build-source">This is the final saved archive. Play turns through existing pages; it does not generate new ones. Use the <a href="../learn/">memory and control principles</a> to apply this pattern to another product.</p>
 </div>
 </details>
  </div>
 </section>
 <section class="section build-case alt" id="atlas"><div class="wrap">
  <div class="example "><div class="media"><img class="build-cover" src="../assets/img/atlas-cover.jpg" alt="The Unfinished Atlas: a map assembled from illustrated square regions" loading="lazy"></div>
-<div class="facts"><p class="eyebrow">04 · Recorded local artifact loop</p>
+<div class="facts"><p class="eyebrow">04 · Completed artifact experiment</p>
 <h2>The Unfinished Atlas</h2>
-<p class="build-result">One shared map expands a square at a time. Replay 149 committed tiles from 11–12 October 2026, then drag to explore.</p>
-<p class="build-takeaway"><b>Pattern to borrow:</b> shared work needs a precise place for each addition and a safe way to append it.</p>
-<div class="links"><a class="btn" href="#atlas-viewer">Explore the saved map ↓</a></div>
+<p class="build-result">One shared map expanded a square at a time. The final archive contains all 264 committed tiles, made 11–14 October 2026. Replay its growth, then drag to explore.</p>
+<p class="build-status">Stopped by Danielius · 14 October 2026</p>
+<p class="build-takeaway"><b>What worked:</b> a fixed coordinate and saved neighbours let fresh workers append to one shared map.</p>
+<p class="build-limit"><b>Limit:</b> a tile saved locally was not yet published. File and coordinate checks could not prove that its visual joins were good.</p>
+<div class="links"><a class="btn" href="#atlas-viewer">Explore the complete map ↓</a></div>
 </div>
 </div>
  <dl class="build-flow"><div><dt>Trigger</dt><dd>A five-minute tick selects the next spiral position.</dd></div>
@@ -184,7 +190,7 @@
 <li>Save the image, description and continuity as one record.</li>
 <li>Append in order, reject conflicts and verify the uploaded result.</li></ol>
 </div>
-<p class="build-source">This is a dated archive. Replay animates saved additions; it does not generate new ones.</p>
+<p class="build-source">This is the final saved archive. Replay animates existing tiles; it does not generate new ones.</p>
 </div>
 </details>
  <div class="build-atlas-viewer" id="atlas-viewer"><div class="atlas" data-atlas tabindex="0" aria-label="The Unfinished Atlas. Drag to move. Use the plus and minus buttons to zoom.">
@@ -195,7 +201,8 @@
         <div class="counter">Loading…</div>
         <div class="zoom"><button type="button" data-zoom-out aria-label="Zoom out">−</button><button type="button" data-zoom-in aria-label="Zoom in">+</button></div>
       </div>
-<p class="small">149 saved tiles · recorded 11–12 October 2026</p>
+<div class="atlas-detail"><label for="atlas-tile">Browse every tile</label><select id="atlas-tile" data-atlas-select aria-describedby="atlas-description" disabled><option>Loading tiles…</option></select><a class="btn" data-atlas-full href="../assets/final-archives/atlas/images/000001.webp" target="_blank" rel="noopener">Full-size tile ↗</a><p id="atlas-description" data-atlas-description>Choose a tile to read its description.</p></div>
+<p class="small">264 saved tiles · made 11–14 October 2026 · generation stopped. The map uses lightweight previews; the full-size link opens the preserved artwork.</p>
 </div>
 </div>
 </section>
@@ -272,6 +279,12 @@
 </details>
  </div>
 </section>
+<section class="section build-retired alt" id="night-shift"><div class="wrap">
+<div class="retired-head"><div><p class="eyebrow">A failed experiment · closed 14 October 2026</p><h2>The Night Shift</h2></div><span class="retired-status">Closed by Danielius</span></div>
+<p class="lede">The aim was to make, check and improve a small song, game or tool on a schedule. Danielius closed this as a failed experiment.</p>
+<div class="retired-lessons"><p><b>What happened</b><span>It published 20 pieces from 35 attempts. On 13 October the clock chain was cancelled, its next run was skipped, and the saved status still said “active”.</span></p><p><b>What to learn</b><span>A timer is part of the product. Check the last successful output and the next actual run, not only a status label. Decide what failure means and when to stop.</span></p></div>
+<p class="build-source">The results remain evidence of the experiment. Scheduled generation is disabled. <a href="https://github.com/xndanius/autonomous-observatory/blob/main/data/nightshift-retirement.json">Read the closure record ↗</a> · <a href="../learn/#control">Learn the control principles →</a></p>
+</div></section>
 <section class="section build-next"><div class="wrap"><p class="eyebrow">Choose a pattern, then shrink it</p>
 <h2>What is the smallest useful loop you could ship?</h2>
 <p class="lede">Pick one user, one repeated job and one result they can judge. Borrow the structure of a build above, then test your own value with real people.</p>
@@ -285,5 +298,5 @@
 <nav aria-label="Footer"><a href="../">Challenge</a><a href="../learn/">Learn loops</a><a href="../examples/">My builds</a><a href="../ideas/">Class ideas</a><a href="../lesson/">Build yours</a></nav>
 </div>
 </footer>
-<script src="../assets/site.js?v=20261013-clear" defer></script>
+<script src="../assets/site.js?v=20261014-results" defer></script>
 <script src="../assets/navigation.js?v=20261013-loops" defer></script></body></html>
