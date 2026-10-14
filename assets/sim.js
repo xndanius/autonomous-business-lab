@@ -478,7 +478,7 @@
       held.forEach(function (i) {
         var record = implementationHold(i), card = el('article', 'sim-drop'); card.id = 'held-' + i.id; card.appendChild(el('span', 'sim-iid', i.id));
         var unsafe = i.review && i.review.safe === false;
-        card.appendChild(el('h3', null, unsafe ? 'Content held for safety review' : i.title)); card.appendChild(el('p', 'sim-meta', record.reason || 'This version is held from the active implementation shortlist.'));
+        card.appendChild(el('h3', null, unsafe ? 'Content held for safety review' : i.title)); card.appendChild(el('p', 'sim-meta', record.reason || record.why || 'This version is held from the active implementation shortlist.'));
         if (!unsafe) { var detail = el('details'); detail.appendChild(el('summary', null, 'Earlier hypothesis & review')); detail.appendChild(fieldList(i)); card.appendChild(detail); }
         card.appendChild(el('p', 'sim-model-note', 'To re-enter: materially revise the idea, add new source evidence, and pass a new independent review. Earlier votes do not bypass this.')); heldBox.appendChild(card);
       });
