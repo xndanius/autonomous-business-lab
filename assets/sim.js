@@ -723,7 +723,7 @@
     if (target.id.indexOf('prod-') === 0) { var history = $('.sim-archive-votes'); if (history) history.open = true; }
     if (target.id.indexOf('held-') === 0) { var held = $('.sim-held'); if (held) held.open = true; setTab('board'); }
     if (target.id.indexOf('drop-') === 0) { var d = $('.sim-dropped'); if (d) d.open = true; setTab('board'); }
-    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    target.scrollIntoView({ behavior: 'smooth', block: target.classList.contains('sim-plan') ? 'start' : 'center' });
     target.classList.remove('sim-flash');
     void target.offsetWidth;
     target.classList.add('sim-flash');
