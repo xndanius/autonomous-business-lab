@@ -72,8 +72,77 @@ estimate using configured prices, not a provider billing invoice. The model,
 secret and existing spent balance are unchanged. New-day resets only occur at
 midnight Riga time.
 
+## Collaborative accelerator (14 October)
+
+The ongoing class chat continues. A separate implementation discussion serves
+only a stable shortlist: Top 3 plus up to two runners-up, never more than five.
+Fewer slots are shown when there are fewer appropriate current hypotheses.
+The ten older production votes remain historical; they do not fill this board.
+Current independent idea reviews rank the shortlist. Once a day at most one
+challenger can replace its weakest member, with a real one-point reviewed gain.
+Unsafe or incomplete versions do not enter the public shortlist. Provisional
+means a research hypothesis, not a qualified or validated business.
+
+Each selected idea receives three fictional student roles: research/customer,
+build/operations, and challenger/economics. They use distinct questions and
+actual bounded primary-source receipts, then draft a four-week plan. The
+challenger sees the draft before an independent anonymous plan assessment.
+Plans specify an MVP, tool choices, loop and exception owner, privacy, proposed
+unit economics, four milestones and human-runnable pass/fail tests under €50.
+Refinements must gain at least one point on the same fixed rubric without any
+zero criterion. Model interpretations and supplier prices never count as proof
+of customer demand. All proposed implementation and tests remain unperformed.
+
+The controlled source catalog adds current Eurostat economic/industry/food
+feeds, dated enterprise AI/cloud surveys, Stripe Latvia fees and Payment Links,
+GitHub scheduled workflows, Cloudflare tariffs and n8n schedule/approval docs.
+Only fixed verified URLs can be fetched; text is data, never instructions.
+Each source retains its real publication/fetch dates, hash, exact excerpt and
+scope: aggregate market context, supplier cost, alternative tool, or technical
+capability. Bodies and expected headings are verified; a related card, changed
+format, redirect, oversized body or failed fetch produces no invented receipt.
+Feeds refresh every six hours and documentation/pricing once daily.
+
+Three invented experienced mentor roles cover discovery, go-to-market/economics
+and technical operations. A persistent weekly queue independently reviews every
+currently selected idea, rotating the assigned lens each week. It receives pure
+idea/plan content and receipts, without votes, previous grades or mentor opinions.
+The verdict records risks, gaps, dissent and one falsifiable human-run milestone.
+`revise` flags rework. `drop` archives/holds the version and frees pitch capacity;
+re-entry needs materially changed idea fields AND new evidence plus a fresh
+independent grade of at least 7/10 and at least 1 in every criterion. Held history
+and critiques remain accessible. Teams may request the appropriate sparring lens,
+at most once per idea per day and five calls for the whole class per Riga week.
+That global ledger is reserved durably before a call, surviving retirement or
+interruption. Budget pauses leave unfinished weekly work queued, not completed.
+
+The common notebook keeps five fixed principles, bounded source-linked working
+heuristics, persistent review lessons, dissent and unanswered questions. It is
+shared with the whole class and team prompts. Agreement between fictional
+personas is never additional evidence. A plan/idea change invalidates its weekly
+verdict; reviews recur within seven days, with a one-day repeat guard after a
+plan change. Team plan cycles are bounded to one attempt per idea per six hours
+and use an existing turn, not an unbounded extra conversation.
+
+`discussion/YYYY-MM-DD.json` retains the separate discussion in full.
+`implementation-archive.json` retains all plan versions, weekly reviews, sparring
+and retirements. The same before-call durable checkpoint flushes pending chat,
+discussion and archive so interruption cannot lose the corresponding history.
+
+Future executable teams are **not enabled**. The plan handoff contains scoped
+MVP, virtual roles, unknowns and owner-run real validation gates. `test-ready`
+requires a current safe supported plan scoring at least 7 with every criterion
+at least 1. It means ready for a human to test, never permission to launch.
+Every handoff says `research-only`, `realValidation: not-run` and
+`launchAllowed: false`; no outreach, deployments, payments or new secrets/tools
+are granted.
+
+Manual `focus=collaboration` runs are for bounded genuine verification on the
+same saved history and budget: one collaboration job per tick, no fabricated
+fixture state or budget reset. The normal scheduled/long run stays `mixed`.
+
 Run the meaningful guard tests without a real API key or paid requests:
-`node --test sim/learning.test.mjs`.
+`node --test sim/*.test.mjs`.
 
 ## Settings (Settings → Secrets and variables → Actions)
 

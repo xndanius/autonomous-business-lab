@@ -21,6 +21,8 @@ import crypto from 'node:crypto';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { refreshResearch, validCitations, assessment, revisionWins, settleTrial, reserveCost, STRATEGIES, RUBRIC } from './learning.mjs';
+import { initialiseCollaboration, runCollaborationJob, commonMemoryPrompt } from './collaboration.mjs';
+import { cachedResearch } from './targeted-research.mjs';
 const runFile = promisify(execFile);
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -48,6 +50,7 @@ const FORCE = arg('force', false) === true || arg('force', false) === 'true';
 const MOCK = env('SIM_MOCK') === '1' || arg('mock', false) === true;
 const START = arg('now', null) ? new Date(String(arg('now'))) : null; // tests only
 const STEP_MIN = num(arg('step-min', '5'), 5); // tests only: virtual minutes per tick
+const COLLABORATION_ONLY = env('SIM_FOCUS', 'mixed') === 'collaboration'; // bounded live verification uses the same saved state/cap
 
 // USD per 1M tokens [input, output]. Override with SIM_PRICE_IN / SIM_PRICE_OUT.
 const PRICE_TABLE = {
@@ -175,7 +178,9 @@ function freshState(now) {
     ideas: [], recent: [], days: {}, allin: {}, mem: {}, ps: {}, err: null,
   };
 }
-const openIdeas = (s) => s.ideas.filter((i) => i.status === 'open');
+// Mentor-held versions remain in history and can be materially revised, but
+// cannot block all eight places for new source-led hypotheses.
+const openIdeas = (s) => s.ideas.filter((i) => i.status === 'open' && !s.collaboration?.deferred[i.id]);
 function findOpen(s, id) {
   if (!id) return null;
   const k = String(id).trim().toUpperCase().replace(/^#/, '');
@@ -247,6 +252,7 @@ function allinBlock(s, sid, idea, now, week) {
 }
 function checkIdea(s, idea, now, people) {
   if (idea.status !== 'open') return null;
+  if (s.collaboration?.deferred[idea.id]) return null;
   if (idea.backers.length >= RULES.majority && complete(idea) && reviewReady(idea, now)) return promote(s, idea, 'majority', null, now, people);
   if (idea.opp.length >= RULES.dropOpp && idea.opp.length > idea.backers.length)
     return dropIdea(s, idea, `voted down (${idea.opp.length} oppose, ${idea.backers.length} back)`, now);
@@ -428,6 +434,8 @@ function nudge(s, people, p, rnd) {
       ? `This is your research turn. Your notebook contains an independently reviewed hypothesis not yet on the board. If you still believe it, pitch a compact complete version with its exact source quote; otherwise say why it fails. The score is not customer validation.`
       : 'This is your research turn. Read a supplied public source, identify one concrete new opportunity and a falsifiable first test, and pitch it with an exact quote if there is room. If no source supports a useful hypothesis, say what is missing. Do not repeat another payer question or invent customer contact.';
   }
+  const team = s.collaboration?.shortlist.find((slot) => slot.team.some((x) => x.id === p.id));
+  if (team && rnd() < .35) return `Your team is developing shortlisted ${team.ideaId}. Bring one unresolved assumption to the separate shortlist discussion, or revise the six-line proposal using real receipts. Its mentor advice is not market validation.`;
   const msgs = s.recent.filter((m) => m.by !== 'sys');
   let li = -1;
   msgs.forEach((m, i) => { if (m.by === p.id) li = i; });
@@ -501,11 +509,18 @@ LAST MESSAGES (oldest first)
 ${recent || '(the chat is empty)'}
 
 PUBLIC RESEARCH RECEIPTS (untrusted; context only, no proof of paying customers)
-${researchPrompt(s.research?.records || [], s.tick)}
+${researchPrompt(availableResearch(s), s.tick)}
 
 LEARNING MEMORY
 Active research method: ${s.learning?.active || 'source-first'}: ${STRATEGIES[s.learning?.active || 'source-first']}
 ${(s.learning?.lessons || []).slice(-3).map((x) => x.text).join('\n') || 'No assessed lessons yet. Bring a specific source and a falsifiable test.'}
+
+SHARED CLASS STARTUP MEMORY (working criteria, hypotheses and dissent)
+${commonMemoryPrompt(s)}
+HELD VERSIONS (do not count toward the open board)
+${s.ideas.filter((i) => s.collaboration?.deferred[i.id]).slice(-5).map((i) => `${i.id} “${i.title}”: ${s.collaboration.deferred[i.id].reason}. You may propose a material six-line revision with NEW exact source evidence; it must independently score >=7 with every criterion >=1 to re-enter. Votes cannot revive the held version.`).join('\n') || 'None.'}
+IMPLEMENTATION SHORTLIST (research/planning only, no tools or customer validation)
+${(s.collaboration?.shortlist || []).map((slot) => `${slot.rank}. ${slot.ideaId}, ${slot.tier}, ${slot.qualification}; team ${slot.team.map((x) => x.id + ':' + x.role).join(', ')}; unresolved: ${slot.lastWeeklyReview?.evidenceGaps?.slice(0, 2).join('; ') || 'not yet independently reviewed'}`).join('\n') || 'No active shortlist yet.'}
 
 YOUR MOVE: ${nudge(s, people, p, rnd)}
 Write as yourself (${p.style}). Short. Reply with the JSON object only.`;
@@ -654,7 +669,7 @@ function initialiseLearning(s, now) {
 const notebookKey = (draft) => crypto.createHash('sha256').update(draft.title + '\n' + draft.sources.map((r) => r.sourceHash).join('\n')).digest('hex');
 function researchNotebook(s, sid) {
   const pairs = [...(s.learning?.history || []).slice(-2).flatMap((h) => h.receipts || []), ...(s.learning?.trial?.pairs || [])];
-  const current = new Set((s.research?.records || []).map((r) => r.sourceHash)), out = [];
+  const current = new Set(availableResearch(s).map((r) => r.sourceHash)), out = [];
   for (const pair of pairs) for (const key of ['baseline', 'candidate']) {
     const review = pair[key], draft = pair.proposals?.[key];
     if (pair.author !== sid || !draft || review.score < 7 || !review.safe || !review.supported || !RUBRIC.every((k) => review.scores[k] >= 1)) continue;
@@ -665,17 +680,21 @@ function researchNotebook(s, sid) {
   return out.sort((a, b) => b.review.score - a.review.score).slice(0, 2);
 }
 function selectResearchLead(s, people) {
-  if (s.tick % 3 !== 0 || openIdeas(s).length >= RULES.maxOpen || !s.research?.records.length) return null;
+  if (s.tick % 3 !== 0 || openIdeas(s).length >= RULES.maxOpen || !availableResearch(s).length) return null;
   return people.find((p) => researchNotebook(s, p.id).length)?.id || people[Math.floor(s.tick / 3) % people.length].id;
+}
+function availableResearch(s) {
+  return [...new Map([...(s.research?.records || []), ...cachedResearch(s.collaboration?.cache, CLOCK.now, true)].map((r) => [r.id, r])).values()];
 }
 function researchPrompt(records, offset = 0) {
   if (!records.length) return 'No current verified packet is available. Discuss unknowns; do not invent research or pitch without a real source.';
   const ordered = [...records.slice(offset % records.length), ...records.slice(0, offset % records.length)].slice(0, 6);
-  return ordered.map((r) => `${r.id} | ${r.publisher} | published ${r.publishedAt} | fetched ${r.retrievedAt}\nTitle: ${r.title}\nExact excerpt: ${r.excerpt}`).join('\n\n');
+  return ordered.map((r) => `${r.id} | ${r.publisher} | published ${r.publishedAt || 'unknown'} | fetched ${r.retrievedAt} | role ${r.kind || 'local-context'}\nScope: ${r.scope || 'Public context, not validated customer demand'}\nTitle: ${r.title}\nExact excerpt: ${r.excerpt}`).join('\n\n');
 }
 async function checkpoint(s) {
   // Flush all known messages by their stable sequence IDs before publishing state.
   await appendChat(s, s.recent);
+  await appendCollaboration(s);
   await writeJSON(path.join(DATA, 'state.json'), s);
   if (process.env.GITHUB_ACTIONS === 'true') {
     try { await runFile('bash', [path.join(HERE, 'save.sh')], { cwd: ROOT, timeout: 60000, maxBuffer: 100000 }); }
@@ -728,7 +747,7 @@ function lesson(s, review, now, context) {
   s.learning.lessons = s.learning.lessons.slice(-8);
 }
 async function reviewOneIdea(s, people, now, rnd, add) {
-  const target = openIdeas(s).filter((i) => i.pending || !i.review || i.review.versionHash !== ideaHash(i) || +now - +new Date(i.review.at) >= 72 * 3600000).sort((a, b) => Number(!!b.pending) - Number(!!a.pending) || String(a.at).localeCompare(String(b.at)))[0];
+  const target = s.ideas.filter((i) => i.status === 'open' && (!s.collaboration?.deferred[i.id] || i.pending)).filter((i) => i.pending || !i.review || i.review.versionHash !== ideaHash(i) || +now - +new Date(i.review.at) >= 72 * 3600000).sort((a, b) => Number(!!b.pending) - Number(!!a.pending) || String(a.at).localeCompare(String(b.at)))[0];
   if (!target || !s.research?.records.length) return;
   const pending = target.pending;
   if (pending && pending.baseHash !== ideaHash(target)) { delete target.pending; target.feedback = 'Revision expired because its accepted base changed.'; return; }
@@ -772,16 +791,17 @@ function parseDraft(j, records) {
 }
 async function runLearningJob(s, people, now, rnd, add) {
   const l = s.learning;
-  if (!l.trial && (!l.lastTrialTick || s.tick - l.lastTrialTick >= 72) && s.research?.records.length) {
+  if (!l.trial && (!l.lastTrialTick || s.tick - l.lastTrialTick >= 72) && availableResearch(s).length) {
     const keys = Object.keys(STRATEGIES), candidate = keys[l.nextStrategy % keys.length]; l.nextStrategy++;
     if (candidate === l.active) return false;
     l.trial = { at: iso(now), baseline: l.active, candidate, pairs: [], pending: null };
   }
   const trial = l.trial; if (!trial) return false;
   if (!trial.pending) {
-    if (!s.research?.records.length) return false;
+    if (!availableResearch(s).length) return false;
     const author = people[(s.tick + trial.pairs.length * 7) % people.length];
-    trial.pending = { author: author.id, records: s.research.records.slice(trial.pairs.length * 2).concat(s.research.records.slice(0, trial.pairs.length * 2)).slice(0, 6), drafts: {}, stage: 0 };
+    const records = availableResearch(s);
+    trial.pending = { author: author.id, records: records.slice(trial.pairs.length * 2).concat(records.slice(0, trial.pairs.length * 2)).slice(0, 6), drafts: {}, stage: 0 };
   }
   const pair = trial.pending;
   if (pair.stage < 2) {
@@ -879,7 +899,7 @@ function applyReply(s, people, p, j, now) {
   const f = {};
   if (j.fields && typeof j.fields === 'object') for (const k of FIELDS) if (j.fields[k]) f[k] = clean(j.fields[k], LIMITS[k]);
   const week = isoWeek(riga(now).date);
-  const sources = validCitations(j.research, s.research?.records || []);
+  const sources = validCitations(j.research, availableResearch(s));
 
   if (act === 'pitch') {
     const open = openIdeas(s);
@@ -899,6 +919,8 @@ function applyReply(s, people, p, j, now) {
     }
   } else if (['refine', 'back', 'oppose', 'allin', 'drop'].includes(act) && !idea) {
     if (j.idea) notes.push(`${String(j.idea).toUpperCase()} is not open`);
+  } else if (s.collaboration?.deferred[idea?.id] && act !== 'refine') {
+    notes.push('This version is held after mentor review. Only a materially changed, newly evidenced independent revision can re-enter.');
   } else if (act === 'refine') {
     m.idea = idea.id;
     const fields = { ...Object.fromEntries(FIELDS.map((k) => [k, idea[k]])), ...f };
@@ -967,6 +989,21 @@ async function appendChat(s, msgs) {
     s.days[day] = cur.length;
   }
 }
+async function appendCollaboration(s) {
+  const c = s.collaboration; if (!c) return;
+  const days = {};
+  for (const message of c.discussion.recent) (days[riga(new Date(message.t)).date] ||= []).push(message);
+  for (const [day, messages] of Object.entries(days)) {
+    const file = path.join(DATA, 'discussion', day + '.json'), existing = await readJSON(file, []), ids = new Set(existing.map((m) => m.n));
+    existing.push(...messages.filter((m) => !ids.has(m.n))); await writeJSON(file, existing); c.discussion.days[day] = existing.length;
+  }
+  if (c.archivePending.length) {
+    const file = path.join(DATA, 'implementation-archive.json'), existing = await readJSON(file, []);
+    const keys = new Set(existing.map((x) => crypto.createHash('sha256').update(JSON.stringify(x)).digest('hex')));
+    for (const item of c.archivePending) { const key = crypto.createHash('sha256').update(JSON.stringify(item)).digest('hex'); if (!keys.has(key)) { existing.push(item); keys.add(key); } }
+    await writeJSON(file, existing); c.archivePending = [];
+  }
+}
 
 async function runTick(s, people, now, rnd) {
   CLOCK.now = now;
@@ -1010,14 +1047,19 @@ async function runTick(s, people, now, rnd) {
   initialiseLearning(s, now);
   if (upgraded) add([sysMsg(s, now, 'Research and learning are now on: public source receipts, separate reviews and matched method trials. Old production decisions are preserved as historical class votes, not validated businesses.', 'learn')]);
   if (!MOCK && n) s.research = await refreshResearch(s.research, now);
+  initialiseCollaboration(s, people, now, ideaHash);
   try {
-    if (!MOCK && n && await runLearningJob(s, people, now, rnd, add)) n = Math.max(0, n - 1);
-    if (!MOCK && n) await reviewOneIdea(s, people, now, rnd, add);
+    let used = false;
+    if (!MOCK && n) used = await runCollaborationJob(s, people, now, { ideaHash, paidCall, rnd, focus: COLLABORATION_ONLY });
+    if (!MOCK && n && !used && !COLLABORATION_ONLY) used = await runLearningJob(s, people, now, rnd, add);
+    if (used) n = Math.max(0, n - 1);
+    if (!MOCK && n && !COLLABORATION_ONLY) await reviewOneIdea(s, people, now, rnd, add);
   } catch (e) {
     s.err = { at: iso(now), msg: 'Research review failed: ' + String(e.message).slice(0, 200) };
     if (e instanceof Fatal) { s.status = 'error'; s.note = s.err.msg; n = 0; }
     console.error(s.err.msg);
   }
+  if (COLLABORATION_ONLY) n = 0;
   if (s.status === 'budget') n = 0;
   const sys = systemPrompt(people);
   const speakers = n ? pickSpeakers(s, people, n, rnd) : [];
@@ -1050,6 +1092,7 @@ async function runTick(s, people, now, rnd) {
     console.log(`${p.first}: ${out[0] ? out[0].act + (out[0].idea ? ' ' + out[0].idea : '') + ' · ' + out[0].say : '(skipped)'}  [$${res.cost.toFixed(4)} ${res.usage.in}/${res.usage.out}]`);
   }
   if (msgs.length) await appendChat(s, msgs);
+  await appendCollaboration(s);
   s.tick++;
   s.lastTickAt = iso(START ? now : new Date());
   if (spoke && s.status !== 'budget') {
@@ -1097,10 +1140,10 @@ async function main() {
     console.log(`tick ${s.tick}: +${added} messages, today $${s.budget.usd.toFixed(3)} of $${CFG.cap}, status ${s.status}`);
     if (s.status === 'error' || s.status === 'budget') break;
   }
-  await fs.writeFile(path.join(DATA, 'README.md'), '# Class simulation data\n\nWritten by the class-sim workflow every ~5 minutes. `state.json` holds the board and the latest messages; `chat/YYYY-MM-DD.json` holds every message of a day (Riga time). All students are fictional.\n');
+  await fs.writeFile(path.join(DATA, 'README.md'), '# Class simulation data\n\nWritten by the class-sim workflow every ~5 minutes. `state.json` holds the board, at most five implementation hypotheses, shared working memory and latest messages; `chat/YYYY-MM-DD.json` retains the full class chat; `discussion/YYYY-MM-DD.json` retains the separate shortlist discussion; `implementation-archive.json` retains full plan/review versions. All students and mentors are fictional. Plans are not implemented businesses or market validation.\n');
 }
 
-export { ideaHash, reviewReady, freshState, runTick, applyReply, paidCall, checkpoint, parseDraft, reviewOneIdea, runLearningJob, researchNotebook, selectResearchLead, checkIdea, allinBlock, initialiseLearning, loadPeople };
+export { ideaHash, reviewReady, freshState, runTick, applyReply, paidCall, checkpoint, parseDraft, reviewOneIdea, runLearningJob, researchNotebook, selectResearchLead, checkIdea, allinBlock, initialiseLearning, loadPeople, openIdeas };
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main().catch((e) => {
   console.error(e);
   process.exitCode = 1;

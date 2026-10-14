@@ -27,6 +27,11 @@ on:
         type: choice
         options: ["1", "2", "3", "4"]
         default: "1"
+      focus:
+        description: "Mixed ongoing class, or bounded collaboration verification on saved state"
+        type: choice
+        options: ["mixed", "collaboration"]
+        default: "mixed"
 
 permissions:
   contents: write
@@ -54,7 +59,7 @@ jobs:
           node-version: "22"
 
       - name: Check research and learning guards
-        run: node --test sim/learning.test.mjs
+        run: node --test sim/*.test.mjs
 
       - name: Get the chat data
         env:
@@ -82,6 +87,7 @@ jobs:
           SIM_SPEAKERS: ${{ vars.SIM_SPEAKERS }}
           SIM_NIGHT_SPEAKERS: ${{ vars.SIM_NIGHT_SPEAKERS }}
           SIM_PAUSED: ${{ vars.SIM_PAUSED }}
+          SIM_FOCUS: ${{ github.event.inputs.focus || 'mixed' }}
           TICKS: ${{ github.event.inputs.ticks || '1' }}
           GAP: ${{ github.event.inputs.gap || '0' }}
           FORCE: ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}
