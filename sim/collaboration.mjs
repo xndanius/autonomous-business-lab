@@ -228,6 +228,7 @@ async function teamJob(s, slot, now, hooks) {
     const response = await hooks.paidCall(s, sys, JSON.stringify({ idea: fields(idea), receipts: records, plans: candidates.map(([id, proposedPlan]) => ({ id, proposedPlan })), teamDissent: job.reports.flatMap((r) => r.dissent) }), 'plan-review'); if (!response) return true;
     const reviews = assessment(parseObject(response.text), candidates.map(([id]) => id)); if (!reviews) return true;
     const next = reviews[order.indexOf(job.candidate)], prior = slot.plan ? reviews[order.indexOf(slot.plan)] : null, first = !slot.plan, wins = first ? next.safe && next.supported : next.safe && next.supported && RUBRIC.every((k) => next.scores[k] >= 1) && next.score >= prior.score + 1;
+    c.archivePending.push({ kind: 'plan-assessment', ideaId: idea.id, at: iso(now), ideaVersionHash: baseHash, candidate: job.candidate, candidateReview: next, previousReview: prior, kept: wins, teamReports: job.reports, packetHashes: records.map((r) => r.sourceHash), model: response.model });
     if (wins) {
       if (slot.plan) { c.archivePending.push({ kind: 'plan-version', ideaId: idea.id, at: iso(now), plan: slot.plan }); slot.planHistory = [...slot.planHistory, slot.plan].slice(-4); }
       const plan = { ...job.candidate, version: (slot.plan?.version || 0) + 1, at: iso(now), ideaVersionHash: baseHash, current: true, status: RUBRIC.every((k) => next.scores[k] >= 1) && next.score >= 7 ? 'reviewed' : 'needs-evidence', review: next };
