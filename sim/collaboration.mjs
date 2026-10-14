@@ -222,6 +222,9 @@ export function restoreHeldDrafts(s, archive, now, ideaHash) {
     if (records.length !== (entry.candidate.evidence || []).length) continue;
     const candidate = parsePlan({ ...entry.candidate, research: records.map((r) => ({ source: r.id, quote: r.quote })) }, records);
     if (!candidate) continue;
+    // Older code discarded the author's rejected quote strings. Do not imply
+    // their submitted count or rejection reason can be reconstructed now.
+    candidate.citationCheck = entry.candidate.citationCheck || { submitted: null, validated: candidate.evidence.length, checks: [], origin: 'original-raw-citations-not-retained' };
     slot.lastDraft = heldDraft(candidate, review, entry.at, expected, 'verified-archive');
     if (slot.lastDraft) restored++;
   }
