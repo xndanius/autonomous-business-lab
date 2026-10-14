@@ -210,29 +210,32 @@
  <div class="example "><div class="media"><a class="shot-frame" href="../simulation/"><img src="../show/assets/loops/classroom-preview.png" alt="Saved view of the fictional class conversation and its shared idea board" loading="lazy"></a></div>
 <div class="facts"><p class="eyebrow">05 · Scheduled multi-agent simulation</p>
 <h2>The class simulation</h2>
-<p class="build-result">38 fictional students debate which ideas to back. Every chosen speaker reacts to the shared conversation through a separate model call.</p>
-<p class="build-takeaway"><b>Pattern to borrow:</b> models propose decisions; code controls how those decisions change shared state.</p>
+<p class="build-result">38 fictional students research real Riga and LIAA sources, propose businesses, and challenge each other. A separate reviewer checks proposed revisions; research methods compete in matched tests.</p>
+<p class="build-takeaway"><b>Pattern to borrow:</b> research supplies evidence; independent comparison decides which changes to keep.</p>
 <div class="links"><a class="btn" href="../simulation/">Read the class conversation →</a></div>
 </div>
 </div>
  <dl class="build-flow"><div><dt>Trigger</dt><dd>A scheduled cloud tick selects a few speakers.</dd></div>
-<div><dt>Make</dt><dd>Each persona proposes a message and an allowed action.</dd></div>
-<div><dt>Check</dt><dd>Code enforces votes, action limits and valid targets.</dd></div>
-<div><dt>Deliver</dt><dd>Update the public conversation and idea board.</dd></div>
-<div><dt>Remember</dt><dd>Save shared history, votes, idea revisions and each persona’s short memory.</dd></div>
+<div><dt>Make</dt><dd>Read fresh public source receipts, then propose a source-linked idea or revision.</dd></div>
+<div><dt>Check</dt><dd>Verify exact quotes; a separate reviewer compares proposals under a fixed rubric.</dd></div>
+<div><dt>Deliver</dt><dd>Keep stronger revisions and publish the conversation, ideas and review receipts.</dd></div>
+<div><dt>Remember</dt><dd>Keep source hashes, critiques, matched trials, each persona’s research notes and usage records.</dd></div>
 </dl>
-<details class="build-how"><summary>How I built it <span>Many personas, one explicit rule system</span></summary><div class="build-how-body"><div class="build-notes"><p><b>Tools:</b> GitHub Actions runs a Node.js engine. Each selected persona makes a separate OpenAI call; the GitHub Pages reader loads saved data from the sim-data branch. The personas use one configured model, not 38 different models.</p>
-<p><b>Memory:</b> a persona sees its own profile, the board, the latest 24 messages and its own short message history. Daily chat files preserve the longer record.</p>
-<p><b>Checks:</b> code limits active ideas and backings, prevents invalid actions and applies voting and budget rules. Those checks govern a simulation; they do not verify commercial claims.</p>
-<p><b>Human role:</b> design the profiles, action rules and budget; inspect the conversation and pause the engine. “In production” means voted through inside the simulation. It does not mean a real team launched a business.</p>
+<details class="build-how"><summary>How I built it <span>Research, critique and tested improvements</span></summary><div class="build-how-body"><div class="build-notes"><p><b>Tools:</b> GitHub Actions runs a Node.js engine. Each selected persona makes a separate OpenAI call; the GitHub Pages reader loads saved data from the sim-data branch. The personas use one configured model, not 38 different models.</p>
+<p><b>Research and memory:</b> official Riga and LIAA feeds supply dated public receipts. Each persona sees its profile, the board, recent chat, source excerpts and its own assessed research notes. A rotating research turn brings new source-led proposals into the class.</p>
+<p><b>Checks:</b> new proposals must quote an actual source. Revisions stay only after a separate reviewer finds at least a one-point improvement with evidence, usefulness, payer, autonomy and test checks. New production votes also need a current review of at least 7/10. These are model judgements about hypotheses, not customer validation.</p>
+<p><b>Improvement loop:</b> two research methods use the same author and sources; a separate reviewer sees anonymous alternatives. Three pairs must improve the average by at least one point without weakening checks. On 14 October, a weekly-return method scored 5.67 against the source-first method’s 7.00, so the existing method stayed.</p>
+<p><b>Budget and recovery:</b> student, reviewer and trial calls share the existing $10/day limit. Reservations and chat history are saved before paid calls so an interrupted runner can resume safely.</p>
+<p><b>Human role:</b> set the profiles, rubric, permitted methods and budget; inspect the evidence and pause the engine. Historical production decisions remain class votes. No people are contacted or real user tests performed by this simulation.</p>
 </div>
 <div class="recreate"><h3>Recreate the pattern</h3>
 <p class="small">A practical starting sequence, adapted from this build.</p>
 <ol><li>Start with three contrasting profiles and one shared board.</li>
 <li>Define a few actions: propose, refine, back and oppose.</li>
-<li>Ask each persona for a structured message and action.</li>
-<li>Validate and save that action before letting the next persona react.</li>
-<li>Add a schedule, usage limit and readable public history.</li></ol>
+<li>Fetch a few trusted public sources and require exact quotations.</li>
+<li>Hold revisions for independent comparison; keep only supported improvements.</li>
+<li>Compare research methods on matched cases and save the keep-or-reject decision.</li>
+<li>Schedule the routine within one shared budget and preserve recovery records.</li></ol>
 </div>
 <p class="build-source"><a href="https://github.com/xndanius/autonomous-business-lab/blob/main/sim/engine.mjs">Inspect the engine ↗</a> · <a href="https://github.com/xndanius/autonomous-business-lab/blob/main/.github/workflows/class-sim.yml">Inspect the schedule ↗</a></p>
 </div>
