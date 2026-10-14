@@ -229,7 +229,7 @@
       var assessment = el('div', heldDraft ? 'sim-plan-assessment sim-plan-assessment-held' : 'sim-plan-assessment');
       if (heldDraft) assessment.appendChild(el('h4', null, 'This draft was not accepted'));
       assessment.appendChild(el('p', 'sim-model-note', (plan.current === false ? 'Previous plan review ' : 'Independent plan review ') + plan.review.score + '/10 · model judgement, not approval or customer validation.'));
-      if (heldDraft || plan.review.supported === false) assessment.appendChild(el('p', null, plan.review.supported === false ? 'Source support: not established (supported: false). This draft is not ready for testing.' : 'The draft is held for stronger evidence; it is not ready for testing.'));
+      if (heldDraft || plan.review.supported === false) assessment.appendChild(el('p', null, (plan.review.supported === false ? 'Source support: not established (supported: false). ' : 'Stronger evidence is needed. ') + 'Not accepted for implementation. Gather evidence and run the proposed discovery test.'));
       if (heldDraft && plan.reason) assessment.appendChild(el('p', null, 'Review decision: ' + plan.reason));
       assessment.appendChild(scoreBreakdown(plan.review.scores));
       assessment.appendChild(el('p', null, plan.review.critique));
