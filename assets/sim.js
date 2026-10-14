@@ -122,15 +122,21 @@
     var stats = l.stats || {}, names = { 'source-first': 'Start from a source', 'repeat-use': 'Design for weekly return', 'payer-test': 'Test the payer first', 'bounded-loop': 'Design the whole loop' };
     var row = el('div', 'sim-learning-stats');
     row.appendChild(el('p', null, ((r && r.records) || []).length + ' public research receipts'));
-    row.appendChild(el('p', null, (stats.reviews || 0) + ' independent model reviews'));
-    row.appendChild(el('p', null, (stats.revisionsAccepted || 0) + ' revisions kept · ' + (stats.revisionsRejected || 0) + ' rejected'));
+    row.appendChild(el('p', null, (stats.reviews || 0) + ' independent idea reviews'));
+    row.appendChild(el('p', null, (stats.revisionsAccepted || 0) + ' ' + (stats.revisionsAccepted === 1 ? 'revision' : 'revisions') + ' kept · ' + (stats.revisionsRejected || 0) + ' rejected'));
     box.appendChild(row);
     box.appendChild(el('p', null, 'Current method: ' + (names[l.active] || l.active) + '.'));
     if (l.trial) box.appendChild(el('p', 'soft', 'Testing “' + (names[l.trial.candidate] || l.trial.candidate) + '” against the current method: ' + l.trial.pairs.length + ' of 3 matched pairs reviewed. No winner declared yet.'));
     var last = (l.history || []).slice(-1)[0];
     if (last) box.appendChild(el('p', 'soft', last.pairs ? 'Last trial: ' + (names[last.candidateStrategy] || last.candidateStrategy) + ' averaged ' + last.candidate + '/10 versus ' + last.baseline + '/10 across ' + last.pairs + ' matched pairs; ' + (last.adopted ? 'the better method was kept.' : 'the current method stayed.') : 'Last trial was not adopted: ' + last.reason));
     var lessons = (l.lessons || []).slice(-2);
-    lessons.forEach(function (x) { box.appendChild(el('p', 'sim-learning-lesson', x.text)); });
+    lessons.forEach(function (x) {
+      var detail = el('details', 'sim-learning-lesson'), text = String(x.text || '');
+      var compact = text.split(/(?<=[.!?])\s+/).slice(0, 2).join(' ');
+      if (compact.length > 220) compact = compact.slice(0, 219).replace(/\s+\S*$/, '') + '…';
+      detail.appendChild(el('summary', null, (x.context ? x.context + ': ' : '') + compact));
+      detail.appendChild(el('p', null, text)); box.appendChild(detail);
+    });
     var details = el('details', 'sim-research'); details.appendChild(el('summary', null, 'Open the actual research sources' + (r && r.fetchedAt ? ' · fetched ' + shortWhen(r.fetchedAt) : '')));
     ((r && r.records) || []).forEach(function (source) {
       if (!/^https:\/\/(www\.)?(riga\.lv|liaa\.gov\.lv)\//.test(source.url || '')) return;

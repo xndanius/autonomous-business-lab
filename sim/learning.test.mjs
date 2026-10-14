@@ -50,6 +50,7 @@ test('revision acceptance requires an actual gain and evidence/safety checks', (
   assert.equal(revisionWins(judged(4), judged(8, false)), false);
   assert.equal(revisionWins(judged(4), judged(8, true, false)), false);
   assert.equal(revisionWins(judged(4), { ...judged(8), scores: { ...scores(2), evidence: 0 } }), false);
+  for (const key of ['usefulness', 'payer']) assert.equal(revisionWins(judged(4), { ...judged(8), scores: { ...scores(2), [key]: 0 } }), false);
 });
 test('a method needs three matched comparisons, one-point mean gain and no evidence losses', () => {
   assert.equal(settleTrial({ pairs: [{ baseline: judged(5), candidate: judged(8) }] }), null);
@@ -57,6 +58,7 @@ test('a method needs three matched comparisons, one-point mean gain and no evide
   assert.equal(settleTrial({ pairs }).adopted, true);
   assert.equal(settleTrial({ pairs: pairs.map((x) => ({ ...x, candidate: judged(6) })) }).adopted, false);
   assert.equal(settleTrial({ pairs: [...pairs.slice(0, 2), { baseline: judged(6), candidate: judged(10, false) }] }).adopted, false);
+  for (const key of ['usefulness', 'payer']) assert.equal(settleTrial({ pairs: pairs.map((x) => ({ ...x, candidate: { ...judged(10), scores: { ...scores(2), [key]: 0 } } })) }).adopted, false);
 });
 test('cost ceiling includes escaped UTF-8 request text and output ceiling', () => {
   const reservation = reserveCost('Latviešu "teksts"', 'ā'.repeat(100), 400, { pin: 2, pout: 10 });
@@ -177,5 +179,30 @@ test('strategy trial keeps incumbent on tied blinded comparisons and stores all 
   assert.equal(s.learning.history.length, 1); assert.equal(s.learning.history[0].adopted, false);
   assert.equal(s.learning.history[0].receipts.length, 3); assert.equal(s.learning.stats.trialPairs, 3);
   assert.equal(s.learning.history[0].candidateStrategy, 'repeat-use');
+});
+test('research notebooks use actual own reviewed drafts and current exact source receipts', () => {
+  const s = state(), sid = people[5].id;
+  const draft = { ...good, sources: validCitations(citations, receipts) };
+  s.learning.history = [{ receipts: [{ author: sid, baseline: judged(7), candidate: judged(4), proposals: { baseline: draft, candidate: draft } }] }];
+  assert.equal(engine.researchNotebook(s, sid).length, 1);
+  assert.equal(engine.researchNotebook(s, people[0].id).length, 0);
+  s.research.records = []; assert.equal(engine.researchNotebook(s, sid).length, 0);
+});
+test('research turns rotate inside existing speaker slots and stop for full board or absent sources', () => {
+  const s = state(); s.tick = 3;
+  const first = engine.selectResearchLead(s, people); assert.ok(people.byId[first]);
+  s.tick = 6; assert.notEqual(engine.selectResearchLead(s, people), first);
+  s.tick = 7; assert.equal(engine.selectResearchLead(s, people), null);
+  s.tick = 9; s.ideas = Array.from({ length: 8 }, (_, i) => ({ id: 'I' + i, status: 'open' }));
+  assert.equal(engine.selectResearchLead(s, people), null);
+  s.ideas = []; s.research.records = []; assert.equal(engine.selectResearchLead(s, people), null);
+});
+test('research proposal cannot invent a citation or override a full board', () => {
+  const s = state();
+  const invalid = engine.applyReply(s, people, people[0], { say: 'A new research proposal.', do: 'pitch', fields: good, research: [{ source: receipts[0].id, quote: 'Invented customers paid us last month' }] }, now);
+  assert.equal(s.ideas.length, 0); assert.match(invalid[0].note, /verified source quote/);
+  s.ideas = Array.from({ length: 8 }, (_, i) => ({ id: 'I' + i, status: 'open', backers: [], opp: [] }));
+  const full = engine.applyReply(s, people, people[0], { say: 'A source-led idea while the board is full.', do: 'pitch', fields: good, research: citations }, now);
+  assert.equal(s.ideas.length, 8); assert.match(full[0].note, /Board full/);
 });
 test.after(async () => { await fs.rm(tmp, { recursive: true, force: true }); });

@@ -17,6 +17,10 @@ export const STRATEGIES = Object.freeze({
 const hash = (s) => crypto.createHash('sha256').update(s).digest('hex');
 const text = (s, max = 600) => String(s || '').replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1').replace(/<[^>]*>/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#039;|&apos;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#(\d+);/g, (_, n) => +n <= 0x10ffff ? String.fromCodePoint(+n) : '').replace(/\s+/g, ' ').trim().slice(0, max);
 const tag = (xml, name) => (xml.match(new RegExp(`<${name}(?:\\s[^>]*)?>([\\s\\S]*?)<\\/${name}>`, 'i')) || [])[1] || '';
+const brief = (s, max) => {
+  const value = text(s, max + 30);
+  return value.length > max ? value.slice(0, max - 1).replace(/\s+\S*$/, '') + '…' : value;
+};
 const safe = (s) => !/@|\b(?:ignore.{0,20}instructions|system prompt|api[_ -]?key|sexual|suicid|vardarb|pacient|patient)\b/i.test(s) && !/(?:\+\d[\d ()-]{7,}|[\w.+-]+@[\w.-]+)/.test(s);
 
 export function parseFeed(xml, feed, now) {
@@ -73,7 +77,7 @@ export function assessment(j, expectedIds) {
     if (!r || !RUBRIC.every((k) => Number.isInteger(r.scores?.[k]) && r.scores[k] >= 0 && r.scores[k] <= 2)) return null;
     if (typeof r.supported !== 'boolean' || typeof r.safe !== 'boolean') return null;
     const score = RUBRIC.reduce((n, k) => n + r.scores[k], 0);
-    out.push({ id, scores: Object.fromEntries(RUBRIC.map((k) => [k, r.scores[k]])), score, supported: r.supported, safe: r.safe, critique: text(r.critique, 360), nextTest: text(r.nextTest, 220) });
+    out.push({ id, scores: Object.fromEntries(RUBRIC.map((k) => [k, r.scores[k]])), score, supported: r.supported, safe: r.safe, critique: brief(r.critique, 360), nextTest: brief(r.nextTest, 220) });
   }
   return out;
 }

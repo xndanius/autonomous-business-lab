@@ -44,6 +44,11 @@ Public announcements are context for hypotheses, never proof somebody will pay.
   pairs must improve the mean by at least one point and all candidate pairs
   must pass the fixed minimum checks before a method replaces the incumbent.
   Otherwise it keeps the existing method. Full pair/decision receipts are saved.
+- Every third tick, one existing speaker turn is dedicated to research. Students
+  receive their actual assessed draft notebooks, filtered for current receipts
+  and ideas not already on the board. They can pitch a source-led hypothesis or
+  explain why it fails; nothing is seeded, auto-voted or auto-approved. A full
+  board or unavailable sources disables that dedicated pitch turn.
 - New production decisions need a current reviewed version scoring at least
   7/10, every criterion at least 1, plus the existing class voting
   rules. A changed version invalidates its previous review; reviews expire
