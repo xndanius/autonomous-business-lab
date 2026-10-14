@@ -121,6 +121,7 @@
     }).slice(0, 5);
   }
   function findIdea(id) { return ((state && state.ideas) || []).find(function (i) { return i.id === id; }); }
+  function implementationHold(idea) { return idea.implementationHold || (((state || {}).collaboration || {}).deferred || {})[idea.id] || null; }
   function listText(value) { return Array.isArray(value) ? value.join('; ') : String(value || ''); }
   function sourceURL(source) {
     try { var u = new URL(source.url); return u.protocol === 'https:' && /^(?:www\.)?(?:riga\.lv|liaa\.gov\.lv|stripe\.com|supabase\.com)$|^(?:ec\.europa\.eu|docs\.github\.com|developers\.cloudflare\.com|docs\.n8n\.io)$/.test(u.hostname) && !u.username && !u.password ? u.href : null; }
@@ -418,7 +419,7 @@
   }
   function renderBoard() {
     var box = $('[data-sim-board]');
-    var open = (state ? state.ideas : []).filter(function (i) { return i.status === 'open'; });
+    var open = (state ? state.ideas : []).filter(function (i) { return i.status === 'open' && !implementationHold(i); });
     open.sort(function (a, b) { return b.backers.length - a.backers.length || String(a.at).localeCompare(String(b.at)); });
     box.textContent = '';
     var cnt = $('[data-sim-open-count]'); if (cnt) cnt.textContent = open.length ? String(open.length) : '';
@@ -468,6 +469,18 @@
       d.appendChild(el('p', 'sim-meta', (i.price ? i.price + ' · ' : '') + 'by ' + first(i.by) + ' · ' + (i.dropWhy || 'dropped')));
       dbox.appendChild(d);
     });
+    var held = (state ? state.ideas : []).filter(function (i) { return !!implementationHold(i); }), heldBox = $('[data-sim-held]'), heldCount = $('[data-sim-held-count]');
+    if (heldCount) heldCount.textContent = held.length ? '(' + held.length + ')' : '';
+    if (heldBox) {
+      heldBox.textContent = ''; if (!held.length) heldBox.appendChild(el('p', 'sim-empty', 'No version is held from implementation.'));
+      held.forEach(function (i) {
+        var record = implementationHold(i), card = el('article', 'sim-drop'); card.id = 'held-' + i.id; card.appendChild(el('span', 'sim-iid', i.id));
+        var unsafe = i.review && i.review.safe === false;
+        card.appendChild(el('h3', null, unsafe ? 'Content held for safety review' : i.title)); card.appendChild(el('p', 'sim-meta', record.reason || 'This version is held from the active implementation shortlist.'));
+        if (!unsafe) { var detail = el('details'); detail.appendChild(el('summary', null, 'Earlier hypothesis & review')); detail.appendChild(fieldList(i)); card.appendChild(detail); }
+        card.appendChild(el('p', 'sim-model-note', 'To re-enter: materially revise the idea, add new source evidence, and pass a new independent review. Earlier votes do not bypass this.')); heldBox.appendChild(card);
+      });
+    }
   }
 
   // ------------------------------------------------------------ chat
@@ -652,7 +665,7 @@
     dlgBody.appendChild(head);
     dlgBody.appendChild(el('p', 'sim-dfict', 'Fictional person. Invented for this simulation.'));
     var ps = (state && state.ps && state.ps[id]) || {};
-    var open = (state ? state.ideas : []).filter(function (i) { return i.status === 'open'; });
+    var open = (state ? state.ideas : []).filter(function (i) { return i.status === 'open' && !implementationHold(i); });
     var backs = open.filter(function (i) { return i.backers.indexOf(id) >= 0; }).map(function (i) { return i.id + ' ' + i.title; });
     var opp = open.filter(function (i) { return i.opp.indexOf(id) >= 0; }).map(function (i) { return i.id + ' ' + i.title; });
     var inChat = (ps.m ? ps.m + ' messages' : 'No messages yet') + (ps.p ? ' · pitched ' + ps.p : '') + (ps.last ? ' · last seen ' + ago(ps.last) : '');
@@ -683,11 +696,12 @@
     if (name === 'chat' && !newBtn.hidden) { /* keep */ }
   }
   function focusIdea(id) {
-    var target = document.getElementById('plan-' + id) || document.getElementById('idea-' + id) || document.getElementById('prod-' + id) || document.getElementById('drop-' + id);
+    var target = document.getElementById('plan-' + id) || document.getElementById('idea-' + id) || document.getElementById('held-' + id) || document.getElementById('prod-' + id) || document.getElementById('drop-' + id);
     if (!target) return;
     if (target.classList.contains('sim-plan')) target.open = true;
     if (target.id.indexOf('idea-') === 0) setTab('board');
     if (target.id.indexOf('prod-') === 0) { var history = $('.sim-archive-votes'); if (history) history.open = true; }
+    if (target.id.indexOf('held-') === 0) { var held = $('.sim-held'); if (held) held.open = true; setTab('board'); }
     if (target.id.indexOf('drop-') === 0) { var d = $('.sim-dropped'); if (d) d.open = true; setTab('board'); }
     target.scrollIntoView({ behavior: 'smooth', block: 'center' });
     target.classList.remove('sim-flash');
